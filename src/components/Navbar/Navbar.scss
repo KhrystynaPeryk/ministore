@@ -1,0 +1,32 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .navbar-container {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        ul {
+            list-style-type: none;
+            display: flex;
+            padding: 0px;
+            li {
+                padding: 0px 16px;
+            }
+        }
+        .navbar-container-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar-container-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            select {
+                border: 0px;
+                outline: 0px;
+            }
+        }
+    }
+}
