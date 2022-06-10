@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import './Navbar.scss';
+import { client } from '../../GraphQL/ApolloClient';
 import {ReactComponent as Logo} from '../../assets/logo.svg';
 import {ReactComponent as Cart} from '../../assets/cart.svg';
+import { GET_CATEGORIES } from '../../GraphQL/Queries';
 
 class Navbar extends Component {
+  getCategories = () => {
+    client.query({ query: GET_CATEGORIES})
+  }
   render() {
     return (
       <nav className='navbar'>

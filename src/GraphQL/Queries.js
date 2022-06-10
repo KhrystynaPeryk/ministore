@@ -13,3 +13,9 @@ export const LOAD_ITEMS = gql`
 // 		name
 //   }
 // }
+
+export const GET_CATEGORIES = gql`
+    query {
+        categories{name}
+    }
+`;
