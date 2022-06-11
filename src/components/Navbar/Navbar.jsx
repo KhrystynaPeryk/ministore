@@ -1,21 +1,40 @@
 import React, {Component} from 'react';
 import './Navbar.scss';
-import { client } from '../../GraphQL/ApolloClient';
 import {ReactComponent as Logo} from '../../assets/logo.svg';
 import {ReactComponent as Cart} from '../../assets/cart.svg';
-import { GET_CATEGORIES } from '../../GraphQL/Queries';
+import { GET_CATEGORIES, GET_CURRENCIES } from '../../GraphQL/Queries';
 
 class Navbar extends Component {
-  getCategories = () => {
-    client.query({ query: GET_CATEGORIES})
+  constructor() {
+    super()
+    this.state = {
+      categories: []
+    }
   }
+  componentDidMount() {
+    fetch('http://localhost:4000', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(GET_CATEGORIES)
+    })
+    .then((response) => response.json())
+    .then(categoryList => {
+      this.setState({ categories: categoryList.data.categories });
+    });
+  }
+
   render() {
     return (
       <nav className='navbar'>
         <div className='navbar-container'>
           <ul>
-            <li>CLOTHES</li>
-            <li>TECH</li>
+            {this.state.categories.map((category, index) => {
+              return (
+                <li key={index}>{category.name.toUpperCase()}</li>
+              )
+            })}
           </ul>
           <div className='navbar-container-logo'>
             <Logo />
