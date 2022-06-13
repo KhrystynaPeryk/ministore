@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     .navbar-container {
-        width: 90%;
+        width: 85%;
         display: flex;
         justify-content: space-between;
         ul {
@@ -19,14 +19,18 @@
             justify-content: center;
             align-items: center;
         }
-        .navbar-container-right {
+        .navbar-container-select {
             display: flex;
-            justify-content: center;
             align-items: center;
-            select {
-                border: 0px;
-                outline: 0px;
-            }
+            // position: relative;
+            // select {
+            //     border: 0px;
+            //     outline: none;
+            //     display: inline-block;
+            //     font: inherit;
+            //     transform: translate(-30%, -0%);
+            //     // appearance: none;
+            // }
         }
     }
 }

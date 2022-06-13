@@ -2,28 +2,37 @@ import React, {Component} from 'react';
 import './Navbar.scss';
 import {ReactComponent as Logo} from '../../assets/logo.svg';
 import {ReactComponent as Cart} from '../../assets/cart.svg';
-import { GET_CATEGORIES, GET_CURRENCIES } from '../../GraphQL/Queries';
+import { GET_CATEGORIES, GET_CURRENCIES } from '../../queries/Queries';
+import { fetchParams } from '../../helpers/fetchParams';
+import Select from './components/Select';
 
 class Navbar extends Component {
   constructor() {
     super()
     this.state = {
-      categories: []
+      categories: [],
+      currencies: [],
+      // selectArrowClicked: false,
     }
   }
   componentDidMount() {
-    fetch('http://localhost:4000', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(GET_CATEGORIES)
-    })
+    fetch('http://localhost:4000', fetchParams(GET_CATEGORIES))
     .then((response) => response.json())
     .then(categoryList => {
       this.setState({ categories: categoryList.data.categories });
     });
+
+    fetch('http://localhost:4000', fetchParams(GET_CURRENCIES))
+    .then((response) => response.json())
+    .then(currencyList => {
+      this.setState({ currencies: currencyList.data.currencies });
+    });
+
   }
+
+  // handleArrowChange() {
+  //   this.setState({selectArrowClicked: !this.state.selectArrowClicked})
+  // }
 
   render() {
     return (
@@ -39,15 +48,11 @@ class Navbar extends Component {
           <div className='navbar-container-logo'>
             <Logo />
           </div>
-          <div className='navbar-container-right'>
-            <select name='currency' id='currency'>
-              <option value='$'>$</option>
-              <option value='$'>Euro</option>
-              <option value='$'>Rub</option>
-            </select>
-            <span>
+          <div className='navbar-container-select'>
+            <Select />
+            <div className='navbar-container-cart'>
               <Cart />
-            </span>
+            </div>
           </div>
         </div>
       </nav>
