@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import './Navbar.scss';
 import {ReactComponent as Logo} from '../../assets/logo.svg';
 import {ReactComponent as Cart} from '../../assets/cart.svg';
@@ -12,7 +13,6 @@ class Navbar extends Component {
     this.state = {
       categories: [],
       currencies: [],
-      // selectArrowClicked: false,
     }
   }
   componentDidMount() {
@@ -30,10 +30,6 @@ class Navbar extends Component {
 
   }
 
-  // handleArrowChange() {
-  //   this.setState({selectArrowClicked: !this.state.selectArrowClicked})
-  // }
-
   render() {
     return (
       <nav className='navbar'>
@@ -46,12 +42,16 @@ class Navbar extends Component {
             })}
           </ul>
           <div className='navbar-container-logo'>
-            <Logo />
+            <Link to='/'>
+              <Logo />
+            </Link>
           </div>
           <div className='navbar-container-select'>
             <Select />
             <div className='navbar-container-cart'>
-              <Cart />
+              <Link to='/cart'>
+                <Cart />
+              </Link>
             </div>
           </div>
         </div>

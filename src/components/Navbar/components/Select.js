@@ -9,6 +9,7 @@ class Select extends Component {
     this.state = {
       currencies: [],
       isDropdownOpen: false,
+      currency: '$'
     }
   }
   componentDidMount() {
@@ -20,18 +21,17 @@ class Select extends Component {
   }
 
   handleDropdown() {
-    console.log('dropdown call');
     this.setState({isDropdownOpen: !this.state.isDropdownOpen})
   }
 
   handleCurrencyChange(e) {
-    console.log(e.target.innerHTML)
+    this.setState({currency: e.target.innerHTML.split(' ')[0]})
   }
 
   render() {
     return (
         <div className='select-container' onClick={() => this.handleDropdown()}>
-          <div>$ {this.state.isDropdownOpen ? <span className='select-container-arrow'>&#710;</span> : <span className='select-container-arrow'>&#711;</span> }</div>
+          <div>{this.state.currency} {this.state.isDropdownOpen ? <span className='select-container-arrow'>&#710;</span> : <span className='select-container-arrow'>&#711;</span> }</div>
           {this.state.isDropdownOpen ? (
             <div className='select-container-dropdown'>
               {this.state.currencies.map((currency, index) => {
