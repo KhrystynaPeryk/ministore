@@ -4,5 +4,8 @@
     align-items: center;
     .category-container {
         width: 85%;
+        .category-container-cards {
+            display: flex;
+        }
     }
 }
