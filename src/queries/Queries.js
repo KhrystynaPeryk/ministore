@@ -88,15 +88,16 @@ export const GET_TECH = {
     `
 }
 
-// does not work, we need to use variables argument
 export function getProducts(category) {
     return {
         query: `
             query getProducts($category : String!) {
                 category(input: { title: $category }) {
                     products {
-                        name
                         id
+                        name
+                        inStock
+                        gallery
                         prices {
                             currency {
                                 symbol
