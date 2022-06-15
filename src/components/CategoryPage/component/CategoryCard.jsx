@@ -5,10 +5,12 @@ class CategoryCard extends Component {
   render() {
     return (
       <div className='card-container'>
-        <div>{this.props.image}</div>
+        <div>
+          <img className='card-container-image' src={this.props.image} alt={this.props.name} />
+        </div>
         <div>
           <p>{this.props.name}</p>
-          <p>{this.props.price}</p>
+          <p>{this.props.currencySymbol} {this.props.price}</p>
         </div>
       </div>
     )

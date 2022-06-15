@@ -15,7 +15,7 @@ class CategoryPage extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000', fetchParams(getProducts("clothes")))
+    fetch('http://localhost:4000', fetchParams(getProducts("all")))
     .then((response) => response.json())
     .then(productList => {
       console.log(productList)
@@ -30,13 +30,23 @@ class CategoryPage extends Component {
           <h1>CategoryPage</h1>
           <div className='category-container-cards'>
             {this.state.products.map((product) => {
-              console.log('product', product)
-              const price = product.prices.filter(price => {
+              const priceItem = product.prices.filter(price => {
                 return price.currency.symbol === mockedSymbol
               })
-              console.log(price[0].amount)
+              const price = priceItem[0].amount
+
+              return (
+                <div key={product.id}>
+                  <CategoryCard 
+                    image={product.gallery[0]}
+                    name={product.name}
+                    currencySymbol={mockedSymbol}
+                    price={price}
+                    inStock={product.inStock}
+                  />
+                </div>
+              )
             })}
-            {/* <CategoryCard image={product.gallery[0] name={product.name} price={price}}/> inStock={product.inStock} */}
           </div>
         </div>
       </div>
