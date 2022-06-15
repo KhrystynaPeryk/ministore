@@ -4,7 +4,9 @@ import { getProducts } from '../../queries/Queries';
 import { fetchParams } from '../../helpers/fetchParams';
 import CategoryCard from './component/CategoryCard';
 
-const mockedSymbol = '$'
+// REDUX - https://medium.com/@stowball/a-dummys-guide-to-redux-and-thunk-in-react-d8904a7005d3
+const mockedSymbol = '$';
+const mockedCategory = 'all';
 
 class CategoryPage extends Component {
   constructor() {
@@ -15,7 +17,7 @@ class CategoryPage extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000', fetchParams(getProducts("all")))
+    fetch('http://localhost:4000', fetchParams(getProducts(mockedCategory)))
     .then((response) => response.json())
     .then(productList => {
       console.log(productList)

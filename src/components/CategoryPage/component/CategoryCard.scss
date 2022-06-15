@@ -1,8 +1,26 @@
 .card-container {
-    height: 400px;
-    width: 300px;
+    height: 300px;
+    width: 250px;
+    margin: 10%;
     .card-container-image {
-        height: 100px;
-        width: 90px;
+        height: 200px;
+        width: 90%;
+        margin: 5%;
+        max-width: 100%;
+        object-fit: contain;
     }
+    .card-container-info {
+        margin-left: 5%;
+        .card-container-name {
+            margin: 0px;
+            font-size: small;
+        }
+        .card-container-price {
+            margin: 0px;
+            font-size: small;
+        }
+    }
+}
+.card-container:hover {
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
 }

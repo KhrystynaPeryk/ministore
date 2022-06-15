@@ -22,15 +22,11 @@
         .navbar-container-select {
             display: flex;
             align-items: center;
-            // position: relative;
-            // select {
-            //     border: 0px;
-            //     outline: none;
-            //     display: inline-block;
-            //     font: inherit;
-            //     transform: translate(-30%, -0%);
-            //     // appearance: none;
-            // }
         }
     }
+}
+
+.clicked-category {
+    color: #5ECE7B;
+    border-bottom: 2px solid #5ECE7B;
 }

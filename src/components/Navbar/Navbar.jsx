@@ -27,7 +27,11 @@ class Navbar extends Component {
     .then(currencyList => {
       this.setState({ currencies: currencyList.data.currencies });
     });
+  }
 
+  //we need redux for currentCategory on a client
+  handleCategoryChange() {
+    console.log('change category')
   }
 
   render() {
@@ -37,7 +41,7 @@ class Navbar extends Component {
           <ul>
             {this.state.categories.map((category, index) => {
               return (
-                <li key={index}>{category.name.toUpperCase()}</li>
+                <li key={index} onClick={() => this.handleCategoryChange()}>{category.name.toUpperCase()}</li>
               )
             })}
           </ul>

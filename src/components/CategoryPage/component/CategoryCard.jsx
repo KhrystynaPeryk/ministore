@@ -8,9 +8,9 @@ class CategoryCard extends Component {
         <div>
           <img className='card-container-image' src={this.props.image} alt={this.props.name} />
         </div>
-        <div>
-          <p>{this.props.name}</p>
-          <p>{this.props.currencySymbol} {this.props.price}</p>
+        <div className='card-container-info'>
+          <p className='card-container-name'>{this.props.name}</p>
+          <p className='card-container-price'>{this.props.currencySymbol} {this.props.price}</p>
         </div>
       </div>
     )
