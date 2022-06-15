@@ -13,30 +13,7 @@ class CategoryPage extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-    query: `
-        query {
-            category(input: { title: "clothes" }) {
-                products {
-                    name
-                    id
-                    prices {
-                        currency {
-                            symbol
-                        }
-                        amount
-                    }
-                }
-            }
-        }
-    `
-})
-    })
+    fetch('http://localhost:4000', fetchParams(getProducts("clothes")))
     .then((response) => response.json())
     .then(productList => {
       console.log(productList)

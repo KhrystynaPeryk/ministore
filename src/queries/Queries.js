@@ -92,8 +92,8 @@ export const GET_TECH = {
 export function getProducts(category) {
     return {
         query: `
-            query {
-                category(input: { title: ${category} }) {
+            query getProducts($category : String!) {
+                category(input: { title: $category }) {
                     products {
                         name
                         id
@@ -101,11 +101,12 @@ export function getProducts(category) {
                             currency {
                                 symbol
                             }
-                            amount
-                        }
+                        amount
                     }
                 }
             }
-        `       
-    }
+        }
+    `,
+    variables : { category }
+}
 }
