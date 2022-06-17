@@ -31,63 +31,6 @@ export const GET_CURRENCIES = {
     `
 }
 
-export const GET_CLOTHES = {
-    query: `
-        query {
-            category(input: { title: "clothes" }) {
-                products {
-                    name
-                    id
-                    prices {
-                        currency {
-                            symbol
-                        }
-                        amount
-                    }
-                }
-            }
-        }
-    `
-}
-
-export const GET_ALL = {
-    query: `
-        query {
-            category(input: { title: "all" }) {
-                products {
-                    name
-                    id
-                    prices {
-                        currency {
-                            symbol
-                        }
-                        amount
-                    }
-                }
-            }
-        }
-    `
-}
-
-export const GET_TECH = {
-    query: `
-        query {
-            category(input: { title: "tech" }) {
-                products {
-                    name
-                    id
-                    prices {
-                        currency {
-                            symbol
-                        }
-                        amount
-                    }
-                }
-            }
-        }
-    `
-}
-
 export function getProducts(category) {
     return {
         query: `
