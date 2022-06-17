@@ -6,6 +6,8 @@ import {ReactComponent as Cart} from '../../assets/cart.svg';
 import { GET_CATEGORIES, GET_CURRENCIES } from '../../queries/Queries';
 import { fetchParams } from '../../helpers/fetchParams';
 import Select from './components/Select';
+import { connect } from 'react-redux';
+import { itemsFetchData} from '../../redux/actions/actions';
 
 class Navbar extends Component {
   constructor() {
@@ -29,11 +31,6 @@ class Navbar extends Component {
     });
   }
 
-  //we need redux for currentCategory on a client
-  handleCategoryChange() {
-    console.log('change category')
-  }
-
   render() {
     return (
       <nav className='navbar'>
@@ -41,7 +38,7 @@ class Navbar extends Component {
           <ul>
             {this.state.categories.map((category, index) => {
               return (
-                <li key={index} onClick={() => this.handleCategoryChange()}>{category.name.toUpperCase()}</li>
+                <li key={index} onClick={() => this.props.fetchData(category.name)}>{category.name.toUpperCase()}</li>
               )
             })}
           </ul>
@@ -64,4 +61,15 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  products: state.products.products,
+  category: state.products.category
+  // hasErrored: state.productsHasErrored
+});
+
+
+// it will provide us with the actions we need to use in our component so we can dispatch them and change our state
+
+const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

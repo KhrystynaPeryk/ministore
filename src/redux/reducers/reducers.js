@@ -1,36 +1,41 @@
-import { FETCH_PRODUCTS, ERROR_PRODUCTS } from "../actions/types";
+import { FETCH_PRODUCTS_ALL,
+        FETCH_PRODUCTS_CLOTHES,
+        FETCH_PRODUCTS_TECH,
+        ERROR_PRODUCTS
+} from "../actions/types";
 
 const initialState = {
-  songs: [
-    { title: "I love redux" },
-    { title: "The redux song" },
-    { title: "Run to the redux hill" },
-  ],
+  products: [],
+  category: 'all'
 }
 
 export function fetchProducts(state = initialState, action) {
-    const { type, payload } = action;
-    switch (type) {
-        // case FETCH_PRODUCTS:
-        //     return {
-        //         ...state,
-        //         products: payload.products
-        //     }
-        default:
-            return state;
+  switch (action.type) {
+    case FETCH_PRODUCTS_ALL:
+      return {
+        ...state,
+        products: action.payload,
+        category: 'all'
+      }
+    case FETCH_PRODUCTS_TECH:
+      return {
+        ...state,
+        products: action.payload,
+        category: 'tech'
+      }
+    case FETCH_PRODUCTS_CLOTHES:
+      return {
+        ...state,
+        products: action.payload,
+        category: 'clothes'
+      }
+    // case ERROR_PRODUCTS:
+    //   return {
+    //     ...state,
+    //     products: [],
+    //     category: null
+    //   }
+      default:
+        return state;
     }
 }
-
-// export function productsHasErrored(state = false, action) {
-//     const { type } = action;
-//     switch (type) {
-//         case ERROR_PRODUCTS:
-//             return {
-//                 ...state,
-//                 hasErrored : true,
-//                 products: null
-//             }
-//         default:
-//             return state;
-//     }
-// }

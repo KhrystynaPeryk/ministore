@@ -9,7 +9,7 @@ import { combineReducers } from 'redux';
 import { fetchProducts } from './reducers';
 
 const allReducers = combineReducers({
-    songs: fetchProducts,
+    products: fetchProducts,
 });
 
 export default allReducers;

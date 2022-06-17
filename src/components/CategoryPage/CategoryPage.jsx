@@ -1,47 +1,54 @@
 import React, {Component} from 'react';
 import './CategoryPage.scss';
-// import { getProducts } from '../../queries/Queries';
-// import { fetchParams } from '../../helpers/fetchParams';
 import { connect } from 'react-redux';
-import { productsFetchData } from '../../queries/fetchData';
 import CategoryCard from './component/CategoryCard';
+import { itemsFetchData } from '../../redux/actions/actions';
 
 // REDUX - https://medium.com/@stowball/a-dummys-guide-to-redux-and-thunk-in-react-d8904a7005d3
 const mockedSymbol = '$';
 const mockedCategory = 'all';
 
 class CategoryPage extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       products : []
     }
   }
 
-  // componentDidMount() {
-  //   // fetch('http://localhost:4000', fetchParams(getProducts(mockedCategory)))
-  //   // .then((response) => response.json())
-  //   // .then(productList => {
-  //   //   console.log(productList)
-  //   //   this.setState({ products: productList.data.category.products });
-  //   // });
-  //   this.props.fetchData(mockedCategory);
-  // }
+  componentDidMount() {
+    // if (this.props.category === "all") {
+    //       fetch('http://localhost:4000/', fetchParams(getProducts("all")))
+    //   .then((response) => response.json())
+    //   .then((productList) => this.setState({products: productList.data.category.products}))
+    //   this.props.fetchData("all")
+    // } else if (this.props.category === "tech") {
+    //       fetch('http://localhost:4000/', fetchParams(getProducts("tech")))
+    //   .then((response) => response.json())
+    //   .then((productList) => this.setState({products: productList.data.category.products}))
+    //   this.props.fetchData("tech")
+    // } else if (this.props.category === "clothes") {
+    //       fetch('http://localhost:4000/', fetchParams(getProducts("clothes")))
+    //   .then((response) => response.json())
+    //   .then((productList) => this.setState({products: productList.data.category.products}))
+    //   this.props.fetchData("clothes")
+    // }
+
+    // // this.setState({products: this.props.products})
+    this.props.fetchData("all")
+  }
 
   render() {
-     const { songs } = this.props.songs
-    // if (this.props.hasErrored) {
-    //   return <p>Sorry! There was an error loading the items</p>;
-    //     }
-    // if (this.props.products) {
-    //   console.log(this.props.products)
-    // }
+    if (this.props.products.length === 0) {
+      return <p>Sorry! There was an error loading the items</p>;
+    }
+    console.log(this.props.products)
     return (
       <div className='category-page-container'>
         <div className='category-container'>
-          <h1>CategoryPage</h1>
+          <h1>Category: {this.props.category.toUpperCase()}</h1>
           <div className='category-container-cards'>
-            {/* {this.props.products.map((product) => {
+            {this.props.products.products.map((product) => {
               const priceItem = product.prices.filter(price => {
                 return price.currency.symbol === mockedSymbol
               })
@@ -58,11 +65,8 @@ class CategoryPage extends Component {
                   />
                 </div>
               )
-            })} */}
+            })}
             <ul>
-        {songs.map((song, i) => {
-          return <li key={song.title}>{song.title}</li>
-        })}
       </ul>
           </div>
         </div>
@@ -72,16 +76,13 @@ class CategoryPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  songs: state.songs,
+  products: state.products.products,
+  category: state.products.category
   // hasErrored: state.productsHasErrored
 });
 
-
 // it will provide us with the actions we need to use in our component so we can dispatch them and change our state
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchData: (category) => dispatch(productsFetchData(category))
-    };
-};
 
-export default connect(mapStateToProps, null)(CategoryPage);
+const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryPage);
