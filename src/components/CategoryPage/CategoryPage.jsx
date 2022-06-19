@@ -9,40 +9,16 @@ const mockedSymbol = '$';
 const mockedCategory = 'all';
 
 class CategoryPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      products : []
-    }
-  }
-
   componentDidMount() {
-    // if (this.props.category === "all") {
-    //       fetch('http://localhost:4000/', fetchParams(getProducts("all")))
-    //   .then((response) => response.json())
-    //   .then((productList) => this.setState({products: productList.data.category.products}))
-    //   this.props.fetchData("all")
-    // } else if (this.props.category === "tech") {
-    //       fetch('http://localhost:4000/', fetchParams(getProducts("tech")))
-    //   .then((response) => response.json())
-    //   .then((productList) => this.setState({products: productList.data.category.products}))
-    //   this.props.fetchData("tech")
-    // } else if (this.props.category === "clothes") {
-    //       fetch('http://localhost:4000/', fetchParams(getProducts("clothes")))
-    //   .then((response) => response.json())
-    //   .then((productList) => this.setState({products: productList.data.category.products}))
-    //   this.props.fetchData("clothes")
-    // }
-
-    // // this.setState({products: this.props.products})
-    this.props.fetchData("all")
+    this.props.fetchData("all");
   }
 
   render() {
+    const currentCurrency = this.props.currency;
     if (this.props.products.length === 0) {
       return <p>Sorry! There was an error loading the items</p>;
     }
-    console.log(this.props.products)
+    console.log(this.props)
     return (
       <div className='category-page-container'>
         <div className='category-container'>
@@ -50,7 +26,7 @@ class CategoryPage extends Component {
           <div className='category-container-cards'>
             {this.props.products.products.map((product) => {
               const priceItem = product.prices.filter(price => {
-                return price.currency.symbol === mockedSymbol
+                return price.currency.symbol === currentCurrency.currency
               })
               const price = priceItem[0].amount
 
@@ -59,7 +35,7 @@ class CategoryPage extends Component {
                   <CategoryCard 
                     image={product.gallery[0]}
                     name={product.name}
-                    currencySymbol={mockedSymbol}
+                    currencySymbol={currentCurrency.currency}
                     price={price}
                     inStock={product.inStock}
                   />
@@ -77,7 +53,8 @@ class CategoryPage extends Component {
 
 const mapStateToProps = (state) => ({
   products: state.products.products,
-  category: state.products.category
+  category: state.products.category,
+  currency: state.currency
   // hasErrored: state.productsHasErrored
 });
 

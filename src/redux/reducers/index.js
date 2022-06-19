@@ -6,10 +6,11 @@
 // });
 
 import { combineReducers } from 'redux';
-import { fetchProducts } from './reducers';
+import { fetchProducts, fetchCurrency } from './reducers';
 
 const allReducers = combineReducers({
     products: fetchProducts,
+    currency: fetchCurrency
 });
 
 export default allReducers;

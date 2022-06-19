@@ -1,6 +1,7 @@
 import { FETCH_PRODUCTS_ALL,
         FETCH_PRODUCTS_CLOTHES,
         FETCH_PRODUCTS_TECH,
+        FETCH_CURRENCY,
         ERROR_PRODUCTS
 } from "./types";
 
@@ -35,6 +36,13 @@ export const fetchClothesProducts = products => {
     }
 }
 
+export const fetchCurrency = currency => {
+    return {
+        type: FETCH_CURRENCY,
+        payload: currency,
+    }
+}
+
 // export const productsHasErrored = error => {
 //     return {
 //         type: ERROR_PRODUCTS,
@@ -57,4 +65,12 @@ export function itemsFetchData(category) {
         })
         // .catch(() => dispatch(itemsHasErrored(true)));
     };
+}
+
+export function fetchCurrentCurrency(currFromDropdown) {
+    return (dispatch) => {
+        if(currFromDropdown) {
+            return dispatch(fetchCurrency(currFromDropdown))
+        }
+    }
 }
