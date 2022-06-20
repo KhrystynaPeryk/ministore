@@ -1,7 +1,21 @@
 .card-container {
-    height: 300px;
+    height: 280px;
     width: 250px;
     margin: 10%;
+    position: relative;
+    .card-container-emptyCart {
+        background-color: #5ECE7B;
+        position: absolute;
+        bottom: 18%;
+        right: 5%;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        .emptyCart {
+            margin-top: 15%;
+            margin-left: 15%;
+        }
+    }
     .card-container-image {
         height: 200px;
         width: 90%;
