@@ -10,8 +10,10 @@
             list-style-type: none;
             display: flex;
             padding: 0px;
+            margin: 0px;
             li {
-                padding: 0px 16px;
+                padding: 16px 16px;
+                font-size: small;
             }
         }
         .navbar-container-logo {

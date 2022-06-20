@@ -15,6 +15,7 @@ class Navbar extends Component {
     this.state = {
       categories: [],
       currencies: [],
+      activeCategory: 0
     }
   }
   componentDidMount() {
@@ -38,7 +39,16 @@ class Navbar extends Component {
           <ul>
             {this.state.categories.map((category, index) => {
               return (
-                <li key={index} onClick={() => this.props.fetchData(category.name)}>{category.name.toUpperCase()}</li>
+                <li 
+                  key={index} 
+                  className={index === this.state.activeCategory ? 'clicked-category' : ''}
+                  onClick={(e) => {
+                    this.setState({activeCategory: index})
+                    return this.props.fetchData(category.name)
+                  }}
+                >
+                  {category.name.toUpperCase()}
+                </li>
               )
             })}
           </ul>
@@ -73,3 +83,5 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+
+// https://stackoverflow.com/questions/69014024/how-to-set-style-for-map-item-in-react-js

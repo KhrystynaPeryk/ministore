@@ -4,10 +4,14 @@
     align-items: center;
     .category-container {
         width: 85%;
+        h2 {
+            font-weight: 100;
+        }
         .category-container-cards {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
         }
     }
 }

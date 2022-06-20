@@ -5,8 +5,6 @@ import CategoryCard from './component/CategoryCard';
 import { itemsFetchData } from '../../redux/actions/actions';
 
 // REDUX - https://medium.com/@stowball/a-dummys-guide-to-redux-and-thunk-in-react-d8904a7005d3
-const mockedSymbol = '$';
-const mockedCategory = 'all';
 
 class CategoryPage extends Component {
   componentDidMount() {
@@ -22,7 +20,7 @@ class CategoryPage extends Component {
     return (
       <div className='category-page-container'>
         <div className='category-container'>
-          <h1>Category: {this.props.category.toUpperCase()}</h1>
+          <h2>Category: {this.props.category.toUpperCase()}</h2>
           <div className='category-container-cards'>
             {this.props.products.products.map((product) => {
               const priceItem = product.prices.filter(price => {
@@ -31,7 +29,7 @@ class CategoryPage extends Component {
               const price = priceItem[0].amount
 
               return (
-                <div key={product.id}>
+                <div className='cards' key={product.id}>
                   <CategoryCard 
                     image={product.gallery[0]}
                     name={product.name}
@@ -42,8 +40,6 @@ class CategoryPage extends Component {
                 </div>
               )
             })}
-            <ul>
-      </ul>
           </div>
         </div>
       </div>
