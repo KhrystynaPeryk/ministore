@@ -36,7 +36,7 @@ class App extends Component {
           <Navbar />
           <Routes>
             <Route exact path='/' element={<CategoryPage />} />
-            <Route path='/products/:id' element={<DescriptionPage />} />
+            <Route path='/product' element={<DescriptionPage />} />
             <Route path='/cart' element={<CartPage />} />
           </Routes>
       </div>

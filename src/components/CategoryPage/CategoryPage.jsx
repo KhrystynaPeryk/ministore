@@ -36,6 +36,7 @@ class CategoryPage extends Component {
                     currencySymbol={currentCurrency.currency}
                     price={price}
                     inStock={product.inStock}
+                    id={product.id}
                   />
                 </div>
               )

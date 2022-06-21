@@ -15,7 +15,9 @@
 export const GET_CATEGORIES = {
     query: `
         query {
-            categories{name}
+            categories {
+                name
+            }
         }
     `
 }
@@ -46,11 +48,74 @@ export function getProducts(category) {
                                 symbol
                             }
                         amount
+                        }
                     }
                 }
             }
-        }
-    `,
-    variables : { category }
+        `,
+        variables : { category }
+    }
 }
+
+export function getProduct(productId) {
+    return {
+        query: `
+            query getProduct($productID: String!) {
+                product(id: $productID ) {
+                    id
+                    name
+                    inStock
+                    gallery
+                    description
+                    category
+                    attributes {
+                    name
+                    type
+                    items {
+                        displayValue
+                        value
+                    }
+                    }
+                    brand
+                    prices {
+                    currency {
+                        symbol
+                    }
+                    amount
+                    }
+                }
+            }
+        `,
+        variables : { productId }
+    }
 }
+
+// export function getProducts(category) {
+//     return {
+//         query: `
+//             query getProducts($category : String!) {
+//                 category(input: { title: $category }) {
+//                     products {
+//                         name
+//                         id
+//                         inStock
+//                         description
+//                         gallery
+//                         brand
+//                         attributes {
+//                             name
+//                             type
+//                             items {
+//                             displayValue
+//                             value
+//                             }
+//                         }
+
+//                     }
+//                 }
+//             }
+//         `,
+//         variables : { category }
+//     }
+// }
+

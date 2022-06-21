@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 102;
     .navbar-container {
         width: 85%;
         display: flex;
