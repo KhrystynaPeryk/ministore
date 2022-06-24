@@ -18,7 +18,7 @@ class Attributes extends Component {
                                             {
                                                 backgroundColor: `${item.value}`,
                                                 border: `1px solid ${item.value}`,
-                                                padding: '5%'
+                                                padding: '2.5%'
                                             } 
                                             : null}
                                     >

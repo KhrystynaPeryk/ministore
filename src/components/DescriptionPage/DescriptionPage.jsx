@@ -67,19 +67,19 @@ class DescriptionPage extends Component {
             <h2 className='product-container-info-name'>{this.state.name}</h2>
             {this.state.attributes.length === 0 ? null : <Attributes attributes={this.state.attributes}/>}
             <div>
-              <div>PRICE:</div>
+              <div className='product-container-info-price'>PRICE:</div>
               <div>
                 {this.state.prices.map((price, index) => {
                   if (price.currency.symbol === currentCurrency.currency) {
                     return (
-                      <div key={index}>{currentCurrency.currency}{price.amount}</div>
+                      <div className='product-container-info-amount' key={index}>{currentCurrency.currency}{price.amount}</div>
                     )
                   }
                   return null;
                 })}
               </div>
             </div>
-            <button>ADD TO CART</button>
+            <button className='product-container-info-button'>ADD TO CART</button>
             <div dangerouslySetInnerHTML={this.createMarkup()}></div>
           </div>
         </div>

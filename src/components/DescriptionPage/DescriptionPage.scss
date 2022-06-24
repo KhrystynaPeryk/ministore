@@ -18,7 +18,6 @@
                     .all-photos-photo {
                         height: 100%;
                         width: 100%;
-                        // margin: 5%;
                         max-width: 100%;
                         object-fit: contain;
                     }
@@ -36,12 +35,28 @@
         }
         .product-container-info {
             .product-container-info-brand {
-                    margin: 0%;
+                margin: 0%;
             }
             .product-container-info-name {
-                    font-weight: normal;
-                    margin-top: 5%;
-                    margin-bottom: 20%;
+                font-weight: normal;
+                margin-top: 1%;
+                margin-bottom: 6%;
+            }
+            .product-container-info-price {
+                font-weight: bolder;
+                font-size: small;
+                margin-bottom: 2%;
+            }
+            .product-container-info-amount {
+                font-weight: bolder;
+                margin-bottom: 3%;
+            }
+            .product-container-info-button {
+                border: none;
+                font-family: inherit;
+                background-color: #5ECE7B;
+                color: white;
+                margin-bottom: 1%;
             }
         }
     }
