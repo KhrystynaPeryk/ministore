@@ -60,8 +60,8 @@ export function getProducts(category) {
 export function getProduct(productId) {
     return {
         query: `
-            query getProduct($productID: String!) {
-                product(id: $productID ) {
+            query getProduct($productId: String!) {
+                product(id: $productId ) {
                     id
                     name
                     inStock
@@ -69,8 +69,8 @@ export function getProduct(productId) {
                     description
                     category
                     attributes {
-                    name
-                    type
+                        name
+                        type
                     items {
                         displayValue
                         value
@@ -78,13 +78,13 @@ export function getProduct(productId) {
                     }
                     brand
                     prices {
-                    currency {
-                        symbol
-                    }
-                    amount
+                        currency {
+                            symbol
+                        }
+                        amount
+                        }
                     }
                 }
-            }
         `,
         variables : { productId }
     }

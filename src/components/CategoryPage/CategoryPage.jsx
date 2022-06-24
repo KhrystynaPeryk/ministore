@@ -8,7 +8,7 @@ import { itemsFetchData } from '../../redux/actions/actions';
 
 class CategoryPage extends Component {
   componentDidMount() {
-    this.props.fetchData("all");
+    this.props.fetchData('all');
   }
 
   render() {

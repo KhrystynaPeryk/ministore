@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {ReactComponent as EmptyCart} from '../../../assets/emptyCart.svg'
 import './CategoryCard.scss';
 
@@ -11,13 +11,21 @@ class CategoryCard extends Component {
     }
   }
 
+  handleClick = (param) => {
+    this.props.history.push({
+      pathname: `/ministore/product`,
+      state: param
+    });
+    // window.location.reload();
+  }
+
   render() {
     return (
-      <Link to={{pathname: '/product', state: {productId : this.props.id}}} style={{ textDecoration: 'none', color: 'black' }}>
         <div 
           className='card-container' 
           onMouseEnter={() => this.setState({emptyCartShown: true})}
           onMouseLeave={() => this.setState({emptyCartShown: false})}
+          onClick={() => this.handleClick({ id: this.props.id })}
         >
           {
             this.state.emptyCartShown && (
@@ -33,10 +41,9 @@ class CategoryCard extends Component {
             <p className='card-container-name'>{this.props.name}</p>
             <p className='card-container-price'>{this.props.currencySymbol} {this.props.price}</p>
           </div>
-        </div>
-      </Link>
+        </div> 
     )
   }
 }
 
-export default CategoryCard;
+export default withRouter(CategoryCard);
