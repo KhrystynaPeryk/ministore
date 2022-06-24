@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './DescriptionPage.scss';
+import { connect } from 'react-redux';
 import { fetchParams } from '../../helpers/fetchParams';
 import { getProduct } from '../../queries/Queries';
 import Attributes from './components/Attributes';
@@ -23,17 +24,23 @@ class DescriptionPage extends Component {
     fetch('http://localhost:4000/', fetchParams(getProduct(this.props.location.state.id)))
     .then((response) => response.json())
     .then((res) => {
-      console.log(res.data.product.attributes)
+      console.log(res.data.product.prices)
       this.setState({brand: res.data.product.brand})
       this.setState({name: res.data.product.name})
       this.setState({gallery: res.data.product.gallery})
       this.setState({mainPhoto: res.data.product.gallery[0]})
       this.setState({attributes: res.data.product.attributes})
       this.setState({prices: res.data.product.prices})
+      this.setState({description: res.data.product.description})
     })
   }
 
+  createMarkup() {
+    return {__html: this.state.description};
+  }
+
   render() {
+    const currentCurrency = this.props.currency;
     return (
       <div className='product-container-page'>
         <div className='product-container'>
@@ -56,9 +63,24 @@ class DescriptionPage extends Component {
             </div>
           </div>
           <div className='product-container-info'>
-            <h3>{this.state.brand}</h3>
-            <h4>{this.state.name}</h4>
+            <h2 className='product-container-info-brand'>{this.state.brand}</h2>
+            <h2 className='product-container-info-name'>{this.state.name}</h2>
             {this.state.attributes.length === 0 ? null : <Attributes attributes={this.state.attributes}/>}
+            <div>
+              <div>PRICE:</div>
+              <div>
+                {this.state.prices.map((price, index) => {
+                  if (price.currency.symbol === currentCurrency.currency) {
+                    return (
+                      <div key={index}>{currentCurrency.currency}{price.amount}</div>
+                    )
+                  }
+                  return null;
+                })}
+              </div>
+            </div>
+            <button>ADD TO CART</button>
+            <div dangerouslySetInnerHTML={this.createMarkup()}></div>
           </div>
         </div>
       </div>
@@ -66,4 +88,8 @@ class DescriptionPage extends Component {
   }
 }
 
-export default DescriptionPage;
+const mapStateToProps = (state) => ({
+  currency: state.currency
+});
+
+export default connect(mapStateToProps)(DescriptionPage);

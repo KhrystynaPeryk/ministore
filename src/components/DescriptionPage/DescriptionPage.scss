@@ -15,7 +15,6 @@
                 width: 15%;
                 margin-right: 1%;
                 .all-photos-container {
-
                     .all-photos-photo {
                         height: 100%;
                         width: 100%;
@@ -33,6 +32,16 @@
                     max-width: 100%;
                     object-fit: contain;   
                 }
+            }
+        }
+        .product-container-info {
+            .product-container-info-brand {
+                    margin: 0%;
+            }
+            .product-container-info-name {
+                    font-weight: normal;
+                    margin-top: 5%;
+                    margin-bottom: 20%;
             }
         }
     }

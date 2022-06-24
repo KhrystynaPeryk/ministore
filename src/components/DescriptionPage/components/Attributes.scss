@@ -1,11 +1,16 @@
-.square-item-container {
-    display: flex;
-    .square-item {
-        border: 1px solid black;
-        margin-right: 5%;
-        padding: 10%;
-        // .square-item-color {
-
-        // }
+.attributes-container {
+    margin-bottom: 12%;
+    .attributes-container-name {
+            font-weight: bolder;
+            font-size: small;
+            margin-bottom: 3%;
+        }
+    .square-item-container {
+        display: flex;
+        .square-item {
+            border: 1px solid black;
+            margin-right: 5%;
+            padding: 5% 12%;
+        }
     }
 }
