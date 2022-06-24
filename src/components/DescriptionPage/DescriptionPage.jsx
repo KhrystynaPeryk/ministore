@@ -63,6 +63,7 @@ class DescriptionPage extends Component {
             </div>
           </div>
           <div className='product-container-info'>
+            <div className='product-container-info-wrap'>
             <h2 className='product-container-info-brand'>{this.state.brand}</h2>
             <h2 className='product-container-info-name'>{this.state.name}</h2>
             {this.state.attributes.length === 0 ? null : <Attributes attributes={this.state.attributes}/>}
@@ -80,7 +81,8 @@ class DescriptionPage extends Component {
               </div>
             </div>
             <button className='product-container-info-button'>ADD TO CART</button>
-            <div dangerouslySetInnerHTML={this.createMarkup()}></div>
+            <div className='product-container-info-description' dangerouslySetInnerHTML={this.createMarkup()}></div>
+            </div>
           </div>
         </div>
       </div>

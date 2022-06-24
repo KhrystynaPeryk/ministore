@@ -7,10 +7,12 @@
         }
     .square-item-container {
         display: flex;
+        margin-bottom: 6%;
         .square-item {
             border: 1px solid black;
             margin-right: 1.5%;
             padding: 1.5% 3%;
+            font-size: small;
         }
     }
 }

@@ -8,6 +8,7 @@
         margin-top: 3%;
         .product-container-photos {
             display: flex;
+            height: 100%;
             width: 60%;
             .all-photos {
                 display: flex;
@@ -34,29 +35,43 @@
             }
         }
         .product-container-info {
-            .product-container-info-brand {
-                margin: 0%;
-            }
-            .product-container-info-name {
-                font-weight: normal;
-                margin-top: 1%;
-                margin-bottom: 6%;
-            }
-            .product-container-info-price {
-                font-weight: bolder;
-                font-size: small;
-                margin-bottom: 2%;
-            }
-            .product-container-info-amount {
-                font-weight: bolder;
-                margin-bottom: 3%;
-            }
-            .product-container-info-button {
-                border: none;
-                font-family: inherit;
-                background-color: #5ECE7B;
-                color: white;
-                margin-bottom: 1%;
+            height: 100%;
+            width: 40%;
+            .product-container-info-wrap {
+                width: 70%;
+                display: flex;
+                flex-direction: column;
+                .product-container-info-brand {
+                    margin: 0%;
+                }
+                .product-container-info-name {
+                    font-weight: normal;
+                    margin-top: 1%;
+                    margin-bottom: 7%;
+                }
+                .product-container-info-price {
+                    font-weight: bolder;
+                    font-size: small;
+                    margin-bottom: 4%;
+                }
+                .product-container-info-amount {
+                    font-weight: bolder;
+                    margin-bottom: 6%;
+                }
+                .product-container-info-button {
+                    border: none;
+                    font-family: inherit;
+                    background-color: #5ECE7B;
+                    color: white;
+                    margin-bottom: 3%;
+                    padding: 3% 9%;
+                }
+                .product-container-info-description {
+                    // height: 50vh;
+                    overflow: auto;
+                    font-size: small;
+                    line-height: 20px;
+                }
             }
         }
     }
