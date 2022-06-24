@@ -29,6 +29,7 @@ class DescriptionPage extends Component {
       this.setState({gallery: res.data.product.gallery})
       this.setState({mainPhoto: res.data.product.gallery[0]})
       this.setState({attributes: res.data.product.attributes})
+      this.setState({prices: res.data.product.prices})
     })
   }
 

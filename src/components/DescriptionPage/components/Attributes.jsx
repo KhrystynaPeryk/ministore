@@ -7,21 +7,20 @@ class Attributes extends Component {
         return (
             <div>
             {this.props.attributes.map((attribute, index) => {
-                console.log(attribute.name)
                 return (
                     <div key={index}>
                         <div>{attribute.name}</div>
-                        {attribute.type === 'text' ? (
                             <div className='square-item-container'>
                                 {attribute.items.map((item, index1) => {
                                     return (
-                                        <div key={index1} className='square-item'>
-                                            <div>{item.value}</div>
+                                        <div key={index1} className='square-item' 
+                                            style={item.value[0] === '#' ? {backgroundColor: `${item.value}` } : null}
+                                        >
+                                            {item.value[0] === '#' ? null : item.value}
                                         </div>
                                     )
                                 })}
                             </div>
-                        ) : 'swatch'}
                     </div>
                 )
             })}
