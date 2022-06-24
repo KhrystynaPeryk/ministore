@@ -37,6 +37,7 @@ class CategoryPage extends Component {
                     price={price}
                     inStock={product.inStock}
                     id={product.id}
+                    brand={product.brand}
                   />
                 </div>
               )

@@ -41,6 +41,7 @@ export function getProducts(category) {
                     products {
                         id
                         name
+                        brand
                         inStock
                         gallery
                         prices {

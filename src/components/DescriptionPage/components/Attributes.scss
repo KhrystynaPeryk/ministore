@@ -1,0 +1,8 @@
+.square-item-container {
+    display: flex;
+    .square-item {
+        border: 1px solid black;
+        margin-right: 5%;
+        padding: 5%;
+    }
+}
