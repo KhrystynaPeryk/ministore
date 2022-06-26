@@ -23,6 +23,7 @@
                         width: 100%;
                         max-width: 100%;
                         object-fit: contain;
+                        cursor: zoom-in;
                     }
                 }
             }
@@ -69,9 +70,14 @@
                     color: white;
                     margin-bottom: 3%;
                     padding: 3% 9%;
+                    cursor: pointer;
+                }
+                .product-container-info-button:hover {
+                    background-color: white;
+                    color: #5ECE7B;
+                    box-shadow: 0px 0px 0px 1px #5ECE7B inset;
                 }
                 .product-container-info-description {
-                    // height: 50vh;
                     overflow: auto;
                     font-size: small;
                     line-height: 20px;
@@ -83,4 +89,14 @@
 
 .all-photos-container:hover {
     box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: default !important;
+}
+
+.disabled:hover {
+    background-color: #5ECE7B !important;
+    color: white !important;
 }

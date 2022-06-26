@@ -3,6 +3,7 @@
     width: 250px;
     margin: 10%;
     position: relative;
+    cursor: pointer;
     .card-container-emptyCart {
         background-color: #5ECE7B;
         position: absolute;
@@ -37,4 +38,18 @@
 }
 .card-container:hover {
     box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.disabledCard {
+    opacity: 0.5;
+}
+
+.disabledCard::after {
+    content: 'OUT OF STOCK';
+    color: black;
+    font-size: small;
+    position: absolute;
+    top: 40%;
+    right: 50%;
+    transform: translate(50%, -50%);
 }

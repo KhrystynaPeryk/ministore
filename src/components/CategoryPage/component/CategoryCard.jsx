@@ -21,13 +21,13 @@ class CategoryCard extends Component {
   render() {
     return (
         <div 
-          className='card-container' 
+          className={this.props.inStock ? 'card-container' : 'card-container disabledCard'}
           onMouseEnter={() => this.setState({emptyCartShown: true})}
           onMouseLeave={() => this.setState({emptyCartShown: false})}
           onClick={() => this.handleClick({ id: this.props.id })}
         >
           {
-            this.state.emptyCartShown && (
+            this.state.emptyCartShown && this.props.inStock && (
               <div className='card-container-emptyCart' onClick={() => console.log(this.props.id)}>
                 <div className='emptyCart'><EmptyCart /></div>
               </div>

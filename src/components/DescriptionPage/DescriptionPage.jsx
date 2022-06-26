@@ -16,7 +16,8 @@ class DescriptionPage extends Component {
       prices: [],
       description: '',
       mainPhoto: '',
-      attributes: []
+      attributes: [],
+      id: ''
     }
   }
 
@@ -32,6 +33,8 @@ class DescriptionPage extends Component {
       this.setState({attributes: res.data.product.attributes})
       this.setState({prices: res.data.product.prices})
       this.setState({description: res.data.product.description})
+      this.setState({inStock: res.data.product.inStock})
+      this.setState({id: res.data.product.id})
     })
   }
 
@@ -66,7 +69,8 @@ class DescriptionPage extends Component {
             <div className='product-container-info-wrap'>
             <h2 className='product-container-info-brand'>{this.state.brand}</h2>
             <h2 className='product-container-info-name'>{this.state.name}</h2>
-            {this.state.attributes.length === 0 ? null : <Attributes attributes={this.state.attributes}/>}
+            {this.state.attributes.length === 0 ? null : 
+              <Attributes attributes={this.state.attributes} id={this.state.id}/>}
             <div>
               <div className='product-container-info-price'>PRICE:</div>
               <div>
@@ -80,7 +84,12 @@ class DescriptionPage extends Component {
                 })}
               </div>
             </div>
-            <button className='product-container-info-button'>ADD TO CART</button>
+            <button className={this.state.inStock ? 'product-container-info-button' : 'product-container-info-button disabled'}
+              disabled={!this.state.inStock}
+              onClick={() => console.log('clicked add to cart button')}
+            >
+              {this.state.inStock ? 'ADD TO CART' : 'OUT OF STOCK'}
+            </button>
             <div className='product-container-info-description' dangerouslySetInnerHTML={this.createMarkup()}></div>
             </div>
           </div>

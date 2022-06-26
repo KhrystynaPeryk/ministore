@@ -2,8 +2,21 @@ import React, {Component} from 'react';
 import './Attributes.scss';
 
 class Attributes extends Component {
+    constructor() {
+        super()
+        this.state = {
+            selectedAttributes: [],
+        }
+        // this.handleAttributeClick = this.handleClick.bind(this);
+    }
 
+    // handleAttributeClick(e) {
+    //     const newAttribute = {
+
+    //     }
+    // }
     render() {
+        //this.props.id
         return (
             <div className='attributes'>
             {this.props.attributes.map((attribute, index) => {
@@ -21,6 +34,16 @@ class Attributes extends Component {
                                                 padding: '2.5%'
                                             } 
                                             : null}
+                                        // onClick={(e) => {
+                                        //     const newAttribute = {
+                                        //         name: attribute.name,
+                                        //         value: item.value
+                                        //     };
+                                        //     this.setState(prevState => ({
+                                        //         selectedAttributes: [...prevState.selectedAttributes, newAttribute]
+                                        //     }))
+                                        //     console.log(this.state.selectedAttributes)
+                                        // }}
                                     >
                                         {item.value[0] === '#' ? null : item.value}
                                     </div>
