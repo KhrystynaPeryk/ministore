@@ -66,6 +66,9 @@ class Attributes extends Component {
                                             }
                                             updateSelectedItemsObj(attribute.name, item.value)
                                             console.log(obj)
+                                            // this.setState({allAttributesSelected: this.props.attributes.length === Object.keys(obj).length});
+                                            // this.props.ifAttributesSelected(this.state.allAttributesSelected);
+                                            this.props.attributesFromUser(obj);
                                         }}
                                     >
                                         {item.value[0] === '#' ? null : item.value}

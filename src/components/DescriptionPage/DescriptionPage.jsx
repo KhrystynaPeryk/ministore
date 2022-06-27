@@ -17,7 +17,8 @@ class DescriptionPage extends Component {
       description: '',
       mainPhoto: '',
       attributes: [],
-      id: ''
+      id: '',
+      selectedAttributes: ''
     }
   }
 
@@ -40,6 +41,23 @@ class DescriptionPage extends Component {
 
   createMarkup() {
     return {__html: this.state.description};
+  }
+
+  pullAttributes(data) {
+    console.log('data from attributes', data)
+    // this.setState({selectedAttributes: data})
+    // console.log(this.state.selectedAttributes)
+    // const dataArray = Object.entries(data).map(([key, value]) => ({ [key]: value }))
+    // console.log(dataArray)
+    // this.setState({selectedAttributes: dataArray})
+  }
+
+  handleOnClick() {
+    // if (this.state.attributes.length === this.state.selectedAttributes.length) {
+    //   console.log('add to cart: ', this.state.selectedAttributes)
+    // } else {
+    //   alert('select all attributes')
+    // }
   }
 
   render() {
@@ -70,7 +88,9 @@ class DescriptionPage extends Component {
             <h2 className='product-container-info-brand'>{this.state.brand}</h2>
             <h2 className='product-container-info-name'>{this.state.name}</h2>
             {this.state.attributes.length === 0 ? null : 
-              <Attributes attributes={this.state.attributes} id={this.state.id}/>}
+              <Attributes attributes={this.state.attributes} id={this.state.id} 
+                attributesFromUser={this.pullAttributes}
+              />}
             <div>
               <div className='product-container-info-price'>PRICE:</div>
               <div>
@@ -86,7 +106,7 @@ class DescriptionPage extends Component {
             </div>
             <button className={this.state.inStock ? 'product-container-info-button' : 'product-container-info-button disabled'}
               disabled={!this.state.inStock}
-              onClick={() => console.log('clicked add to cart button')}
+              onClick={() => this.handleOnClick()}
             >
               {this.state.inStock ? 'ADD TO CART' : 'OUT OF STOCK'}
             </button>
