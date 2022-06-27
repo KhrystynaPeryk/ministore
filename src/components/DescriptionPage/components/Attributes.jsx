@@ -1,22 +1,36 @@
 import React, {Component} from 'react';
 import './Attributes.scss';
 
+//https://stackoverflow.com/questions/69597917/how-to-make-sure-array-has-object-items-only-with-unique-keys
+
 class Attributes extends Component {
     constructor() {
         super()
         this.state = {
-            selectedAttributes: [],
         }
-        // this.handleAttributeClick = this.handleClick.bind(this);
     }
 
-    // handleAttributeClick(e) {
-    //     const newAttribute = {
-
-    //     }
-    // }
     render() {
         //this.props.id
+        // console.log(this.props.attributes)
+        const obj = {};
+        const updateSelectedItemsObj = (key, value) => {
+            obj[key] = value;
+        };
+        const getSiblings = (e) => {
+            let siblings = []; 
+            if(!e.parentNode) {
+                return siblings;
+            }
+            let sibling  = e.parentNode.firstChild;
+            while (sibling) {
+                if (sibling.nodeType === 1 && sibling !== e) {
+                    siblings.push(sibling);
+                }
+                sibling = sibling.nextSibling;
+            }
+            return siblings;
+        }
         return (
             <div className='attributes'>
             {this.props.attributes.map((attribute, index) => {
@@ -26,24 +40,33 @@ class Attributes extends Component {
                         <div className='square-item-container'>
                             {attribute.items.map((item, index1) => {
                                 return (
-                                    <div key={index1} className='square-item' 
+                                    <div key={index1} className='square-item'
                                         style={item.value[0] === '#' ? 
                                             {
                                                 backgroundColor: `${item.value}`,
-                                                border: `1px solid ${item.value}`,
-                                                padding: '2.5%'
+                                                padding: '3%'
                                             } 
-                                            : null}
-                                        // onClick={(e) => {
-                                        //     const newAttribute = {
-                                        //         name: attribute.name,
-                                        //         value: item.value
-                                        //     };
-                                        //     this.setState(prevState => ({
-                                        //         selectedAttributes: [...prevState.selectedAttributes, newAttribute]
-                                        //     }))
-                                        //     console.log(this.state.selectedAttributes)
-                                        // }}
+                                            : null }
+                                        onClick={(e) => {
+                                            const siblingsArray = getSiblings(e.target);
+                                            if (e.target.innerHTML) {
+                                                siblingsArray.forEach(sibling => {
+                                                    if (sibling.classList.contains('clicked-text')) {
+                                                        sibling.classList.remove('clicked-text')
+                                                    }
+                                                })
+                                                e.target.classList.add('clicked-text')
+                                            } else {
+                                                siblingsArray.forEach(sibling => {
+                                                    if (sibling.classList.contains('clicked-swatch')) {
+                                                        sibling.classList.remove('clicked-swatch')
+                                                    }
+                                                })
+                                                e.target.classList.add('clicked-swatch')
+                                            }
+                                            updateSelectedItemsObj(attribute.name, item.value)
+                                            console.log(obj)
+                                        }}
                                     >
                                         {item.value[0] === '#' ? null : item.value}
                                     </div>
