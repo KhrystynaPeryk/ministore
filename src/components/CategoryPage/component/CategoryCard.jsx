@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {ReactComponent as EmptyCart} from '../../../assets/emptyCart.svg'
 import './CategoryCard.scss';
+import { addAttributes, incrementCartCount } from '../../../redux/actions/actions';
+import { fetchParams } from '../../../helpers/fetchParams';
+import { getProduct } from '../../../queries/Queries';
 
 class CategoryCard extends Component {
-    constructor() {
+  constructor() {
     super()
     this.state = {
       emptyCartShown: false,
@@ -18,6 +23,28 @@ class CategoryCard extends Component {
     });
   }
 
+  handleAddToCart = () => {
+    fetch('http://localhost:4000/', fetchParams(getProduct(this.props.id)))
+      .then((response) => response.json())
+      .then((res) => res.data.product.attributes)
+      .then((attributes) => {
+        if (attributes.length === 0) {
+          console.log('attributes array equals zero')
+          const itemToCart = {id: this.props.id, attributes: []}
+          this.props.addAttributes(itemToCart)
+        } else {
+          console.log('attributes array something')
+          console.log(attributes)
+          const firstAttributeArray = [{[attributes[0].name] : attributes[0].items[0].value}]
+          console.log('firstAttributeArray', firstAttributeArray)
+          const itemToCart = {id: this.props.id, attributes: firstAttributeArray}
+          console.log('itemToCart', itemToCart)
+          this.props.addAttributes(itemToCart)
+        }
+        this.props.incrementCartCount()
+    })
+  }
+
   render() {
     return (
         <div 
@@ -28,8 +55,13 @@ class CategoryCard extends Component {
         >
           {
             this.state.emptyCartShown && this.props.inStock && (
-              <div className='card-container-emptyCart' onClick={() => console.log(this.props.id)}>
-                <div className='emptyCart'><EmptyCart /></div>
+              <div className='card-container-emptyCart' onClick={(e) => {
+                e.stopPropagation()
+                this.handleAddToCart()
+              }}>
+                <div className='emptyCart'>
+                  <EmptyCart />
+                  </div>
               </div>
             )
           }
@@ -45,4 +77,14 @@ class CategoryCard extends Component {
   }
 }
 
-export default withRouter(CategoryCard);
+const mapStateToProps = (state) => ({
+  cart: state.cart
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ...bindActionCreators({addAttributes, incrementCartCount}, dispatch)
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CategoryCard));

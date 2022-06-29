@@ -56,19 +56,19 @@ class Navbar extends Component {
             })}
           </ul>
           <div className='navbar-container-logo'>
-            <Link to='/'>
+            <Link to='/ministore'>
               <Logo />
             </Link>
           </div>
           <div className='navbar-container-select'>
             <Select />
             <div className='navbar-container-cart'>
-              <Link to='/cart'>
-                <Cart />
-              </Link>
-              <div className='navbar-container-counter'>
-                <div className='counter'> {this.props.counter} </div>
-              </div>
+              <Cart />
+              {this.props.cart.items.length === 0 ? null : (
+                <div className='navbar-container-counter'>
+                  <div className='counter'> {this.props.counter} </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { fetchParams } from '../../helpers/fetchParams';
 import { getProduct } from '../../queries/Queries';
 // import Attributes from './components/Attributes';
 import { getSiblings } from '../../helpers/getSiblingDOMElements';
-import { addItemAttributes, incrementCartCount, addAttributes } from '../../redux/actions/actions';
+import { incrementCartCount, addAttributes } from '../../redux/actions/actions';
 import { bindActionCreators } from 'redux';
 
 class DescriptionPage extends Component {
