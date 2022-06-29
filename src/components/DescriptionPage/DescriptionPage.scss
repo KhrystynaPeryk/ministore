@@ -54,6 +54,27 @@
                     margin-top: 1%;
                     margin-bottom: 7%;
                 }
+                                .attributes-container {
+                                    margin-bottom: 5%;
+                
+                                    .attributes-container-name {
+                                        font-weight: bolder;
+                                        font-size: small;
+                                        margin-bottom: 0.5%;
+                                    }
+                
+                                    .square-item-container {
+                                        display: flex;
+                                        margin-bottom: 6%;
+                
+                                        // .square-item {
+                                        //     border: 1px solid black;
+                                        //     margin-right: 1.5%;
+                                        //     padding: 1.5% 3%;
+                                        //     font-size: small;
+                                        // }
+                                    }
+                                }
                 .product-container-info-price {
                     font-weight: bolder;
                     font-size: small;
@@ -99,4 +120,16 @@
 .disabled:hover {
     background-color: #5ECE7B !important;
     color: white !important;
+}
+.square-item:hover {
+    cursor: pointer;
+}
+
+.clicked-text {
+    background-color: black;
+    color: white;
+}
+
+.clicked-swatch {
+    box-shadow: 0px 0px 0px 1px #5ECE7B inset;
 }

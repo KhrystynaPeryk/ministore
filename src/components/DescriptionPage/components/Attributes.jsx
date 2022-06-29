@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Attributes.scss';
+import { getSiblings } from '../../../helpers/getSiblingDOMElements';
 
 //https://stackoverflow.com/questions/69597917/how-to-make-sure-array-has-object-items-only-with-unique-keys
 
@@ -7,30 +8,25 @@ class Attributes extends Component {
     constructor() {
         super()
         this.state = {
+            obj: {}
         }
     }
 
     render() {
-        //this.props.id
-        // console.log(this.props.attributes)
         const obj = {};
         const updateSelectedItemsObj = (key, value) => {
+            // const newObj = {[key] : value}
+            // this.setState(
+            //     prev => ({
+            //         obj: {
+            //             ...newObj,
+            //             ...prev.obj,
+            //         }
+            //     })
+            // )
             obj[key] = value;
         };
-        const getSiblings = (e) => {
-            let siblings = []; 
-            if(!e.parentNode) {
-                return siblings;
-            }
-            let sibling  = e.parentNode.firstChild;
-            while (sibling) {
-                if (sibling.nodeType === 1 && sibling !== e) {
-                    siblings.push(sibling);
-                }
-                sibling = sibling.nextSibling;
-            }
-            return siblings;
-        }
+
         return (
             <div className='attributes'>
             {this.props.attributes.map((attribute, index) => {

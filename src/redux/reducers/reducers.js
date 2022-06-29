@@ -2,7 +2,10 @@ import { FETCH_PRODUCTS_ALL,
         FETCH_PRODUCTS_CLOTHES,
         FETCH_PRODUCTS_TECH,
         FETCH_CURRENCY,
-        ERROR_PRODUCTS
+        ERROR_PRODUCTS,
+        ADD_ITEM_FROM_PDP,
+        INCREMENT_CART_COUNT,
+        DECREMENT_CART_COUNT
 } from "../actions/types";
 
 const initialProductsState = {
@@ -54,5 +57,28 @@ export function fetchCurrency(state = initialCurrencyState, action) {
       }
       default:
         return state;
+  }
+}
+
+export function addItemToCartFromPdp(state = {items: []}, action) {
+  switch (action.type) {
+    case ADD_ITEM_FROM_PDP:
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+      }
+    default:
+      return state;
+  }
+}
+
+export function changeCartAmount(state = 0, action) {
+  switch (action.type) {
+    case INCREMENT_CART_COUNT:
+      return state + 1;
+    case DECREMENT_CART_COUNT:
+      return state - 1;
+    default:
+      return state;
   }
 }

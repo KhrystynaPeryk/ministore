@@ -15,7 +15,7 @@ class Navbar extends Component {
     this.state = {
       categories: [],
       currencies: [],
-      activeCategory: 0
+      activeCategory: 0,
     }
   }
   componentDidMount() {
@@ -30,6 +30,9 @@ class Navbar extends Component {
     .then(currencyList => {
       this.setState({ currencies: currencyList.data.currencies });
     });
+
+    console.log('data for cart', this.props.cart.items)
+    this.setState({countCart: this.props.cart.items.length})
   }
 
   render() {
@@ -63,6 +66,7 @@ class Navbar extends Component {
               <Link to='/cart'>
                 <Cart />
               </Link>
+              <div>{this.props.counter}</div>
             </div>
           </div>
         </div>
@@ -73,7 +77,9 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => ({
   products: state.products.products,
-  category: state.products.category
+  category: state.products.category,
+  cart: state.cart,
+  counter: state.counter
   // hasErrored: state.productsHasErrored
 });
 

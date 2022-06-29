@@ -2,7 +2,10 @@ import { FETCH_PRODUCTS_ALL,
         FETCH_PRODUCTS_CLOTHES,
         FETCH_PRODUCTS_TECH,
         FETCH_CURRENCY,
-        ERROR_PRODUCTS
+        ERROR_PRODUCTS,
+        ADD_ITEM_FROM_PDP,
+        INCREMENT_CART_COUNT,
+        DECREMENT_CART_COUNT
 } from "./types";
 
 import { fetchParams } from "../../helpers/fetchParams";
@@ -50,6 +53,28 @@ export const fetchCurrency = currency => {
 //     }
 // }
 
+export const addAttributes = (itemToCart, id) => {
+    return {
+        type: ADD_ITEM_FROM_PDP,
+        payload: {
+            id: id,
+            items: itemToCart
+        }
+    }
+}
+
+export const incrementCartCount = () => {
+    return {
+        type: INCREMENT_CART_COUNT
+    }
+}
+
+export const decrementCartCount = () => {
+    return {
+        type: DECREMENT_CART_COUNT
+    }
+}
+
 export function itemsFetchData(category) {
     return (dispatch) => {
         fetch('http://localhost:4000/', fetchParams(getProducts(category)))
@@ -72,5 +97,11 @@ export function fetchCurrentCurrency(currFromDropdown) {
         if(currFromDropdown) {
             return dispatch(fetchCurrency(currFromDropdown))
         }
+    }
+}
+
+export function addItemAttributes(arrOfAttributes) {
+    return (dispatch) => {
+        return dispatch(addAttributes(arrOfAttributes))
     }
 }

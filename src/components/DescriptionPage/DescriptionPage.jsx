@@ -3,7 +3,10 @@ import './DescriptionPage.scss';
 import { connect } from 'react-redux';
 import { fetchParams } from '../../helpers/fetchParams';
 import { getProduct } from '../../queries/Queries';
-import Attributes from './components/Attributes';
+// import Attributes from './components/Attributes';
+import { getSiblings } from '../../helpers/getSiblingDOMElements';
+import { addItemAttributes, incrementCartCount } from '../../redux/actions/actions';
+import { bindActionCreators } from 'redux';
 
 class DescriptionPage extends Component {
     constructor() {
@@ -18,7 +21,7 @@ class DescriptionPage extends Component {
       mainPhoto: '',
       attributes: [],
       id: '',
-      selectedAttributes: ''
+      removedStyles: false
     }
   }
 
@@ -43,27 +46,23 @@ class DescriptionPage extends Component {
     return {__html: this.state.description};
   }
 
-  pullAttributes(data) {
-    console.log('data from attributes', data)
-    // this.setState({selectedAttributes: data})
-    // console.log(this.state.selectedAttributes)
-    // const dataArray = Object.entries(data).map(([key, value]) => ({ [key]: value }))
-    // console.log(dataArray)
-    // this.setState({selectedAttributes: dataArray})
-  }
-
   handleOnClick() {
-    // if (this.state.attributes.length === this.state.selectedAttributes.length) {
-    //   console.log('add to cart: ', this.state.selectedAttributes)
-    // } else {
-    //   alert('select all attributes')
-    // }
+    if (this.state.attributes.length === this.state.selectedAttributes.length) {
+      console.log('add to cart: ', this.state.selectedAttributes)
+    } else {
+      alert('select all attributes')
+    }
   }
 
   render() {
     const currentCurrency = this.props.currency;
+    const obj = {};
+    const updateSelectedItemsObj = (key, value) => {
+      obj[key] = value;
+    };
     return (
       <div className='product-container-page'>
+        {this.state.allAttributesSelected && 'added to cart'}
         <div className='product-container'>
           <div className='product-container-photos'>
             <div className='all-photos'>
@@ -87,10 +86,61 @@ class DescriptionPage extends Component {
             <div className='product-container-info-wrap'>
             <h2 className='product-container-info-brand'>{this.state.brand}</h2>
             <h2 className='product-container-info-name'>{this.state.name}</h2>
-            {this.state.attributes.length === 0 ? null : 
-              <Attributes attributes={this.state.attributes} id={this.state.id} 
-                attributesFromUser={this.pullAttributes}
-              />}
+            {this.state.attributes.length === 0 ? null : (
+              <div className='attributes'>
+                {this.state.attributes.map((attribute, index) => {
+                    return (
+                        <div key={index} className='attributes-container'>
+                            <div className='attributes-container-name'>{attribute.name.toUpperCase()}:</div>
+                            <div className='square-item-container'>
+                                {attribute.items.map((item, index1) => {
+                                    return (
+                                        <div key={index1} className={this.state.removedStyles ? null : 'square-item'}
+                                            style={item.value[0] === '#' ? 
+                                                {
+                                                    backgroundColor: `${item.value}`,
+                                                    padding: '3%',
+                                                    border: '1px solid black',
+                                                    marginRight: '1.5%',
+                                                    fontSize: 'small',
+                                                } 
+                                                : {
+                                                    border: '1px solid black',
+                                                    marginRight: '1.5%',
+                                                    padding: '1.5% 3%',
+                                                    fontSize: 'small',
+                                                } }
+                                            onClick={(e) => {
+                                                const siblingsArray = getSiblings(e.target);
+                                                if (e.target.innerHTML) {
+                                                    siblingsArray.forEach(sibling => {
+                                                        if (sibling.classList.contains('clicked-text')) {
+                                                            sibling.classList.remove('clicked-text')
+                                                        }
+                                                    })
+                                                    e.target.classList.add('clicked-text')
+                                                } else {
+                                                    siblingsArray.forEach(sibling => {
+                                                        if (sibling.classList.contains('clicked-swatch')) {
+                                                            sibling.classList.remove('clicked-swatch')
+                                                        }
+                                                    })
+                                                    e.target.classList.add('clicked-swatch')
+                                                }
+                                                updateSelectedItemsObj(attribute.name, item.value)
+                                                console.log(obj)
+                                            }}
+                                        >
+                                            {item.value[0] === '#' ? null : item.value}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    )
+                })}
+              </div>
+            )}
             <div>
               <div className='product-container-info-price'>PRICE:</div>
               <div>
@@ -106,7 +156,19 @@ class DescriptionPage extends Component {
             </div>
             <button className={this.state.inStock ? 'product-container-info-button' : 'product-container-info-button disabled'}
               disabled={!this.state.inStock}
-              onClick={() => this.handleOnClick()}
+              onClick={() => {
+                const ArrayFromObj = Object.entries(obj).map(([key, value]) => ({ [key]: value }))
+                if (this.state.attributes.length === ArrayFromObj.length) {
+                  console.log('add to cart: ', ArrayFromObj);
+                  const itemToCart = {id: this.state.id, attributes: ArrayFromObj}
+                  this.props.storeItemInCart(itemToCart)
+                  console.log('props', this.props);
+                  this.props.incrementCartCount()
+                  this.setState({removedStyles: !this.state.removedStyles})
+                } else {
+                  alert('Please, select all attributes')
+                }
+              }}
             >
               {this.state.inStock ? 'ADD TO CART' : 'OUT OF STOCK'}
             </button>
@@ -120,7 +182,16 @@ class DescriptionPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currency: state.currency
+  currency: state.currency,
+  cart: state.cart,
+  counter: state.counter
 });
 
-export default connect(mapStateToProps)(DescriptionPage);
+const mapDispatchToProps = (dispatch) => ({ storeItemInCart: (item) => dispatch(addItemAttributes(item)) });
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     ...bindActionCreators({addItemAttributes, incrementCartCount}, dispatch)
+//   }
+// }
+
+export default connect(mapStateToProps, mapDispatchToProps)(DescriptionPage);
