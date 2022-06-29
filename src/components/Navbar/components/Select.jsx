@@ -26,14 +26,6 @@ class Select extends Component {
     this.setState({isDropdownOpen: !this.state.isDropdownOpen})
   }
 
-  // handleCurrencyChange(e) {
-  //   console.log(this.props)
-  //   const symbol = e.target.innerHTML.split(' ')[0]
-  //   this.props.fetchCurrency(symbol)
-  //   console.log('symbol', symbol)
-  //   // this.setState({currency: e.target.innerHTML.split(' ')[0]})
-  // }
-
   render() {
     return (
         <div className='select-container' onClick={() => this.handleDropdown()}>
@@ -42,7 +34,6 @@ class Select extends Component {
             <div className='select-container-dropdown'>
               {this.state.currencies.map((currency, index) => {
                 return (
-                  // <div className='select-container-dropdown-option' key={index} onClick={(e) => this.handleCurrencyChange(e)}>{currency.symbol} {currency.label}</div>
                 <div className='select-container-dropdown-option' key={index} onClick={() => {
                   this.props.fetchCurrency(currency.symbol)
                 }}>{currency.symbol} {currency.label}</div>

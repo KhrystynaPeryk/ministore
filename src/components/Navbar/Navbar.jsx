@@ -8,6 +8,7 @@ import { fetchParams } from '../../helpers/fetchParams';
 import Select from './components/Select';
 import { connect } from 'react-redux';
 import { itemsFetchData} from '../../redux/actions/actions';
+import CartModal from './components/CartModal';
 
 class Navbar extends Component {
   constructor() {
@@ -16,6 +17,7 @@ class Navbar extends Component {
       categories: [],
       currencies: [],
       activeCategory: 0,
+      isCartModalShown: true
     }
   }
   componentDidMount() {
@@ -62,7 +64,7 @@ class Navbar extends Component {
           </div>
           <div className='navbar-container-select'>
             <Select />
-            <div className='navbar-container-cart'>
+            <div className='navbar-container-cart' onClick={() => this.setState({isCartModalShown : !this.state.isCartModalShown})}>
               <Cart />
               {this.props.cart.items.length === 0 ? null : (
                 <div className='navbar-container-counter'>
@@ -72,6 +74,11 @@ class Navbar extends Component {
             </div>
           </div>
         </div>
+        {this.state.isCartModalShown ? (
+          <div className='cart-modal-container'>
+            <CartModal />
+          </div>
+        ) : null}
       </nav>
     )
   }
@@ -84,9 +91,6 @@ const mapStateToProps = (state) => ({
   counter: state.counter
   // hasErrored: state.productsHasErrored
 });
-
-
-// it will provide us with the actions we need to use in our component so we can dispatch them and change our state
 
 const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
 
