@@ -27,6 +27,29 @@
         .navbar-container-select {
             display: flex;
             align-items: center;
+            .navbar-container-cart {
+                position: relative;
+                .navbar-container-counter {
+                    width: 15px;
+                    height: 15px;;
+                    position: absolute;
+                    top: -20%;
+                    right: -30%;
+                    color: white;
+                    background-color: black;
+                    font-size: xx-small;
+                    border-radius: 50%;
+                    text-align: center;
+                    .counter {
+                        margin: 0;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        -ms-transform: translate(-50%, -50%);
+                        transform: translate(-50%, -55%);
+                    }
+                }
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ import { fetchParams } from '../../helpers/fetchParams';
 import { getProduct } from '../../queries/Queries';
 // import Attributes from './components/Attributes';
 import { getSiblings } from '../../helpers/getSiblingDOMElements';
-import { addItemAttributes, incrementCartCount } from '../../redux/actions/actions';
+import { addItemAttributes, incrementCartCount, addAttributes } from '../../redux/actions/actions';
 import { bindActionCreators } from 'redux';
 
 class DescriptionPage extends Component {
@@ -161,7 +161,7 @@ class DescriptionPage extends Component {
                 if (this.state.attributes.length === ArrayFromObj.length) {
                   console.log('add to cart: ', ArrayFromObj);
                   const itemToCart = {id: this.state.id, attributes: ArrayFromObj}
-                  this.props.storeItemInCart(itemToCart)
+                  this.props.addAttributes(itemToCart)
                   console.log('props', this.props);
                   this.props.incrementCartCount()
                   this.setState({removedStyles: !this.state.removedStyles})
@@ -187,11 +187,11 @@ const mapStateToProps = (state) => ({
   counter: state.counter
 });
 
-const mapDispatchToProps = (dispatch) => ({ storeItemInCart: (item) => dispatch(addItemAttributes(item)) });
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     ...bindActionCreators({addItemAttributes, incrementCartCount}, dispatch)
-//   }
-// }
+// const mapDispatchToProps = (dispatch) => ({ storeItemInCart: (item) => dispatch(addItemAttributes(item)) });
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ...bindActionCreators({addAttributes, incrementCartCount}, dispatch)
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(DescriptionPage);

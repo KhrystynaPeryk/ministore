@@ -1,10 +1,3 @@
-// import { combineReducers } from 'redux';
-// import { fetchProducts, productsHasErrored } from './reducers';
-// export default combineReducers({
-//     fetchProducts,
-//     productsHasErrored
-// });
-
 import { combineReducers } from 'redux';
 import { fetchProducts, fetchCurrency, addItemToCartFromPdp, changeCartAmount } from './reducers';
 

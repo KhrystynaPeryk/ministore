@@ -100,8 +100,8 @@ export function fetchCurrentCurrency(currFromDropdown) {
     }
 }
 
-export function addItemAttributes(arrOfAttributes) {
-    return (dispatch) => {
-        return dispatch(addAttributes(arrOfAttributes))
-    }
-}
+// export function addItemAttributes(arrOfAttributes) {
+//     return (dispatch) => {
+//         return dispatch(addAttributes(arrOfAttributes))
+//     }
+// }

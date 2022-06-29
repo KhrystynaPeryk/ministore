@@ -66,7 +66,9 @@ class Navbar extends Component {
               <Link to='/cart'>
                 <Cart />
               </Link>
-              <div>{this.props.counter}</div>
+              <div className='navbar-container-counter'>
+                <div className='counter'> {this.props.counter} </div>
+              </div>
             </div>
           </div>
         </div>
