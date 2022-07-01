@@ -14,30 +14,28 @@ class CartModalItem extends Component {
     return (
         <div className='modal-item-container'>
           <div className='modal-item-info'>
-            <div>{this.props.brand}</div>
-            <div>{this.props.name}</div>
-            <div>{this.props.currency.currency} {this.props.price}</div>
+            <div className='modal-item-info-brand'>{this.props.brand}</div>
+            <div className='modal-item-info-name'>{this.props.name}</div>
+            <div className='modal-item-info-price' >{this.props.currency.currency} {this.props.price}</div>
             {this.props.allAttributes.length === 0 ? null : (
               this.props.allAttributes.map((attribute, index4) => {
                 return (
                   <div key={index4} className='attributes-container'>
-                    <div className='attributes-container-name'>{attribute.name.toUpperCase()}:</div>
+                    <div className='attributes-container-name'>{attribute.name}:</div>
                     <div className='square-item-container'>
                       {attribute.items.map((item, index3) => {
                         return (
-                          <div key={index3} 
+                          <div key={index3}
                             style={item.value[0] === '#' ?
                               {
                                 backgroundColor: `${item.value}`,
-                                padding: '3%',
+                                padding: '8%',
                                 border: '1px solid black',
-                                marginRight: '1.5%',
-                                fontSize: 'small',
+                                marginRight: '6%',
                               } : {
                                   border: '1px solid black',
-                                  marginRight: '1.5%',
-                                  padding: '1.5% 3%',
-                                  fontSize: 'small',
+                                  marginRight: '6%',
+                                  padding: '2.5% 5%',
                                 }
                             }
                           >
@@ -51,9 +49,11 @@ class CartModalItem extends Component {
               })
             )}
           </div>
-          <div className='modal-item-photos'>
+          <div className='modal-item-photo'>
             <div className='modal-item-controls'>
-
+              <div className='modal-item-controls-square'>+</div>
+              <div></div>
+              <div className='modal-item-controls-square'>-</div>
             </div>
             <img className='photo' alt={this.props.name} src={this.props.photo}></img>
           </div>
@@ -61,62 +61,6 @@ class CartModalItem extends Component {
     )
   }
 }
-
-            //   {this.state.attributes.length === 0 ? null : (
-            //   <div className='attributes'>
-            //     {this.state.attributes.map((attribute, index) => {
-            //         return (
-            //             <div key={index} className='attributes-container'>
-            //                 <div className='attributes-container-name'>{attribute.name.toUpperCase()}:</div>
-            //                 <div className='square-item-container'>
-            //                     {attribute.items.map((item, index1) => {
-            //                         return (
-            //                             <div key={index1} className={this.state.removedStyles ? null : 'square-item'}
-            //                                 style={item.value[0] === '#' ? 
-            //                                     {
-            //                                         backgroundColor: `${item.value}`,
-            //                                         padding: '3%',
-            //                                         border: '1px solid black',
-            //                                         marginRight: '1.5%',
-            //                                         fontSize: 'small',
-            //                                     } 
-            //                                     : {
-            //                                         border: '1px solid black',
-            //                                         marginRight: '1.5%',
-            //                                         padding: '1.5% 3%',
-            //                                         fontSize: 'small',
-            //                                     } }
-            //                                 onClick={(e) => {
-            //                                     const siblingsArray = getSiblings(e.target);
-            //                                     if (e.target.innerHTML) {
-            //                                         siblingsArray.forEach(sibling => {
-            //                                             if (sibling.classList.contains('clicked-text')) {
-            //                                                 sibling.classList.remove('clicked-text')
-            //                                             }
-            //                                         })
-            //                                         e.target.classList.add('clicked-text')
-            //                                     } else {
-            //                                         siblingsArray.forEach(sibling => {
-            //                                             if (sibling.classList.contains('clicked-swatch')) {
-            //                                                 sibling.classList.remove('clicked-swatch')
-            //                                             }
-            //                                         })
-            //                                         e.target.classList.add('clicked-swatch')
-            //                                     }
-            //                                     updateSelectedItemsObj(attribute.name, item.value)
-            //                                     console.log(obj)
-            //                                 }}
-            //                             >
-            //                                 {item.value[0] === '#' ? null : item.value}
-            //                             </div>
-            //                         )
-            //                     })}
-            //                 </div>
-            //             </div>
-            //         )
-            //     })}
-            //   </div>
-            // )}
 
 const mapStateToProps = (state) => ({
   currency: state.currency,
@@ -131,3 +75,53 @@ const mapStateToProps = (state) => ({
 // }
 
 export default connect(mapStateToProps)(CartModalItem);
+
+// to play with
+let cartItems = [
+  {
+    id: 'phone',
+    selectedAttributes: [{Capacity: '512G'}, {Color: '#0000'}]
+  },
+  {
+    id: 'phone',
+    selectedAttributes: [{Capacity: '1T'}, {Color: '#12ee32'}]
+  },
+  {
+    id: 'phone',
+    selectedAttributes: [{Capacity: '512G'}, {Color: '#12ee32'}]
+  },
+  {
+    id: 'phone',
+    selectedAttributes: [{Capacity: '512G'}, {Color: '#0000'}]
+  },
+  {
+    id: 'phone',
+    selectedAttributes: [{Capacity: '512G'}, {Color: '#0000'}]
+  },
+  {
+    id: 'phone',
+    selectedAttributes: [{Capacity: '1T'}, {Color: '#12ee32'}]
+  },
+  {
+    id: 'shoes',
+    selectedAttributes: [{Size: '41'}]
+  },
+    {
+    id: 'shoes',
+    selectedAttributes: [{Size: '41'}]
+  },
+  {
+    id: 'shoes',
+    selectedAttributes: [{Size: '42'}]
+  },
+  {
+    id: 'airpods',
+    selectedAttributes: []
+  }
+]
+
+function modifyArray() {
+  cartItems.map(item => {
+
+  })
+}

@@ -1,16 +1,53 @@
 .modal-item-container {
     display: flex;
     justify-content: space-between;
-    // .modal-item-info {
-    //     font-size: x-small;
-    // }
-    .modal-item-photos {
-        width: 30%;
+    margin-bottom: 10%;
+    .modal-item-info {
+        .modal-item-info-brand {
+            padding: 5% 0;
+        }
+        .modal-item-info-price {
+            font-weight: 600;
+            padding: 8% 0;
+        }
+        .attributes-container {
+            margin-bottom: 5%;
+            .attributes-container-name {
+                font-size: x-small;
+                margin-bottom: 5%;
+            }
+            .square-item-container {
+                display: flex;
+                margin-bottom: 6%;
+            }
+        }
+    }
+    .modal-item-controls {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-right: 3%;
+        .modal-item-controls-square {
+            border: 1px solid black;
+            width: 10px;
+            height: 10px;
+            text-align: center;
+            line-height: 10px;
+        }
+        .modal-item-controls-square:hover {
+            cursor: pointer;
+            color: white;
+            background-color: black;
+        }
+    }
+    .modal-item-photo {
+        width: 45%;
+        display: flex;
         .photo {
         height: 100%;
-        width: 100%;
-        max-width: 100%;
+        width: 90%;
+        max-width: 90%;
         object-fit: contain;
-    }
+        }
     }
 }

@@ -39,6 +39,14 @@ class CartModal extends Component {
                 />
               })}
             </div>
+            <div className='total-container'>
+              <div>Total</div>
+              <div></div>
+            </div>
+            <div className='modal-container-buttons'>
+              <button className='button-bag'>VIEW BAG</button>
+              <button className='button-checkout'>CHECKOUT</button>
+            </div>
           </div>
         </div>
     )

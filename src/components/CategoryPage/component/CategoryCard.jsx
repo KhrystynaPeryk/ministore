@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {ReactComponent as EmptyCart} from '../../../assets/emptyCart.svg'
 import './CategoryCard.scss';
-import { addAttributes, incrementCartCount } from '../../../redux/actions/actions';
+import { addAttributes, incrementCartCount, incrementProductQty } from '../../../redux/actions/actions';
 import { fetchParams } from '../../../helpers/fetchParams';
 import { getProduct } from '../../../queries/Queries';
 import { v4 as uuidv4 } from 'uuid';
@@ -43,29 +43,92 @@ class CategoryCard extends Component {
             brand: this.props.brand,
             allAttributes: attrAndPrices.attributes,
             selectedAttributes: [],
+            qty: 1,
             gallery: this.props.gallery,
             prices: attrAndPrices.prices
           }
           this.props.addAttributes(itemToCart)
         } else {
-          console.log('attributes array something')
-          console.log(attrAndPrices.attributes)
+          // console.log('attributes array something')
+          // console.log(attrAndPrices.attributes)
           const firstAttributeArray = attrAndPrices.attributes.map((attribute) => {
             return {[attribute.name] : attribute.items[0].value}
           })
           console.log('firstAttributeArray', firstAttributeArray)
-          const itemToCart = {
-            id: this.props.id,
-            cartId: uuidv4(),
-            name: this.props.name,
-            brand: this.props.brand,
-            allAttributes: attrAndPrices.attributes,
-            selectedAttributes: firstAttributeArray,
-            gallery: this.props.gallery,
-            prices: attrAndPrices.prices
-          }
-          console.log('itemToCart', itemToCart)
-          this.props.addAttributes(itemToCart)
+
+          if (this.props.cart.items.length === 0) {
+            console.log('when the cart array is empty in the beginning')
+            const itemToCart = {
+                  id: this.props.id,
+                  cartId: uuidv4(),
+                  name: this.props.name,
+                  brand: this.props.brand,
+                  allAttributes: attrAndPrices.attributes,
+                  selectedAttributes: firstAttributeArray,
+                  qty: 1,
+                  gallery: this.props.gallery,
+                  prices: attrAndPrices.prices
+                }
+                console.log('itemToCart', itemToCart)
+                this.props.addAttributes(itemToCart)
+          } else {
+            console.log('when the cart array is NOT empty')
+            this.props.cart.items.forEach(item => {
+            if (item.itemToCart.id === this.props.id) {
+              console.log('if there is the same ID in the cart array')
+              if (JSON.stringify(item.itemToCart.selectedAttributes) === JSON.stringify(firstAttributeArray)) {
+                console.log('if there is the same ID in the array and the same attributes array')
+                const itemToCart = {
+                  id: this.props.id,
+                  cartId: uuidv4(),
+                  name: this.props.name,
+                  brand: this.props.brand,
+                  allAttributes: attrAndPrices.attributes,
+                  selectedAttributes: firstAttributeArray,
+                  qty: 1,
+                  gallery: this.props.gallery,
+                  prices: attrAndPrices.prices
+                }
+                console.log('itemToCart', itemToCart)
+                // this.props.addAttributes(itemToCart)
+
+
+                // logic to increment qty of the products with same attributes
+                this.props.incrementProductQty(itemToCart)
+                console.log(`/////the same id ${this.props.id} with same attributes: ${firstAttributeArray}`)
+              } else {
+                console.log('if there is the same ID but different attributes array')
+                const itemToCart = {
+                  id: this.props.id,
+                  cartId: uuidv4(),
+                  name: this.props.name,
+                  brand: this.props.brand,
+                  allAttributes: attrAndPrices.attributes,
+                  selectedAttributes: firstAttributeArray,
+                  qty: 1,
+                  gallery: this.props.gallery,
+                  prices: attrAndPrices.prices
+                }
+                console.log('itemToCart', itemToCart)
+                this.props.addAttributes(itemToCart)
+              }
+            } else {
+              console.log('if there is no same ID in the cart array')
+              const itemToCart = {
+                id: this.props.id,
+                cartId: uuidv4(),
+                name: this.props.name,
+                brand: this.props.brand,
+                allAttributes: attrAndPrices.attributes,
+                selectedAttributes: firstAttributeArray,
+                qty: 1,
+                gallery: this.props.gallery,
+                prices: attrAndPrices.prices
+              }
+              console.log('itemToCart', itemToCart)
+              this.props.addAttributes(itemToCart)
+            }
+          })}
         }
         this.props.incrementCartCount()
     })
@@ -109,7 +172,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    ...bindActionCreators({addAttributes, incrementCartCount}, dispatch)
+    ...bindActionCreators({addAttributes, incrementCartCount, incrementProductQty}, dispatch)
   }
 }
 

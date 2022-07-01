@@ -1,9 +1,45 @@
 .modal-container {
     position: absolute;
+    background-color: white;
     right: 6%;
     top: 100%;
     font-size: x-small;
     max-width: 20%;
     border: 1px solid black;
     z-index: -2;
+    padding: 0 0.5%;
+    .modal-container-modal {
+        .modal-container-buttons {
+            display: flex;
+            justify-content: space-between;
+            button {
+                border: none;
+                font-family: inherit;
+                font-size: x-small;
+                margin-bottom: 3%;
+                padding: 3% 9%;
+                cursor: pointer;
+            }
+            .button-bag {
+                max-width: 45%;
+                background-color: white;
+                border: 1px solid black;
+            }
+            .button-bag:hover {
+                background-color: black;
+                color: white;
+            }
+            .button-checkout {
+                max-width: 45%;
+                background-color: #5ECE7B;
+                color: white;
+                border: 1px solid #5ECE7B;
+                // overflow: hidden;
+            }
+            .button-checkout:hover {
+                background-color: white;
+                color: #5ECE7B;
+            }
+        }
+    }
 }

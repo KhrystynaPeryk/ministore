@@ -5,7 +5,9 @@ import { FETCH_PRODUCTS_ALL,
         ERROR_PRODUCTS,
         ADD_ITEM_FROM_PDP,
         INCREMENT_CART_COUNT,
-        DECREMENT_CART_COUNT
+        DECREMENT_CART_COUNT,
+        INCREMENT_PRODUCT_QTY,
+        DECREMENT_PRODUCT_QTY
 } from "./types";
 
 import { fetchParams } from "../../helpers/fetchParams";
@@ -71,6 +73,19 @@ export const decrementCartCount = () => {
         type: DECREMENT_CART_COUNT
     }
 }
+
+export const incrementProductQty = (itemToCart) => {
+    return {
+        type: INCREMENT_PRODUCT_QTY,
+        payload: {itemToCart}
+    }
+}
+
+// export const decrementProductQty = () => {
+//     return {
+//         type: DECREMENT_PRODUCT_QTY
+//     }
+// }
 
 export function itemsFetchData(category) {
     return (dispatch) => {

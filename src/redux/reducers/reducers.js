@@ -5,7 +5,9 @@ import { FETCH_PRODUCTS_ALL,
         ERROR_PRODUCTS,
         ADD_ITEM_FROM_PDP,
         INCREMENT_CART_COUNT,
-        DECREMENT_CART_COUNT
+        DECREMENT_CART_COUNT,
+        INCREMENT_PRODUCT_QTY,
+        DECREMENT_PRODUCT_QTY
 } from "../actions/types";
 
 const initialProductsState = {
@@ -67,6 +69,15 @@ export function addItemToCartFromPdp(state = {items: []}, action) {
         ...state,
         items: [...state.items, action.payload],
       }
+    case INCREMENT_PRODUCT_QTY:
+      return {
+        ...state,
+        items : state.items.map((item) => {
+          return {...item, 
+            itemToCart: {...item.itemToCart, qty : item.itemToCart.qty + 1 }
+          }
+        })
+      };
     default:
       return state;
   }
@@ -82,3 +93,20 @@ export function changeCartAmount(state = 0, action) {
       return state;
   }
 }
+
+// export function changeProductQty(state = {qty: 0}, action) {
+//   switch (action.type) {
+//     case INCREMENT_PRODUCT_QTY:
+//       return {
+//         ...state,
+//         qty : state.qty + 1,
+//       };
+//     case DECREMENT_PRODUCT_QTY:
+//       return {
+//         ...state,
+//         qty : state - 1,
+//       }
+//     default:
+//       return state;
+//   }
+// }
