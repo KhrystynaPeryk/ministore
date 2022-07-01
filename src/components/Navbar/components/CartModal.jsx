@@ -21,12 +21,13 @@ class CartModal extends Component {
               <b>My Bag</b>, {this.props.counter} items
             </p>
             <div className='modal-container-items'>
-              {this.props.cart.items.map((item) => {
+              {this.props.cart.items.map((item, index5) => {
                 const priceItem = item.itemToCart.prices.filter(price => {
                   return price.currency.symbol === currentCurrency.currency
                 })
                 const price = priceItem[0].amount
-                return <CartModalItem
+                return <CartModalItem 
+                  key={index5}
                   id={item.itemToCart.id}
                   cartId={item.itemToCart.cartId}
                   name={item.itemToCart.name}
