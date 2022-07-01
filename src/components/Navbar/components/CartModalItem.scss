@@ -1,0 +1,15 @@
+.modal-item-container {
+    display: flex;
+    // .modal-item-info {
+    //     font-size: x-small;
+    // }
+    .modal-item-photos {
+        width: 30%;
+        .photo {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        object-fit: contain;
+    }
+    }
+}

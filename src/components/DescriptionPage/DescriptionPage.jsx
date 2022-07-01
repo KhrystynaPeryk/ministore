@@ -5,8 +5,9 @@ import { fetchParams } from '../../helpers/fetchParams';
 import { getProduct } from '../../queries/Queries';
 // import Attributes from './components/Attributes';
 import { getSiblings } from '../../helpers/getSiblingDOMElements';
-import { incrementCartCount, addAttributes } from '../../redux/actions/actions';
+import { incrementCartCount, addItemAttributes } from '../../redux/actions/actions';
 import { bindActionCreators } from 'redux';
+import { v4 as uuidv4 } from 'uuid';
 
 class DescriptionPage extends Component {
     constructor() {
@@ -160,8 +161,17 @@ class DescriptionPage extends Component {
                 const ArrayFromObj = Object.entries(obj).map(([key, value]) => ({ [key]: value }))
                 if (this.state.attributes.length === ArrayFromObj.length) {
                   console.log('add to cart: ', ArrayFromObj);
-                  const itemToCart = {id: this.state.id, attributes: ArrayFromObj}
-                  this.props.addAttributes(itemToCart)
+                  const itemToCart = {
+                    id: this.state.id,
+                    cartId: uuidv4(),
+                    name: this.state.name,
+                    brand: this.state.brand,
+                    allAttributes: this.state.attributes,
+                    selectedAttributes: ArrayFromObj,
+                    gallery: this.state.gallery,
+                    prices: this.state.prices
+                  }
+                  this.props.addItemAttributes(itemToCart)
                   console.log('props', this.props);
                   this.props.incrementCartCount()
                   this.setState({removedStyles: !this.state.removedStyles})
@@ -190,7 +200,7 @@ const mapStateToProps = (state) => ({
 // const mapDispatchToProps = (dispatch) => ({ storeItemInCart: (item) => dispatch(addItemAttributes(item)) });
 const mapDispatchToProps = (dispatch) => {
   return {
-    ...bindActionCreators({addAttributes, incrementCartCount}, dispatch)
+    ...bindActionCreators({addItemAttributes, incrementCartCount}, dispatch)
   }
 }
 

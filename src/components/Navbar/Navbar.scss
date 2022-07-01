@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: 102;
+    z-index: 1;
     .navbar-container {
         width: 85%;
         display: flex;
@@ -51,10 +51,6 @@
                 }
             }
         }
-    }
-    .cart-modal-container {
-        max-width: 20%;
-        border: 1px solid black;
     }
 }
 

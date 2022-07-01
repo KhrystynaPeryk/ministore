@@ -7,6 +7,7 @@ import './CategoryCard.scss';
 import { addAttributes, incrementCartCount } from '../../../redux/actions/actions';
 import { fetchParams } from '../../../helpers/fetchParams';
 import { getProduct } from '../../../queries/Queries';
+import { v4 as uuidv4 } from 'uuid';
 
 class CategoryCard extends Component {
   constructor() {
@@ -26,18 +27,43 @@ class CategoryCard extends Component {
   handleAddToCart = () => {
     fetch('http://localhost:4000/', fetchParams(getProduct(this.props.id)))
       .then((response) => response.json())
-      .then((res) => res.data.product.attributes)
-      .then((attributes) => {
-        if (attributes.length === 0) {
+      .then((res) => {
+        return {
+          attributes: res.data.product.attributes,
+          prices: res.data.product.prices
+        }
+      })
+      .then((attrAndPrices) => {
+        if (attrAndPrices.attributes.length === 0) {
           console.log('attributes array equals zero')
-          const itemToCart = {id: this.props.id, attributes: []}
+          const itemToCart = {
+            id: this.props.id,
+            cartId: uuidv4(),
+            name: this.props.name,
+            brand: this.props.brand,
+            allAttributes: attrAndPrices.attributes,
+            selectedAttributes: [],
+            gallery: this.props.gallery,
+            prices: attrAndPrices.prices
+          }
           this.props.addAttributes(itemToCart)
         } else {
           console.log('attributes array something')
-          console.log(attributes)
-          const firstAttributeArray = [{[attributes[0].name] : attributes[0].items[0].value}]
+          console.log(attrAndPrices.attributes)
+          const firstAttributeArray = attrAndPrices.attributes.map((attribute) => {
+            return {[attribute.name] : attribute.items[0].value}
+          })
           console.log('firstAttributeArray', firstAttributeArray)
-          const itemToCart = {id: this.props.id, attributes: firstAttributeArray}
+          const itemToCart = {
+            id: this.props.id,
+            cartId: uuidv4(),
+            name: this.props.name,
+            brand: this.props.brand,
+            allAttributes: attrAndPrices.attributes,
+            selectedAttributes: firstAttributeArray,
+            gallery: this.props.gallery,
+            prices: attrAndPrices.prices
+          }
           console.log('itemToCart', itemToCart)
           this.props.addAttributes(itemToCart)
         }

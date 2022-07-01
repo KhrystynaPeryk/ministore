@@ -74,11 +74,7 @@ class Navbar extends Component {
             </div>
           </div>
         </div>
-        {this.state.isCartModalShown ? (
-          <div className='cart-modal-container'>
-            <CartModal />
-          </div>
-        ) : null}
+        {this.state.isCartModalShown ? <CartModal /> : null}
       </nav>
     )
   }

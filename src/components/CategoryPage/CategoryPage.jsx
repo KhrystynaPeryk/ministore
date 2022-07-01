@@ -32,6 +32,7 @@ class CategoryPage extends Component {
                 <div className='cards' key={product.id}>
                   <CategoryCard 
                     image={product.gallery[0]}
+                    gallery={product.gallery}
                     name={product.name}
                     currencySymbol={currentCurrency.currency}
                     price={price}

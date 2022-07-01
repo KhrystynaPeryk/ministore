@@ -53,13 +53,10 @@ export const fetchCurrency = currency => {
 //     }
 // }
 
-export const addAttributes = (itemToCart, id) => {
+export const addAttributes = (itemToCart) => {
     return {
         type: ADD_ITEM_FROM_PDP,
-        payload: {
-            id: id,
-            items: itemToCart
-        }
+        payload: {itemToCart}
     }
 }
 
@@ -100,8 +97,8 @@ export function fetchCurrentCurrency(currFromDropdown) {
     }
 }
 
-// export function addItemAttributes(arrOfAttributes) {
-//     return (dispatch) => {
-//         return dispatch(addAttributes(arrOfAttributes))
-//     }
-// }
+export function addItemAttributes(itemToCart) {
+    return (dispatch) => {
+        return dispatch(addAttributes(itemToCart))
+    }
+}
