@@ -14,6 +14,7 @@ class CartModal extends Component {
 
   render() {
     const currentCurrency = this.props.currency;
+    let totalAmount = 0;
     return (
         <div className='modal-container'>
           <div className='modal-container-modal'>
@@ -42,7 +43,14 @@ class CartModal extends Component {
             </div>
             <div className='total-container'>
               <div>Total</div>
-              <div></div>
+              {this.props.cart.items.forEach((item) => {
+                const priceItem = item.itemToCart.prices.filter(price => {
+                  return price.currency.symbol === currentCurrency.currency
+                })
+                const price = priceItem[0].amount;
+                totalAmount = totalAmount + price * item.itemToCart.qty;
+              })}
+              <div>{currentCurrency.currency}{totalAmount.toFixed(2)}</div>
             </div>
             <div className='modal-container-buttons'>
               <button className='button-bag'>VIEW BAG</button>

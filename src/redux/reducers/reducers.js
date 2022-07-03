@@ -70,6 +70,15 @@ export function addItemToCartFromPdp(state = {items: []}, action) {
         items: [...state.items, action.payload],
       }
     case INCREMENT_PRODUCT_QTY:
+      // come up with a way to compare two arrays of objects regardless of its position in an array
+// function isEqual() {
+//     for (let i = 0; i<arrN.length; i++) {
+//         if (arrN[i] !== arrN2[i])
+//             return false;
+//         return true
+//     }
+// }
+
       const itemId = action.payload.itemToCart.id;
       const itemAttributes = action.payload.itemToCart.selectedAttributes
       return {

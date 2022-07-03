@@ -10,19 +10,86 @@ class CartModalItem extends Component {
   }
 
   render() {
+    let selectedAttributeValue;
     return (
         <div className='modal-item-container'>
           <div className='modal-item-info'>
             <div className='modal-item-info-brand'>{this.props.brand}</div>
             <div className='modal-item-info-name'>{this.props.name}</div>
             <div className='modal-item-info-price' >{this.props.currency.currency} {this.props.price}</div>
-            {this.props.allAttributes.length === 0 ? null : (
+            {/* {this.props.allAttributes.length === 0 ? null : (
               this.props.allAttributes.map((attribute, index4) => {
                 return (
                   <div key={index4} className='attributes-container'>
                     <div className='attributes-container-name'>{attribute.name}:</div>
                     <div className='square-item-container'>
                       {attribute.items.map((item, index3) => {
+                        console.log('single attribute item', item)
+                        return (
+                          <div key={index3}
+                            style={item.value[0] === '#' ?
+                              {
+                                backgroundColor: `${item.value}`,
+                                padding: '8%',
+                                border: '1px solid black',
+                                marginRight: '6%',
+                              } : {
+                                  border: '1px solid black',
+                                  marginRight: '6%',
+                                  padding: '2.5% 5%',
+                                }
+                            }
+                          >
+                            {item.value[0] === '#' ? null : item.value}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              })
+            )} */}
+
+
+
+            {this.props.allAttributes.length === 0 ? null : (
+              this.props.allAttributes.map((attribute, index4) => {
+                return (
+                  <div key={index4} className='attributes-container'>
+                    {this.props.selectedAttributes.forEach((selectedAttribute) => {
+                      let selectedAttributeName = Object.keys(selectedAttribute)[0]
+                      if (selectedAttributeName === attribute.name) {
+                        selectedAttributeValue = Object.values(selectedAttribute)[0]
+                        console.log('name and value', attribute.name, selectedAttributeValue)
+                        return selectedAttributeValue
+                      }
+                    })}
+                    <div className='attributes-container-name'>{attribute.name}:</div>
+                    <div className='square-item-container'>
+                      {attribute.items.map((item, index3) => {
+                        if (item.value === selectedAttributeValue) {
+                          return (
+                            <div key={index3}
+                              style={item.value[0] === '#' ?
+                                {
+                                  backgroundColor: `${item.value}`,
+                                  padding: '8%',
+                                  border: '1px solid black',
+                                  marginRight: '6%',
+                                  boxShadow: '0px 0px 0px 2px #5ECE7B inset'
+                                } : {
+                                    border: '1px solid black',
+                                    marginRight: '6%',
+                                    padding: '2.5% 5%',
+                                    color: 'white',
+                                    backgroundColor: 'black'
+                                  }
+                              }
+                            >
+                              {item.value[0] === '#' ? null : item.value}
+                            </div>                            
+                          )
+                        }
                         return (
                           <div key={index3}
                             style={item.value[0] === '#' ?
@@ -74,53 +141,3 @@ const mapStateToProps = (state) => ({
 // }
 
 export default connect(mapStateToProps)(CartModalItem);
-
-// to play with
-let cartItems = [
-  {
-    id: 'phone',
-    selectedAttributes: [{Capacity: '512G'}, {Color: '#0000'}]
-  },
-  {
-    id: 'phone',
-    selectedAttributes: [{Capacity: '1T'}, {Color: '#12ee32'}]
-  },
-  {
-    id: 'phone',
-    selectedAttributes: [{Capacity: '512G'}, {Color: '#12ee32'}]
-  },
-  {
-    id: 'phone',
-    selectedAttributes: [{Capacity: '512G'}, {Color: '#0000'}]
-  },
-  {
-    id: 'phone',
-    selectedAttributes: [{Capacity: '512G'}, {Color: '#0000'}]
-  },
-  {
-    id: 'phone',
-    selectedAttributes: [{Capacity: '1T'}, {Color: '#12ee32'}]
-  },
-  {
-    id: 'shoes',
-    selectedAttributes: [{Size: '41'}]
-  },
-    {
-    id: 'shoes',
-    selectedAttributes: [{Size: '41'}]
-  },
-  {
-    id: 'shoes',
-    selectedAttributes: [{Size: '42'}]
-  },
-  {
-    id: 'airpods',
-    selectedAttributes: []
-  }
-]
-
-function modifyArray() {
-  cartItems.map(item => {
-
-  })
-}

@@ -40,5 +40,11 @@
                 color: #5ECE7B;
             }
         }
+        .total-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5%;
+            font-weight: bold;
+        }
     }
 }

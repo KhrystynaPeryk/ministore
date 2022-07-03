@@ -3,7 +3,6 @@ import './DescriptionPage.scss';
 import { connect } from 'react-redux';
 import { fetchParams } from '../../helpers/fetchParams';
 import { getProduct } from '../../queries/Queries';
-// import Attributes from './components/Attributes';
 import { getSiblings } from '../../helpers/getSiblingDOMElements';
 import { incrementCartCount, addAttributes, incrementProductQty } from '../../redux/actions/actions';
 import { bindActionCreators } from 'redux';
@@ -57,7 +56,9 @@ class DescriptionPage extends Component {
 
   render() {
     const currentCurrency = this.props.currency;
+    // creating an object to be able to update the same key-attributes with different values
     const obj = {};
+    // creating a function that updates the above object if a user changes the selected attributes
     const updateSelectedItemsObj = (key, value) => {
       obj[key] = value;
     };
@@ -112,6 +113,7 @@ class DescriptionPage extends Component {
                                                     fontSize: 'small',
                                                 } }
                                             onClick={(e) => {
+                                              // a logic below is to check sibling DOM elements of products attributes' values and to change the styles accordingly
                                                 const siblingsArray = getSiblings(e.target);
                                                 if (e.target.innerHTML) {
                                                     siblingsArray.forEach(sibling => {
@@ -158,36 +160,9 @@ class DescriptionPage extends Component {
             <button className={this.state.inStock ? 'product-container-info-button' : 'product-container-info-button disabled'}
               disabled={!this.state.inStock}
               onClick={() => {
+                // creating an array from the object of user's selected attributes
                 const ArrayFromObj = Object.entries(obj).map(([key, value]) => ({ [key]: value }));
-                // const newItemToCart = {
-                //   id: this.state.id,
-                //   cartId: uuidv4(),
-                //   name: this.state.name,
-                //   brand: this.state.brand,
-                //   allAttributes: this.state.attributes,
-                //   selectedAttributes: ArrayFromObj,
-                //   qty: 1,
-                //   gallery: this.state.gallery,
-                //   prices: this.state.prices
-                // }
-                // if (this.props.cart.items.length === 0) {
-                //   console.log('Empty cart - new newItemToCart at once', this.props.id);
-                //   this.props.addAttributes(newItemToCart)
-                //   this.props.incrementCartCount()
-                // } else {
-                //   console.log('Not empty cart - need to see newItemToCart', this.props.id)
-                //   let isPresentInCart = this.props.cart.items.some((item) => {
-                //     return item.itemToCart.id === this.props.id && JSON.stringify(item.itemToCart.selectedAttributes) === JSON.stringify(ArrayFromObj)
-                //   })
-                //   if (isPresentInCart) {
-                //     this.props.incrementCartCount()
-                //     return this.props.incrementProductQty(newItemToCart)
-                //   } else {
-                //     this.props.incrementCartCount()
-                //     this.props.addAttributes(newItemToCart)
-                //   }
-                // }
-
+                //checking if all attributes are selected for a single product
                 if (this.state.attributes.length === ArrayFromObj.length) {
                   const newItemToCart = {
                     id: this.state.id,
@@ -200,15 +175,16 @@ class DescriptionPage extends Component {
                     gallery: this.state.gallery,
                     prices: this.state.prices
                   }
-                  // checking the state cart - it is empty
+                  // checking if the state cart  is empty
                   if (this.props.cart.items.length === 0) {
                     console.log('Empty cart - new newItemToCart at once', this.state.id);
                     this.props.addAttributes(newItemToCart)
                     this.props.incrementCartCount()
                   } else {
-                    // checking the state cart - it is NOT empty
+                    // checking if the state cart is not empty
                     console.log('Not empty cart - need to see newItemToCart', this.state.id)
                     let isPresentInCart = this.props.cart.items.some((item) => {
+                      // checking if there is an item with the same id and the same array of user's selected attributes
                       return item.itemToCart.id === this.state.id && JSON.stringify(item.itemToCart.selectedAttributes) === JSON.stringify(ArrayFromObj)
                     })
                     console.log('isPresentInCart (the same id and selected attributes r same)', isPresentInCart)
@@ -220,30 +196,12 @@ class DescriptionPage extends Component {
                       this.props.addAttributes(newItemToCart)
                     }
                   }
+                  // removing 'selected item
                   this.setState({removedStyles: !this.state.removedStyles})
                 } else {
+                  // if all the attributes of a single product are not selected
                   alert('Please, select all attributes')
                 }
-
-                // if (this.state.attributes.length === ArrayFromObj.length) {
-                //   console.log('add to cart: ', ArrayFromObj);
-                //   const itemToCart = {
-                //     id: this.state.id,
-                //     cartId: uuidv4(),
-                //     name: this.state.name,
-                //     brand: this.state.brand,
-                //     allAttributes: this.state.attributes,
-                //     selectedAttributes: ArrayFromObj,
-                //     gallery: this.state.gallery,
-                //     prices: this.state.prices
-                //   }
-                //   this.props.addItemAttributes(itemToCart)
-                //   console.log('props', this.props);
-                //   this.props.incrementCartCount()
-                //   this.setState({removedStyles: !this.state.removedStyles})
-                // } else {
-                //   alert('Please, select all attributes')
-                // }
               }}
             >
               {this.state.inStock ? 'ADD TO CART' : 'OUT OF STOCK'}
