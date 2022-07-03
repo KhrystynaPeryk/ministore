@@ -10,7 +10,6 @@ class CartModalItem extends Component {
   }
 
   render() {
-    console.log(this.props.allAttributes)
     return (
         <div className='modal-item-container'>
           <div className='modal-item-info'>
@@ -52,7 +51,7 @@ class CartModalItem extends Component {
           <div className='modal-item-photo'>
             <div className='modal-item-controls'>
               <div className='modal-item-controls-square'>+</div>
-              <div></div>
+              <div>{this.props.qty}</div>
               <div className='modal-item-controls-square'>-</div>
             </div>
             <img className='photo' alt={this.props.name} src={this.props.photo}></img>

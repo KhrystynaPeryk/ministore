@@ -26,111 +26,45 @@ class CategoryCard extends Component {
 
   handleAddToCart = () => {
     fetch('http://localhost:4000/', fetchParams(getProduct(this.props.id)))
-      .then((response) => response.json())
-      .then((res) => {
-        return {
-          attributes: res.data.product.attributes,
-          prices: res.data.product.prices
-        }
-      })
-      .then((attrAndPrices) => {
-        if (attrAndPrices.attributes.length === 0) {
-          console.log('attributes array equals zero')
-          const itemToCart = {
-            id: this.props.id,
-            cartId: uuidv4(),
-            name: this.props.name,
-            brand: this.props.brand,
-            allAttributes: attrAndPrices.attributes,
-            selectedAttributes: [],
-            qty: 1,
-            gallery: this.props.gallery,
-            prices: attrAndPrices.prices
-          }
-          this.props.addAttributes(itemToCart)
-        } else {
-          // console.log('attributes array something')
-          // console.log(attrAndPrices.attributes)
-          const firstAttributeArray = attrAndPrices.attributes.map((attribute) => {
-            return {[attribute.name] : attribute.items[0].value}
-          })
-          console.log('firstAttributeArray', firstAttributeArray)
-
-          if (this.props.cart.items.length === 0) {
-            console.log('when the cart array is empty in the beginning')
-            const itemToCart = {
-                  id: this.props.id,
-                  cartId: uuidv4(),
-                  name: this.props.name,
-                  brand: this.props.brand,
-                  allAttributes: attrAndPrices.attributes,
-                  selectedAttributes: firstAttributeArray,
-                  qty: 1,
-                  gallery: this.props.gallery,
-                  prices: attrAndPrices.prices
-                }
-                console.log('itemToCart', itemToCart)
-                this.props.addAttributes(itemToCart)
-          } else {
-            console.log('when the cart array is NOT empty')
-            this.props.cart.items.forEach(item => {
-            if (item.itemToCart.id === this.props.id) {
-              console.log('if there is the same ID in the cart array')
-              if (JSON.stringify(item.itemToCart.selectedAttributes) === JSON.stringify(firstAttributeArray)) {
-                console.log('if there is the same ID in the array and the same attributes array')
-                const itemToCart = {
-                  id: this.props.id,
-                  cartId: uuidv4(),
-                  name: this.props.name,
-                  brand: this.props.brand,
-                  allAttributes: attrAndPrices.attributes,
-                  selectedAttributes: firstAttributeArray,
-                  qty: 1,
-                  gallery: this.props.gallery,
-                  prices: attrAndPrices.prices
-                }
-                console.log('itemToCart', itemToCart)
-                // this.props.addAttributes(itemToCart)
-
-
-                // logic to increment qty of the products with same attributes
-                this.props.incrementProductQty(itemToCart)
-                console.log(`/////the same id ${this.props.id} with same attributes: ${firstAttributeArray}`)
-              } else {
-                console.log('if there is the same ID but different attributes array')
-                const itemToCart = {
-                  id: this.props.id,
-                  cartId: uuidv4(),
-                  name: this.props.name,
-                  brand: this.props.brand,
-                  allAttributes: attrAndPrices.attributes,
-                  selectedAttributes: firstAttributeArray,
-                  qty: 1,
-                  gallery: this.props.gallery,
-                  prices: attrAndPrices.prices
-                }
-                console.log('itemToCart', itemToCart)
-                this.props.addAttributes(itemToCart)
-              }
-            } else {
-              console.log('if there is no same ID in the cart array')
-              const itemToCart = {
-                id: this.props.id,
-                cartId: uuidv4(),
-                name: this.props.name,
-                brand: this.props.brand,
-                allAttributes: attrAndPrices.attributes,
-                selectedAttributes: firstAttributeArray,
-                qty: 1,
-                gallery: this.props.gallery,
-                prices: attrAndPrices.prices
-              }
-              console.log('itemToCart', itemToCart)
-              this.props.addAttributes(itemToCart)
-            }
-          })}
-        }
+    .then((response) => response.json())
+    .then((res) => {
+      return {
+        attributes: res.data.product.attributes,
+        prices: res.data.product.prices
+      }
+    })
+    .then((attrAndPrices) => {
+      const firstAttributeArray = attrAndPrices.attributes.map((attribute) => {
+        return {[attribute.name] : attribute.items[0].value}
+      });
+      const newItemToCart = {
+        id: this.props.id,
+        cartId: uuidv4(),
+        name: this.props.name,
+        brand: this.props.brand,
+        allAttributes: attrAndPrices.attributes,
+        selectedAttributes: firstAttributeArray,
+        qty: 1,
+        gallery: this.props.gallery,
+        prices: attrAndPrices.prices
+      }
+      if (this.props.cart.items.length === 0) {
+        console.log('Empty cart - new newItemToCart at once', this.props.id);
+        this.props.addAttributes(newItemToCart)
         this.props.incrementCartCount()
+      } else {
+        console.log('Not empty cart - need to see newItemToCart', this.props.id)
+        let isPresentInCart = this.props.cart.items.some((item) => {
+          return item.itemToCart.id === this.props.id && JSON.stringify(item.itemToCart.selectedAttributes) === JSON.stringify(firstAttributeArray)
+        })
+        if (isPresentInCart) {
+          this.props.incrementCartCount()
+          return this.props.incrementProductQty(newItemToCart)
+        } else {
+          this.props.incrementCartCount()
+          this.props.addAttributes(newItemToCart)
+        }
+      }
     })
   }
 

@@ -36,6 +36,7 @@ class CartModal extends Component {
                   photo={item.itemToCart.gallery[0]}
                   allAttributes={item.itemToCart.allAttributes}
                   selectedAttributes={item.itemToCart.selectedAttributes}
+                  qty={item.itemToCart.qty}
                 />
               })}
             </div>

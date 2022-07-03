@@ -70,13 +70,20 @@ export function addItemToCartFromPdp(state = {items: []}, action) {
         items: [...state.items, action.payload],
       }
     case INCREMENT_PRODUCT_QTY:
+      const itemId = action.payload.itemToCart.id;
       return {
         ...state,
         items : state.items.map((item) => {
-          return {...item, 
+          const exp = {...item, 
             itemToCart: {...item.itemToCart, qty : item.itemToCart.qty + 1 }
           }
+          return item.itemToCart.id === itemId ? exp : item
         })
+        // items : state.items.forEach((item) => {
+        //   if (item.itemToCart.id === itemId) {
+        //     item.itemToCart.qty = item.itemToCart.qty + 1
+        //   }
+        // })
       };
     default:
       return state;
