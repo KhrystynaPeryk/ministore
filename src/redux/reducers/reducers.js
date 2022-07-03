@@ -71,19 +71,15 @@ export function addItemToCartFromPdp(state = {items: []}, action) {
       }
     case INCREMENT_PRODUCT_QTY:
       const itemId = action.payload.itemToCart.id;
+      const itemAttributes = action.payload.itemToCart.selectedAttributes
       return {
         ...state,
         items : state.items.map((item) => {
           const exp = {...item, 
             itemToCart: {...item.itemToCart, qty : item.itemToCart.qty + 1 }
           }
-          return item.itemToCart.id === itemId ? exp : item
+          return item.itemToCart.id === itemId && JSON.stringify(item.itemToCart.selectedAttributes) === JSON.stringify(itemAttributes) ? exp : item
         })
-        // items : state.items.forEach((item) => {
-        //   if (item.itemToCart.id === itemId) {
-        //     item.itemToCart.qty = item.itemToCart.qty + 1
-        //   }
-        // })
       };
     default:
       return state;
