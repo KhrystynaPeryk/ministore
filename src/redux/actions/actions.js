@@ -3,11 +3,13 @@ import { FETCH_PRODUCTS_ALL,
         FETCH_PRODUCTS_TECH,
         FETCH_CURRENCY,
         ERROR_PRODUCTS,
-        ADD_ITEM_FROM_PDP,
+        ADD_PRODUCT_TO_CART,
         INCREMENT_CART_COUNT,
         DECREMENT_CART_COUNT,
         INCREMENT_PRODUCT_QTY,
-        DECREMENT_PRODUCT_QTY
+        DECREMENT_PRODUCT_QTY,
+        REMOVE_PRODUCT_FROM_CART,
+        IS_MINICART_OPEN
 } from "./types";
 
 import { fetchParams } from "../../helpers/fetchParams";
@@ -55,9 +57,16 @@ export const fetchCurrency = currency => {
 //     }
 // }
 
-export const addAttributes = (itemToCart) => {
+export const addAttributes = itemToCart => {
     return {
-        type: ADD_ITEM_FROM_PDP,
+        type: ADD_PRODUCT_TO_CART,
+        payload: {itemToCart}
+    }
+}
+
+export const removeProduct = itemToCart => {
+    return {
+        type: REMOVE_PRODUCT_FROM_CART,
         payload: {itemToCart}
     }
 }
@@ -74,17 +83,24 @@ export const decrementCartCount = () => {
     }
 }
 
-export const incrementProductQty = (itemToCart) => {
+export const incrementProductQty = itemToCart => {
     return {
         type: INCREMENT_PRODUCT_QTY,
         payload: {itemToCart}
     }
 }
 
-export const decrementProductQty = (itemToCart) => {
+export const decrementProductQty = itemToCart => {
     return {
         type: DECREMENT_PRODUCT_QTY,
         payload: {itemToCart}
+    }
+}
+
+export const isMinicartOpen = bool => {
+    return {
+        type: IS_MINICART_OPEN,
+        payload: bool
     }
 }
 

@@ -47,13 +47,13 @@ class DescriptionPage extends Component {
     return {__html: this.state.description};
   }
 
-  handleOnClick() {
-    if (this.state.attributes.length === this.state.selectedAttributes.length) {
-      console.log('add to cart: ', this.state.selectedAttributes)
-    } else {
-      alert('select all attributes')
-    }
-  }
+  // handleOnClick() {
+  //   if (this.state.attributes.length === this.state.selectedAttributes.length) {
+  //     console.log('add to cart: ', this.state.selectedAttributes)
+  //   } else {
+  //     alert('select all attributes')
+  //   }
+  // }
 
   render() {
     const currentCurrency = this.props.currency;
@@ -64,7 +64,7 @@ class DescriptionPage extends Component {
       obj[key] = value;
     };
     return (
-      <div className='product-container-page'>
+      <div className={this.props.cartModal ? 'product-container-page dim-layer' : 'product-container-page'}>
         {this.state.allAttributesSelected && 'added to cart'}
         <div className='product-container'>
           <div className='product-container-photos'>
@@ -219,7 +219,8 @@ class DescriptionPage extends Component {
 const mapStateToProps = (state) => ({
   currency: state.currency,
   cart: state.cart,
-  counter: state.counter
+  counter: state.counter,
+  cartModal: state.cartModal
 });
 
 // const mapDispatchToProps = (dispatch) => ({ storeItemInCart: (item) => dispatch(addItemAttributes(item)) });

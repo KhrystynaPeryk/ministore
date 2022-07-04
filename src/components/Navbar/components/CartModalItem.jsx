@@ -2,15 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import './CartModalItem.scss';
-import { incrementProductQty, incrementCartCount, decrementProductQty, decrementCartCount } from '../../../redux/actions/actions';
+import { incrementProductQty, incrementCartCount, decrementProductQty, decrementCartCount, removeProduct } from '../../../redux/actions/actions';
 
 class CartModalItem extends Component {
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //   }
-  // }
-
   handlePlus = () => {
     const newItemToCart = {
       id: this.props.id,
@@ -22,13 +16,18 @@ class CartModalItem extends Component {
   }
 
   handleMinus = () => {
-    const thisItemFromCart = {
-      id: this.props.id,
-      selectedAttributes: this.props.selectedAttributes,
-      qty: this.props.qty,
+    if (this.props.qty > 1) {
+      const thisItemFromCart = {
+        id: this.props.id,
+        selectedAttributes: this.props.selectedAttributes,
+        qty: this.props.qty,
+      }
+      this.props.decrementCartCount()
+      this.props.decrementProductQty(thisItemFromCart)
+    } else {
+      this.props.removeProduct(this.props.cartId)
+      this.props.decrementCartCount()
     }
-    this.props.decrementCartCount()
-    this.props.decrementProductQty(thisItemFromCart)
   }
 
   render() {
@@ -47,7 +46,6 @@ class CartModalItem extends Component {
                       let selectedAttributeName = Object.keys(selectedAttribute)[0]
                       if (selectedAttributeName === attribute.name) {
                         selectedAttributeValue = Object.values(selectedAttribute)[0]
-                        console.log('name and value', attribute.name, selectedAttributeValue)
                         return selectedAttributeValue
                       }
                     })}
@@ -105,7 +103,7 @@ class CartModalItem extends Component {
           <div className='modal-item-photo'>
             <div className='modal-item-controls'>
               <div className='modal-item-controls-square' onClick={() => this.handlePlus()}>+</div>
-              <div>{this.props.qty <= 0 ? 'less zero' : this.props.qty}</div>
+              <div>{this.props.qty}</div>
               <div className='modal-item-controls-square' onClick={() => this.handleMinus()}>-</div>
             </div>
             <img className='photo' alt={this.props.name} src={this.props.photo}></img>
@@ -123,7 +121,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    ...bindActionCreators({incrementCartCount, incrementProductQty, decrementCartCount, decrementProductQty}, dispatch)
+    ...bindActionCreators({incrementCartCount, incrementProductQty, decrementCartCount, decrementProductQty, removeProduct}, dispatch)
   }
 }
 

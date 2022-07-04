@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './CategoryPage.scss';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import CategoryCard from './component/CategoryCard';
 import { itemsFetchData } from '../../redux/actions/actions';
 
@@ -8,7 +9,7 @@ import { itemsFetchData } from '../../redux/actions/actions';
 
 class CategoryPage extends Component {
   componentDidMount() {
-    this.props.category ? this.props.fetchData(this.props.category) : this.props.fetchData('all');
+    this.props.category ? this.props.itemsFetchData(this.props.category) : this.props.itemsFetchData('all');
   }
 
   render() {
@@ -17,7 +18,7 @@ class CategoryPage extends Component {
       return <p>Sorry! There was an error loading the items</p>;
     }
     return (
-      <div className='category-page-container'>
+      <div className={this.props.cartModal ? 'category-page-container dim-layer' : 'category-page-container'}>
         <div className='category-container'>
           <h2>Category: {this.props.category.toUpperCase()}</h2>
           <div className='category-container-cards'>
@@ -52,12 +53,18 @@ class CategoryPage extends Component {
 const mapStateToProps = (state) => ({
   products: state.products.products,
   category: state.products.category,
-  currency: state.currency
+  currency: state.currency,
+  cartModal: state.cartModal
   // hasErrored: state.productsHasErrored
 });
 
 // it will provide us with the actions we need to use in our component so we can dispatch them and change our state
 
-const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
+// const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ...bindActionCreators({itemsFetchData}, dispatch)
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryPage);

@@ -8,7 +8,7 @@ import { fetchParams } from '../../helpers/fetchParams';
 import Select from './components/Select';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { itemsFetchData} from '../../redux/actions/actions';
+import { itemsFetchData, isMinicartOpen } from '../../redux/actions/actions';
 import CartModal from './components/CartModal';
 
 class Navbar extends Component {
@@ -62,7 +62,7 @@ class Navbar extends Component {
           </div>
           <div className='navbar-container-select'>
             <Select />
-            <div className='navbar-container-cart' onClick={() => this.setState({isCartModalShown : !this.state.isCartModalShown})}>
+            <div className='navbar-container-cart' onClick={() => this.props.isMinicartOpen(false)}>
               <Cart />
               {this.props.cart.items.length === 0 ? null : (
                 <div className='navbar-container-counter'>
@@ -72,7 +72,7 @@ class Navbar extends Component {
             </div>
           </div>
         </div>
-        {this.state.isCartModalShown ? <CartModal /> : null}
+        {this.props.cartModal ? <CartModal /> : null}
       </nav>
     )
   }
@@ -82,14 +82,15 @@ const mapStateToProps = (state) => ({
   products: state.products.products,
   category: state.products.category,
   cart: state.cart,
-  counter: state.counter
+  counter: state.counter,
+  cartModal: state.cartModal
   // hasErrored: state.productsHasErrored
 });
 
 // const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
 const mapDispatchToProps = (dispatch) => {
     return {
-    ...bindActionCreators({itemsFetchData}, dispatch)
+    ...bindActionCreators({itemsFetchData, isMinicartOpen}, dispatch)
   }
 }
 

@@ -3,11 +3,13 @@ import { FETCH_PRODUCTS_ALL,
         FETCH_PRODUCTS_TECH,
         FETCH_CURRENCY,
         ERROR_PRODUCTS,
-        ADD_ITEM_FROM_PDP,
+        ADD_PRODUCT_TO_CART,
         INCREMENT_CART_COUNT,
         DECREMENT_CART_COUNT,
         INCREMENT_PRODUCT_QTY,
-        DECREMENT_PRODUCT_QTY
+        DECREMENT_PRODUCT_QTY,
+        REMOVE_PRODUCT_FROM_CART,
+        IS_MINICART_OPEN
 } from "../actions/types";
 import { isEqualArraysOfObjs } from "../../helpers/isEqualArrayOfObjs";
 
@@ -61,7 +63,7 @@ export function fetchCurrency(state = {
 
 export function changeCart(state = {items: []}, action) {
   switch (action.type) {
-    case ADD_ITEM_FROM_PDP:
+    case ADD_PRODUCT_TO_CART:
       return {
         ...state,
         items: [...state.items, action.payload],
@@ -89,7 +91,22 @@ export function changeCart(state = {items: []}, action) {
           }
           return item.itemToCart.id === itemIdToDecrement && isEqualArraysOfObjs(item.itemToCart.selectedAttributes, itemAttributesToDecrement) ? exp : item
         })
+      };
+    case REMOVE_PRODUCT_FROM_CART:
+      const itemIdToRemove = action.payload.itemToCart;
+      return {
+        ...state,
+        items : state.items.filter((item) => item.itemToCart.cartId !== itemIdToRemove)
       }
+    default:
+      return state;
+  }
+}
+
+export function isModalOpen( state = false, action) {
+  switch (action.type) {
+    case IS_MINICART_OPEN:
+      return !state;
     default:
       return state;
   }
