@@ -87,7 +87,7 @@ class CategoryCard extends Component {
             )
           }
           <div>
-            <img className='card-container-image' src={this.props.image} alt={this.props.name} />
+            <img className={this.props.cartModal ? 'card-container-image dim-layer-image' : 'card-container-image'} src={this.props.image} alt={this.props.name} />
           </div>
           <div className='card-container-info'>
             <p className='card-container-name'>{this.props.brand} {this.props.name}</p>
@@ -99,7 +99,8 @@ class CategoryCard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  cart: state.cart
+  cart: state.cart,
+  cartModal: state.cartModal
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,7 +1,13 @@
 .category-page-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
+    padding-top: 0.5%;
+    position: relative;
+    top: 7.5%;
+    right: 0;
+    left: 0;
+    bottom: 0;
     .category-container {
         width: 85%;
         h2 {
@@ -10,8 +16,7 @@
         .category-container-cards {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
+            justify-content: space-around;
         }
     }
 }

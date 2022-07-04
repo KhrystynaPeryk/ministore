@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 import CategoryCard from './component/CategoryCard';
 import { itemsFetchData } from '../../redux/actions/actions';
 
-// REDUX - https://medium.com/@stowball/a-dummys-guide-to-redux-and-thunk-in-react-d8904a7005d3
-
 class CategoryPage extends Component {
   componentDidMount() {
     this.props.category ? this.props.itemsFetchData(this.props.category) : this.props.itemsFetchData('all');
