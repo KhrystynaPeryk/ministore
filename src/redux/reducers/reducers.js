@@ -13,7 +13,7 @@ import { isEqualArraysOfObjs } from "../../helpers/isEqualArrayOfObjs";
 
 export function fetchProducts(state = {
   products: [],
-  category: 'all',
+  category: '',
   }, action) {
     switch (action.type) {
       case FETCH_PRODUCTS_ALL:

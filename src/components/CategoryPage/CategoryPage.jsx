@@ -8,7 +8,7 @@ import { itemsFetchData } from '../../redux/actions/actions';
 
 class CategoryPage extends Component {
   componentDidMount() {
-    this.props.fetchData('all');
+    this.props.category ? this.props.fetchData(this.props.category) : this.props.fetchData('all');
   }
 
   render() {
@@ -16,7 +16,6 @@ class CategoryPage extends Component {
     if (this.props.products.length === 0) {
       return <p>Sorry! There was an error loading the items</p>;
     }
-    console.log(this.props)
     return (
       <div className='category-page-container'>
         <div className='category-container'>

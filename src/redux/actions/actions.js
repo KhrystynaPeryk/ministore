@@ -81,11 +81,12 @@ export const incrementProductQty = (itemToCart) => {
     }
 }
 
-// export const decrementProductQty = () => {
-//     return {
-//         type: DECREMENT_PRODUCT_QTY
-//     }
-// }
+export const decrementProductQty = (itemToCart) => {
+    return {
+        type: DECREMENT_PRODUCT_QTY,
+        payload: {itemToCart}
+    }
+}
 
 export function itemsFetchData(category) {
     return (dispatch) => {
@@ -112,8 +113,8 @@ export function fetchCurrentCurrency(currFromDropdown) {
     }
 }
 
-export function addItemAttributes(itemToCart) {
-    return (dispatch) => {
-        return dispatch(addAttributes(itemToCart))
-    }
-}
+// export function addItemAttributes(itemToCart) {
+//     return (dispatch) => {
+//         return dispatch(addAttributes(itemToCart))
+//     }
+// }

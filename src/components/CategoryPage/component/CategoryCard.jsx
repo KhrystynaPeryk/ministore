@@ -49,11 +49,9 @@ class CategoryCard extends Component {
         prices: attrAndPrices.prices
       }
       if (this.props.cart.items.length === 0) {
-        console.log('Empty cart - new newItemToCart at once', this.props.id);
         this.props.addAttributes(newItemToCart)
         this.props.incrementCartCount()
       } else {
-        console.log('Not empty cart - need to see newItemToCart', this.props.id)
         let isPresentInCart = this.props.cart.items.some((item) => {
           return item.itemToCart.id === this.props.id && JSON.stringify(item.itemToCart.selectedAttributes) === JSON.stringify(firstAttributeArray)
         })

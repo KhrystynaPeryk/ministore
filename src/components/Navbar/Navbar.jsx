@@ -7,6 +7,7 @@ import { GET_CATEGORIES, GET_CURRENCIES } from '../../queries/Queries';
 import { fetchParams } from '../../helpers/fetchParams';
 import Select from './components/Select';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { itemsFetchData} from '../../redux/actions/actions';
 import CartModal from './components/CartModal';
 
@@ -32,9 +33,6 @@ class Navbar extends Component {
     .then(currencyList => {
       this.setState({ currencies: currencyList.data.currencies });
     });
-
-    console.log('data for cart', this.props.cart.items)
-    this.setState({countCart: this.props.cart.items.length})
   }
 
   render() {
@@ -47,9 +45,9 @@ class Navbar extends Component {
                 <li 
                   key={index} 
                   className={index === this.state.activeCategory ? 'clicked-category' : ''}
-                  onClick={(e) => {
+                  onClick={() => {
                     this.setState({activeCategory: index})
-                    return this.props.fetchData(category.name)
+                    return this.props.itemsFetchData(category.name)
                   }}
                 >
                   {category.name.toUpperCase()}
@@ -88,8 +86,11 @@ const mapStateToProps = (state) => ({
   // hasErrored: state.productsHasErrored
 });
 
-const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
+// const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
+const mapDispatchToProps = (dispatch) => {
+    return {
+    ...bindActionCreators({itemsFetchData}, dispatch)
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
-
-// https://stackoverflow.com/questions/69014024/how-to-set-style-for-map-item-in-react-js
