@@ -7,6 +7,7 @@ import { getSiblings } from '../../helpers/getSiblingDOMElements';
 import { incrementCartCount, addAttributes, incrementProductQty } from '../../redux/actions/actions';
 import { bindActionCreators } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
+import { isEqualArraysOfObjs } from '../../helpers/isEqualArrayOfObjs';
 
 class DescriptionPage extends Component {
     constructor() {
@@ -185,7 +186,7 @@ class DescriptionPage extends Component {
                     console.log('Not empty cart - need to see newItemToCart', this.state.id)
                     let isPresentInCart = this.props.cart.items.some((item) => {
                       // checking if there is an item with the same id and the same array of user's selected attributes
-                      return item.itemToCart.id === this.state.id && JSON.stringify(item.itemToCart.selectedAttributes) === JSON.stringify(ArrayFromObj)
+                      return item.itemToCart.id === this.state.id && isEqualArraysOfObjs(item.itemToCart.selectedAttributes, ArrayFromObj)
                     })
                     console.log('isPresentInCart (the same id and selected attributes r same)', isPresentInCart)
                     if (isPresentInCart) {

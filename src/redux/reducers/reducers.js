@@ -9,60 +9,57 @@ import { FETCH_PRODUCTS_ALL,
         INCREMENT_PRODUCT_QTY,
         DECREMENT_PRODUCT_QTY
 } from "../actions/types";
+import { isEqualArraysOfObjs } from "../../helpers/isEqualArrayOfObjs";
 
-const initialProductsState = {
+export function fetchProducts(state = {
   products: [],
   category: 'all',
-}
-
-export function fetchProducts(state = initialProductsState, action) {
-  switch (action.type) {
-    case FETCH_PRODUCTS_ALL:
-      return {
-        ...state,
-        products: action.payload,
-        category: 'all',
-      }
-    case FETCH_PRODUCTS_TECH:
-      return {
-        ...state,
-        products: action.payload,
-        category: 'tech'
-      }
-    case FETCH_PRODUCTS_CLOTHES:
-      return {
-        ...state,
-        products: action.payload,
-        category: 'clothes'
-      }
-    // case ERROR_PRODUCTS:
-    //   return {
-    //     ...state,
-    //     products: [],
-    //     category: null
-    //   }
-      default:
-        return state;
+  }, action) {
+    switch (action.type) {
+      case FETCH_PRODUCTS_ALL:
+        return {
+          ...state,
+          products: action.payload,
+          category: 'all',
+        }
+      case FETCH_PRODUCTS_TECH:
+        return {
+          ...state,
+          products: action.payload,
+          category: 'tech'
+        }
+      case FETCH_PRODUCTS_CLOTHES:
+        return {
+          ...state,
+          products: action.payload,
+          category: 'clothes'
+        }
+      // case ERROR_PRODUCTS:
+      //   return {
+      //     ...state,
+      //     products: [],
+      //     category: null
+      //   }
+        default:
+          return state;
     }
 }
 
-const initialCurrencyState = {
+export function fetchCurrency(state = {
   currency: '$',
+  }, action) {
+    switch (action.type) {
+      case FETCH_CURRENCY:
+        return {
+          ...state,
+          currency: action.payload
+        }
+        default:
+          return state;
+    }
 }
 
-export function fetchCurrency(state = initialCurrencyState, action) {
-  switch (action.type) {
-    case FETCH_CURRENCY:
-      return {
-        ...state,
-        currency: action.payload
-      }
-      default:
-        return state;
-  }
-}
-
-export function addItemToCartFromPdp(state = {items: []}, action) {
+export function changeCart(state = {items: []}, action) {
   switch (action.type) {
     case ADD_ITEM_FROM_PDP:
       return {
@@ -70,15 +67,6 @@ export function addItemToCartFromPdp(state = {items: []}, action) {
         items: [...state.items, action.payload],
       }
     case INCREMENT_PRODUCT_QTY:
-      // come up with a way to compare two arrays of objects regardless of its position in an array
-// function isEqual() {
-//     for (let i = 0; i<arrN.length; i++) {
-//         if (arrN[i] !== arrN2[i])
-//             return false;
-//         return true
-//     }
-// }
-
       const itemId = action.payload.itemToCart.id;
       const itemAttributes = action.payload.itemToCart.selectedAttributes
       return {
@@ -87,7 +75,7 @@ export function addItemToCartFromPdp(state = {items: []}, action) {
           const exp = {...item, 
             itemToCart: {...item.itemToCart, qty : item.itemToCart.qty + 1 }
           }
-          return item.itemToCart.id === itemId && JSON.stringify(item.itemToCart.selectedAttributes) === JSON.stringify(itemAttributes) ? exp : item
+          return item.itemToCart.id === itemId && isEqualArraysOfObjs(item.itemToCart.selectedAttributes, itemAttributes) ? exp : item
         })
       };
     default:
@@ -105,20 +93,3 @@ export function changeCartAmount(state = 0, action) {
       return state;
   }
 }
-
-// export function changeProductQty(state = {qty: 0}, action) {
-//   switch (action.type) {
-//     case INCREMENT_PRODUCT_QTY:
-//       return {
-//         ...state,
-//         qty : state.qty + 1,
-//       };
-//     case DECREMENT_PRODUCT_QTY:
-//       return {
-//         ...state,
-//         qty : state - 1,
-//       }
-//     default:
-//       return state;
-//   }
-// }
