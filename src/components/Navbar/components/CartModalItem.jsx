@@ -1,12 +1,34 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import './CartModalItem.scss';
+import { incrementProductQty, incrementCartCount, decrementProductQty, decrementCartCount } from '../../../redux/actions/actions';
 
 class CartModalItem extends Component {
-  constructor() {
-    super()
-    this.state = {
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //   }
+  // }
+
+  handlePlus = () => {
+    const newItemToCart = {
+      id: this.props.id,
+      selectedAttributes: this.props.selectedAttributes,
+      qty: 0,
     }
+    this.props.incrementCartCount()
+    this.props.incrementProductQty(newItemToCart)
+  }
+
+  handleMinus = () => {
+    const thisItemFromCart = {
+      id: this.props.id,
+      selectedAttributes: this.props.selectedAttributes,
+      qty: this.props.qty,
+    }
+    this.props.decrementCartCount()
+    this.props.decrementProductQty(thisItemFromCart)
   }
 
   render() {
@@ -17,41 +39,6 @@ class CartModalItem extends Component {
             <div className='modal-item-info-brand'>{this.props.brand}</div>
             <div className='modal-item-info-name'>{this.props.name}</div>
             <div className='modal-item-info-price' >{this.props.currency.currency} {this.props.price}</div>
-            {/* {this.props.allAttributes.length === 0 ? null : (
-              this.props.allAttributes.map((attribute, index4) => {
-                return (
-                  <div key={index4} className='attributes-container'>
-                    <div className='attributes-container-name'>{attribute.name}:</div>
-                    <div className='square-item-container'>
-                      {attribute.items.map((item, index3) => {
-                        console.log('single attribute item', item)
-                        return (
-                          <div key={index3}
-                            style={item.value[0] === '#' ?
-                              {
-                                backgroundColor: `${item.value}`,
-                                padding: '8%',
-                                border: '1px solid black',
-                                marginRight: '6%',
-                              } : {
-                                  border: '1px solid black',
-                                  marginRight: '6%',
-                                  padding: '2.5% 5%',
-                                }
-                            }
-                          >
-                            {item.value[0] === '#' ? null : item.value}
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                )
-              })
-            )} */}
-
-
-
             {this.props.allAttributes.length === 0 ? null : (
               this.props.allAttributes.map((attribute, index4) => {
                 return (
@@ -117,9 +104,9 @@ class CartModalItem extends Component {
           </div>
           <div className='modal-item-photo'>
             <div className='modal-item-controls'>
-              <div className='modal-item-controls-square'>+</div>
-              <div>{this.props.qty}</div>
-              <div className='modal-item-controls-square'>-</div>
+              <div className='modal-item-controls-square' onClick={() => this.handlePlus()}>+</div>
+              <div>{this.props.qty <= 0 ? 'less zero' : this.props.qty}</div>
+              <div className='modal-item-controls-square' onClick={() => this.handleMinus()}>-</div>
             </div>
             <img className='photo' alt={this.props.name} src={this.props.photo}></img>
           </div>
@@ -134,10 +121,10 @@ const mapStateToProps = (state) => ({
   counter: state.counter
 });
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     ...bindActionCreators({addAttributes, incrementCartCount}, dispatch)
-//   }
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ...bindActionCreators({incrementCartCount, incrementProductQty, decrementCartCount, decrementProductQty}, dispatch)
+  }
+}
 
-export default connect(mapStateToProps)(CartModalItem);
+export default connect(mapStateToProps, mapDispatchToProps)(CartModalItem);

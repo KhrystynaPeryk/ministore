@@ -65,10 +65,10 @@ export function changeCart(state = {items: []}, action) {
       return {
         ...state,
         items: [...state.items, action.payload],
-      }
+      };
     case INCREMENT_PRODUCT_QTY:
       const itemId = action.payload.itemToCart.id;
-      const itemAttributes = action.payload.itemToCart.selectedAttributes
+      const itemAttributes = action.payload.itemToCart.selectedAttributes;
       return {
         ...state,
         items : state.items.map((item) => {
@@ -78,6 +78,18 @@ export function changeCart(state = {items: []}, action) {
           return item.itemToCart.id === itemId && isEqualArraysOfObjs(item.itemToCart.selectedAttributes, itemAttributes) ? exp : item
         })
       };
+    case DECREMENT_PRODUCT_QTY:
+      const itemIdToDecrement = action.payload.itemToCart.id;
+      const itemAttributesToDecrement = action.payload.itemToCart.selectedAttributes;
+      return {
+        ...state,
+        items : state.items.map((item) => {
+          const exp = {...item, 
+            itemToCart: {...item.itemToCart, qty : item.itemToCart.qty - 1 }
+          }
+          return item.itemToCart.id === itemIdToDecrement && isEqualArraysOfObjs(item.itemToCart.selectedAttributes, itemAttributesToDecrement) ? exp : item
+        })
+      }
     default:
       return state;
   }

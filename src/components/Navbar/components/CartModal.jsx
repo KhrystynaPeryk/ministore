@@ -6,11 +6,11 @@ import { addAttributes, incrementCartCount } from '../../../redux/actions/action
 import CartModalItem from './CartModalItem';
 
 class CartModal extends Component {
-  constructor() {
-    super()
-    this.state = {
-    }
-  }
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //   }
+  // }
 
   render() {
     const currentCurrency = this.props.currency;
