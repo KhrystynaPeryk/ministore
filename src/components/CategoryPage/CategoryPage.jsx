@@ -3,7 +3,7 @@ import './CategoryPage.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CategoryCard from './component/CategoryCard';
-import { itemsFetchData } from '../../redux/actions/actions';
+import { itemsFetchData, isMinicartOpen } from '../../redux/actions/actions';
 
 class CategoryPage extends Component {
   componentDidMount() {
@@ -13,7 +13,12 @@ class CategoryPage extends Component {
   render() {
     const currentCurrency = this.props.currency;
     if (this.props.products.length === 0) {
-      return <p>Sorry! There was an error loading the items</p>;
+      return (
+        <div className='error-container'>
+          <h3 className='error-message'>Loading the items...</h3>
+          <div className='error-loader'></div>
+        </div>
+      )
     }
     return (
       <div className={this.props.cartModal ? 'category-page-container dim-layer' : 'category-page-container'}>
@@ -61,7 +66,7 @@ const mapStateToProps = (state) => ({
 // const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
 const mapDispatchToProps = (dispatch) => {
   return {
-    ...bindActionCreators({itemsFetchData}, dispatch)
+    ...bindActionCreators({itemsFetchData, isMinicartOpen}, dispatch)
   }
 }
 
