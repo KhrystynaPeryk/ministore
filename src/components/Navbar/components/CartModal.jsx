@@ -1,14 +1,32 @@
 import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './CartModal.scss';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addAttributes, incrementCartCount } from '../../../redux/actions/actions';
+// import { addAttributes, incrementCartCount } from '../../../redux/actions/actions';
 import CartModalItem from './CartModalItem';
 
 class CartModal extends Component {
+  constructor() {
+    super()
+    this.state = {
+      redirectToCart: false,
+    }
+  }
+  redirectToCart = () => {
+    this.setState({redirectToCart : !this.state.redirectToCart})
+    // this.props.history.push({
+    //   pathname: `/ministore/cart`
+    // });
+  }
+
   render() {
     const currentCurrency = this.props.currency;
     let totalAmount = 0;
+    if (this.state.redirectToCart) {
+      return <Redirect to={{pathname: '/ministore/cart'}}/>
+    }
     return (
         <div className='modal-container'>
           <div className='modal-container-modal'>
@@ -47,7 +65,7 @@ class CartModal extends Component {
               <div>{currentCurrency.currency}{totalAmount.toFixed(2)}</div>
             </div>
             <div className='modal-container-buttons'>
-              <button className='button-bag'>VIEW BAG</button>
+              <button className='button-bag' onClick={() => this.redirectToCart()}>VIEW BAG</button>
               <button className='button-checkout'>CHECKOUT</button>
             </div>
           </div>
@@ -68,4 +86,4 @@ const mapStateToProps = (state) => ({
 //   }
 // }
 
-export default connect(mapStateToProps)(CartModal);
+export default withRouter(connect(mapStateToProps)(CartModal));

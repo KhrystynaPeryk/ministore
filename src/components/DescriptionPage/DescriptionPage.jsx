@@ -30,7 +30,6 @@ class DescriptionPage extends Component {
     fetch('http://localhost:4000/', fetchParams(getProduct(this.props.location.state.id)))
     .then((response) => response.json())
     .then((res) => {
-      console.log(res.data.product.prices)
       this.setState({brand: res.data.product.brand})
       this.setState({name: res.data.product.name})
       this.setState({gallery: res.data.product.gallery})
@@ -46,14 +45,6 @@ class DescriptionPage extends Component {
   createMarkup() {
     return {__html: this.state.description};
   }
-
-  // handleOnClick() {
-  //   if (this.state.attributes.length === this.state.selectedAttributes.length) {
-  //     console.log('add to cart: ', this.state.selectedAttributes)
-  //   } else {
-  //     alert('select all attributes')
-  //   }
-  // }
 
   render() {
     const currentCurrency = this.props.currency;
@@ -73,7 +64,7 @@ class DescriptionPage extends Component {
                 return (
                   <div key={index} className='all-photos-container'>
                     <img 
-                      className='all-photos-photo'
+                      className={this.props.cartModal ? 'all-photos-photo dim-layer-image' : 'all-photos-photo'}
                       src={photo} alt={this.state.name + index}
                       onClick={() => this.setState({mainPhoto: photo})}>
                     </img>
@@ -82,7 +73,7 @@ class DescriptionPage extends Component {
               })}
             </div>
             <div className='main-photo-container'>
-              <img className='main-photo-photo' src={this.state.mainPhoto} alt={this.state.name}></img>
+              <img className={this.props.cartModal ? 'main-photo-photo dim-layer-image' : 'main-photo-photo'} src={this.state.mainPhoto} alt={this.state.name}></img>
             </div>
           </div>
           <div className='product-container-info'>

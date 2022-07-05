@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-// import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import {Route, Switch, Redirect } from 'react-router-dom';
 import './App.scss';
 
 import Navbar from './components/Navbar/Navbar';
@@ -12,15 +11,13 @@ class App extends Component {
   render() {
     return (
       <div className='main-container'>
-          <Navbar />
-          <Router>
-            <Switch>
-              <Route exact path='/' render={() => (<Redirect to='/ministore' />)} />
-              <Route exact path='/ministore' component={CategoryPage} />
-              <Route exact path='/ministore/product' component={DescriptionPage} />
-              <Route exact path='/cart' component={CartPage} />
-            </Switch>
-          </Router>
+        <Navbar />
+          <Switch>
+            <Route exact path='/' render={() => (<Redirect to='/ministore' />)} />
+            <Route exact path='/ministore' component={CategoryPage} />
+            <Route exact path='/ministore/product' component={DescriptionPage} />
+            <Route exact path='/ministore/cart' component={CartPage} />
+          </Switch>
       </div>
     )
   }
