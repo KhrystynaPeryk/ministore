@@ -3,9 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import './CartModal.scss';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import CartModalItem from './CartModalItem';
-import { isMinicartOpen } from '../../../redux/actions/actions';
 
 class CartModal extends Component {
   constructor() {

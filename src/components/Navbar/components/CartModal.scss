@@ -7,6 +7,8 @@
     width: 230px;
     z-index: -2;
     padding: 0 0.5%;
+    height: 92vh;
+    overflow: auto;
     .modal-container-modal {
         .modal-container-buttons {
             display: flex;
@@ -47,4 +49,17 @@
             font-weight: bold;
         }
     }
+}
+
+.modal-container::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+    background: #E5E5E5;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+    background-color: #5ECE7B;
 }

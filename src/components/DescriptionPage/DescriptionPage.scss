@@ -124,3 +124,29 @@
 .clicked-swatch {
     box-shadow: 0px 0px 0px 1px #5ECE7B inset;
 }
+
+.all-photos::-webkit-scrollbar, .product-container-info::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.all-photos::-webkit-scrollbar-track, .product-container-info::-webkit-scrollbar-track{
+    background: #E5E5E5;
+}
+
+.all-photos::-webkit-scrollbar-thumb, .product-container-info::-webkit-scrollbar-thumb {
+    background-color: #5ECE7B;
+}
+
+// .product-container-info::-webkit-scrollbar {
+//     width: 5px;
+//     height: 5px;
+// }
+
+// .product-container-info::-webkit-scrollbar-track {
+//     background: #E5E5E5;
+// }
+
+// .product-container-info::-webkit-scrollbar-thumb {
+//     background-color: #5ECE7B;
+// }
