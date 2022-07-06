@@ -5,30 +5,58 @@ import { bindActionCreators } from 'redux';
 import { incrementProductQty, incrementCartCount, decrementProductQty, decrementCartCount, removeProduct } from '../../../redux/actions/actions';
 
 class CartPageItem extends Component {
-  handlePlus = () => {
-    const newItemToCart = {
-      id: this.props.id,
-      selectedAttributes: this.props.selectedAttributes,
-      qty: 0,
+    constructor() {
+        super()
+        this.state = {
+            lengthOfPhotos: 0,
+            currentPhotoIndex: 0
+        }
     }
-    this.props.incrementCartCount()
-    this.props.incrementProductQty(newItemToCart)
-  }
+    componentDidMount = () => {
+        this.setState({currentPhotoIndex: 0})
+        this.setState({lengthOfPhotos: this.props.photos.length})
+    }
 
-  handleMinus = () => {
-    if (this.props.qty > 1) {
-      const thisItemFromCart = {
-        id: this.props.id,
-        selectedAttributes: this.props.selectedAttributes,
-        qty: this.props.qty,
-      }
-      this.props.decrementCartCount()
-      this.props.decrementProductQty(thisItemFromCart)
-    } else {
-      this.props.removeProduct(this.props.cartId)
-      this.props.decrementCartCount()
+    changeToNextPhoto = () => {
+        if (this.state.currentPhotoIndex === this.state.lengthOfPhotos - 1) {
+            this.setState({currentPhotoIndex: 0})
+        } else {
+            this.setState({currentPhotoIndex: this.state.currentPhotoIndex + 1})
+        }
     }
-  }
+
+    changeToPreviousPhoto = () => {
+        if (this.state.currentPhotoIndex === 0) {
+            this.setState({currentPhotoIndex: this.state.lengthOfPhotos - 1})
+        } else {
+            this.setState({currentPhotoIndex: this.state.currentPhotoIndex - 1})
+        }
+    }
+
+    handlePlus = () => {
+        const newItemToCart = {
+            id: this.props.id,
+            selectedAttributes: this.props.selectedAttributes,
+            qty: 0,
+        }
+        this.props.incrementCartCount()
+        this.props.incrementProductQty(newItemToCart)
+    }
+
+    handleMinus = () => {
+        if (this.props.qty > 1) {
+            const thisItemFromCart = {
+                id: this.props.id,
+                selectedAttributes: this.props.selectedAttributes,
+                qty: this.props.qty,
+            }
+            this.props.decrementCartCount()
+            this.props.decrementProductQty(thisItemFromCart)
+        } else {
+            this.props.removeProduct(this.props.cartId)
+            this.props.decrementCartCount()
+        }
+    }
 
   render() {
     let selectedAttributeValue;
@@ -106,11 +134,13 @@ class CartPageItem extends Component {
                     <div>{this.props.qty}</div>
                     <div className='cart-item-controls-square' onClick={() => this.handleMinus()}>-</div>
                 </div>
-                <img className='cart-photo' alt={this.props.name} src={this.props.photos[0]}></img>
-                <div className='cart-item-photo-arrows'>
-                    <div className='cart-item-photo-arrows-square'>&#60;</div>
-                    <div className='cart-item-photo-arrows-square'>&#62;</div>
-                </div>
+                <img className='cart-photo' alt={this.props.name} src={this.props.photos[this.state.currentPhotoIndex]}></img>
+                {this.state.lengthOfPhotos === 1 ? null : (
+                    <div className='cart-item-photo-arrows'>
+                        <div className='cart-item-photo-arrows-square' onClick={() => this.changeToPreviousPhoto()}>&#60;</div>
+                        <div className='cart-item-photo-arrows-square' onClick={() => this.changeToNextPhoto()}>&#62;</div>
+                    </div>
+                )}
             </div>
         </div>
     )
