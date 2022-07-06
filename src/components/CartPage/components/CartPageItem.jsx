@@ -106,7 +106,11 @@ class CartPageItem extends Component {
                     <div>{this.props.qty}</div>
                     <div className='cart-item-controls-square' onClick={() => this.handleMinus()}>-</div>
                 </div>
-                <img className='cart-photo' alt={this.props.name} src={this.props.photo}></img>
+                <img className='cart-photo' alt={this.props.name} src={this.props.photos[0]}></img>
+                <div className='cart-item-photo-arrows'>
+                    <div className='cart-item-photo-arrows-square'>&#60;</div>
+                    <div className='cart-item-photo-arrows-square'>&#62;</div>
+                </div>
             </div>
         </div>
     )

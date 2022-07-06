@@ -30,7 +30,7 @@ class CartPage extends Component {
                   name={item.itemToCart.name}
                   brand={item.itemToCart.brand}
                   price={price}
-                  photo={item.itemToCart.gallery[0]}
+                  photos={item.itemToCart.gallery}
                   allAttributes={item.itemToCart.allAttributes}
                   selectedAttributes={item.itemToCart.selectedAttributes}
                   qty={item.itemToCart.qty}
