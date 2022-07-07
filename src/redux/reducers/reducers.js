@@ -2,7 +2,6 @@ import { FETCH_PRODUCTS_ALL,
         FETCH_PRODUCTS_CLOTHES,
         FETCH_PRODUCTS_TECH,
         FETCH_CURRENCY,
-        ERROR_PRODUCTS,
         ADD_PRODUCT_TO_CART,
         INCREMENT_CART_COUNT,
         DECREMENT_CART_COUNT,
@@ -37,12 +36,6 @@ export function fetchProducts(state = {
           products: action.payload,
           category: 'clothes'
         }
-      // case ERROR_PRODUCTS:
-      //   return {
-      //     ...state,
-      //     products: [],
-      //     category: null
-      //   }
         default:
           return state;
     }

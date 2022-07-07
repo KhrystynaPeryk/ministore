@@ -20,28 +20,5 @@ code {
 
 .dim-layer-image {
   opacity: 0.7;
+  z-index: -1;
 }
-
-// body {
-//   scrollbar-width: thin;
-//   scrollbar-color: #5ECE7B grey;
-// }
-
-// body::-webkit-scrollbar {
-//   width: 12px;
-//   /* width of the entire scrollbar */
-// }
-
-// body::-webkit-scrollbar-track {
-//   background: orange;
-//   /* color of the tracking area */
-// }
-
-// body::-webkit-scrollbar-thumb {
-//   background-color: blue;
-//   /* color of the scroll thumb */
-//   border-radius: 20px;
-//   /* roundness of the scroll thumb */
-//   border: 3px solid orange;
-//   /* creates padding around scroll thumb */
-// }

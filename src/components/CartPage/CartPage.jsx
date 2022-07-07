@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import CartPageItem from './components/CartPageItem';
 
-// import { bindActionCreators } from 'redux';
-
 class CartPage extends Component {
   render() {
     const currentCurrency = this.props.currency;
     let totalAmount = 0;
     return (
-      <div className='cart-container'>
+      <div className={this.props.cartModal ? 'cart-container dim-layer' : 'cart-container'}>
         <div className='cart-container-cart'>
           <h2 className='cart-container-title'>CART</h2>
           {this.props.cart.items.length === 0 ? (
@@ -67,11 +65,5 @@ const mapStateToProps = (state) => ({
   counter: state.counter,
   cartModal: state.cartModal
 });
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//     ...bindActionCreators({}, dispatch)
-//   }
-// }
 
 export default withRouter(connect(mapStateToProps)(CartPage));

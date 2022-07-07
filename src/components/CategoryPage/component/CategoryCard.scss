@@ -1,7 +1,6 @@
 .card-container {
     height: 280px;
     width: 250px;
-    // margin: 0 10%;
     position: relative;
     cursor: pointer;
     .card-container-emptyCart {
@@ -12,6 +11,7 @@
         border-radius: 50%;
         height: 40px;
         width: 40px;
+        z-index: 1;
         .emptyCart {
             margin-top: 15%;
             margin-left: 15%;
@@ -24,7 +24,6 @@
         margin: 5%;
         max-width: 100%;
         object-fit: contain;
-        z-index: -1;
     }
     .card-container-info {
         margin-left: 5%;
@@ -42,9 +41,14 @@
     box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
 }
 
-.disabledCard {
+.disabledCard::before {
     opacity: 0.5;
-    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
 }
 
 .disabledCard::after {

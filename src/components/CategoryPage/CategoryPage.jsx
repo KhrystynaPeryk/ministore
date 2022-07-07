@@ -58,12 +58,8 @@ const mapStateToProps = (state) => ({
   category: state.products.category,
   currency: state.currency,
   cartModal: state.cartModal
-  // hasErrored: state.productsHasErrored
 });
 
-// it will provide us with the actions we need to use in our component so we can dispatch them and change our state
-
-// const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
 const mapDispatchToProps = (dispatch) => {
   return {
     ...bindActionCreators({itemsFetchData, openMinicart, closeMinicart}, dispatch)

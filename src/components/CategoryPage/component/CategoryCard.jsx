@@ -24,6 +24,13 @@ class CategoryCard extends Component {
     });
   }
 
+  changingOpacityForOutOfStock = () => {
+    if (!this.props.inStock && !this.props.cartModal) {
+      return {'opacity': '0.5'}
+    } 
+    return null
+  }
+
   handleAddToCart = () => {
     fetch('http://localhost:4000/', fetchParams(getProduct(this.props.id)))
     .then((response) => response.json())
@@ -70,6 +77,7 @@ class CategoryCard extends Component {
     return (
         <div 
           className={this.props.inStock ? 'card-container' : 'card-container disabledCard'}
+          style={this.changingOpacityForOutOfStock()}
           onMouseEnter={() => this.setState({emptyCartShown: true})}
           onMouseLeave={() => this.setState({emptyCartShown: false})}
           onClick={() => this.handleClick({ id: this.props.id })}
@@ -82,7 +90,7 @@ class CategoryCard extends Component {
               }}>
                 <div className='emptyCart'>
                   <EmptyCart />
-                  </div>
+                </div>
               </div>
             )
           }
