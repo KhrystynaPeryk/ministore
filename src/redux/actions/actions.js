@@ -2,7 +2,6 @@ import { FETCH_PRODUCTS_ALL,
         FETCH_PRODUCTS_CLOTHES,
         FETCH_PRODUCTS_TECH,
         FETCH_CURRENCY,
-        ERROR_PRODUCTS,
         ADD_PRODUCT_TO_CART,
         INCREMENT_CART_COUNT,
         DECREMENT_CART_COUNT,
@@ -84,7 +83,6 @@ export const decrementProductQty = itemToCart => {
     }
 }
 
-//cart modal
 export const openMinicart = () => {
     return {
         type: OPEN_MINICART
@@ -110,7 +108,6 @@ export function itemsFetchData(category) {
                 return dispatch(fetchClothesProducts(productList.data.category.products)) 
             }
         })
-        // .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
 
@@ -121,9 +118,3 @@ export function fetchCurrentCurrency(currFromDropdown) {
         }
     }
 }
-
-// export function addItemAttributes(itemToCart) {
-//     return (dispatch) => {
-//         return dispatch(addAttributes(itemToCart))
-//     }
-// }
