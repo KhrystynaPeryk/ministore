@@ -6,9 +6,9 @@
     font-size: x-small;
     width: 230px;
     z-index: -2;
-    padding: 0 0.5%;
-    height: 92vh;
-    overflow: auto;
+    padding: 0 1%;
+    max-height: 100vh;
+    overflow-y: auto;
     .modal-container-modal {
         .modal-container-buttons {
             display: flex;
