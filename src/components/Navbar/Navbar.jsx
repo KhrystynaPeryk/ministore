@@ -8,7 +8,7 @@ import { fetchParams } from '../../helpers/fetchParams';
 import Select from './components/Select';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { itemsFetchData, isMinicartOpen } from '../../redux/actions/actions';
+import { itemsFetchData, openMinicart, closeMinicart } from '../../redux/actions/actions';
 import CartModal from './components/CartModal';
 
 class Navbar extends Component {
@@ -33,6 +33,13 @@ class Navbar extends Component {
     .then(currencyList => {
       this.setState({ currencies: currencyList.data.currencies });
     });
+  }
+
+  handleMiniCartModal = () => {
+    if (this.props.cartModal) {
+      return this.props.closeMinicart()
+    }
+    return this.props.openMinicart()
   }
 
   render() {
@@ -62,7 +69,7 @@ class Navbar extends Component {
           </div>
           <div className='navbar-container-select'>
             <Select />
-            <div className='navbar-container-cart' onClick={() => this.props.isMinicartOpen(false)}>
+            <div className='navbar-container-cart' onClick={() => this.handleMiniCartModal()}>
               <Cart />
               {this.props.cart.items.length === 0 ? null : (
                 <div className='navbar-container-counter'>
@@ -90,7 +97,7 @@ const mapStateToProps = (state) => ({
 // const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
 const mapDispatchToProps = (dispatch) => {
     return {
-    ...bindActionCreators({itemsFetchData, isMinicartOpen}, dispatch)
+    ...bindActionCreators({itemsFetchData, openMinicart, closeMinicart}, dispatch)
   }
 }
 

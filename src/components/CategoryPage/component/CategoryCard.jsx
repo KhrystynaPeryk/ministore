@@ -19,7 +19,7 @@ class CategoryCard extends Component {
 
   handleClick = (param) => {
     this.props.history.push({
-      pathname: `/ministore/product`,
+      pathname: `/ministore/product/${this.props.id}`,
       state: param
     });
   }

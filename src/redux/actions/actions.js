@@ -9,18 +9,12 @@ import { FETCH_PRODUCTS_ALL,
         INCREMENT_PRODUCT_QTY,
         DECREMENT_PRODUCT_QTY,
         REMOVE_PRODUCT_FROM_CART,
-        IS_MINICART_OPEN
+        OPEN_MINICART,
+        CLOSE_MINICART
 } from "./types";
 
 import { fetchParams } from "../../helpers/fetchParams";
 import { getProducts } from "../../queries/Queries";
-
-// export function productsHasErrored(bool) {
-//     return {
-//         type: ERROR_PRODUCTS,
-//         hasErrored: bool
-//     };
-// }
 
 export const fetchAllProducts = products => {
     return {
@@ -49,13 +43,6 @@ export const fetchCurrency = currency => {
         payload: currency,
     }
 }
-
-// export const productsHasErrored = error => {
-//     return {
-//         type: ERROR_PRODUCTS,
-//         payload: { error }
-//     }
-// }
 
 export const addAttributes = itemToCart => {
     return {
@@ -97,10 +84,16 @@ export const decrementProductQty = itemToCart => {
     }
 }
 
-export const isMinicartOpen = bool => {
+//cart modal
+export const openMinicart = () => {
     return {
-        type: IS_MINICART_OPEN,
-        payload: bool
+        type: OPEN_MINICART
+    }
+}
+
+export const closeMinicart = () => {
+    return {
+        type: CLOSE_MINICART
     }
 }
 

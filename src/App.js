@@ -15,7 +15,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' render={() => (<Redirect to='/ministore' />)} />
             <Route exact path='/ministore' component={CategoryPage} />
-            <Route exact path='/ministore/product' component={DescriptionPage} />
+            <Route path='/ministore/product/:id' component={DescriptionPage} />
             <Route exact path='/ministore/cart' component={CartPage} />
           </Switch>
       </div>

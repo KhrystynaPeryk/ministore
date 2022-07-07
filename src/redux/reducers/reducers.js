@@ -9,7 +9,8 @@ import { FETCH_PRODUCTS_ALL,
         INCREMENT_PRODUCT_QTY,
         DECREMENT_PRODUCT_QTY,
         REMOVE_PRODUCT_FROM_CART,
-        IS_MINICART_OPEN
+        OPEN_MINICART,
+        CLOSE_MINICART
 } from "../actions/types";
 import { isEqualArraysOfObjs } from "../../helpers/isEqualArrayOfObjs";
 
@@ -105,8 +106,10 @@ export function changeCart(state = {items: []}, action) {
 
 export function isModalOpen( state = false, action) {
   switch (action.type) {
-    case IS_MINICART_OPEN:
-      return !state;
+    case OPEN_MINICART:
+      return true;
+    case CLOSE_MINICART:
+      return false
     default:
       return state;
   }

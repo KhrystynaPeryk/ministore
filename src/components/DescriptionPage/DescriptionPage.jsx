@@ -123,7 +123,6 @@ class DescriptionPage extends Component {
                                                     e.target.classList.add('clicked-swatch')
                                                 }
                                                 updateSelectedItemsObj(attribute.name, item.value)
-                                                console.log(obj)
                                             }}
                                         >
                                             {item.value[0] === '#' ? null : item.value}
@@ -169,17 +168,14 @@ class DescriptionPage extends Component {
                   }
                   // checking if the state cart  is empty
                   if (this.props.cart.items.length === 0) {
-                    console.log('Empty cart - new newItemToCart at once', this.state.id);
                     this.props.addAttributes(newItemToCart)
                     this.props.incrementCartCount()
                   } else {
                     // checking if the state cart is not empty
-                    console.log('Not empty cart - need to see newItemToCart', this.state.id)
                     let isPresentInCart = this.props.cart.items.some((item) => {
                       // checking if there is an item with the same id and the same array of user's selected attributes
                       return item.itemToCart.id === this.state.id && isEqualArraysOfObjs(item.itemToCart.selectedAttributes, ArrayFromObj)
                     })
-                    console.log('isPresentInCart (the same id and selected attributes r same)', isPresentInCart)
                     if (isPresentInCart) {
                       this.props.incrementCartCount()
                       this.props.incrementProductQty(newItemToCart)

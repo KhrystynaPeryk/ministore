@@ -3,7 +3,7 @@ import './CategoryPage.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CategoryCard from './component/CategoryCard';
-import { itemsFetchData, isMinicartOpen } from '../../redux/actions/actions';
+import { itemsFetchData, openMinicart, closeMinicart } from '../../redux/actions/actions';
 
 class CategoryPage extends Component {
   componentDidMount() {
@@ -66,7 +66,7 @@ const mapStateToProps = (state) => ({
 // const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
 const mapDispatchToProps = (dispatch) => {
   return {
-    ...bindActionCreators({itemsFetchData, isMinicartOpen}, dispatch)
+    ...bindActionCreators({itemsFetchData, openMinicart, closeMinicart}, dispatch)
   }
 }
 

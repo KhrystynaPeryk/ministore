@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
 import './CartModal.scss';
 import { connect } from 'react-redux';
 import CartModalItem from './CartModalItem';
+import { closeMinicart } from '../../../redux/actions/actions';
+import { bindActionCreators } from 'redux';
 
 class CartModal extends Component {
   constructor() {
@@ -14,15 +15,15 @@ class CartModal extends Component {
   }
 
   redirectToCart = () => {
-    this.setState({redirectToCart : !this.state.redirectToCart})
+    this.props.closeMinicart()
+    this.props.history.push({
+      pathname: `/ministore/cart`
+    });
   }
 
   render() {
     const currentCurrency = this.props.currency;
     let totalAmount = 0;
-    if (this.state.redirectToCart) {
-      return <Redirect to={{ pathname: '/ministore/cart' }}/>
-    }
     return (
       <div className='modal-container'>
         <div className='modal-container-modal'>
@@ -76,4 +77,10 @@ const mapStateToProps = (state) => ({
   counter: state.counter,
 });
 
-export default withRouter(connect(mapStateToProps)(CartModal));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ...bindActionCreators({closeMinicart}, dispatch)
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CartModal));
