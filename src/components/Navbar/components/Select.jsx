@@ -29,7 +29,10 @@ class Select extends Component {
   render() {
     return (
         <div className='select-container' onClick={() => this.handleDropdown()}>
-          <div>{this.props.currency} {this.state.isDropdownOpen ? <span className='select-container-arrow'>&#710;</span> : <span className='select-container-arrow'>&#711;</span> }</div>
+          <div>{this.props.currency} {this.state.isDropdownOpen ?  
+            <span className='select-container-arrow'>&#710;</span> : 
+            <span className='select-container-arrow'>&#711;</span> }
+          </div>
           {this.state.isDropdownOpen ? (
             <div className='select-container-dropdown'>
               {this.state.currencies.map((currency, index) => {

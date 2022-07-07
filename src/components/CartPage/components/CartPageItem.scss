@@ -5,23 +5,26 @@
     padding: 20px 0;
     .cart-item-info {
         .cart-item-info-brand {
-            padding: 5% 0;
+            padding: 8px 0;
+            font-weight: 700;
         }
         .cart-item-info-price {
             font-weight: 600;
-            padding: 5% 0;
+            padding: 8px 0;
         }
         .cart-attributes-container {
             margin-bottom: 5%;
-
             .cart-attributes-container-name {
-                font-size: small;
+                font-size: x-small;
                 margin-bottom: 5%;
                 font-weight: bold;
             }
             .cart-square-item-container {
                 display: flex;
                 margin-bottom: 6%;
+            }
+            .cart-square-item-container div {
+                font-size: x-small;
             }
         }
     }

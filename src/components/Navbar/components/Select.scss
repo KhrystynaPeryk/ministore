@@ -15,11 +15,12 @@
         box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
         top: 120%;
         right: -255%;
-        max-height: 850%;
+        max-height: 895%;
         max-width: 460%;
         width: 460%;
-        overflow: auto;
+        overflow: hidden;
         z-index: 200;
+        background-color: white;
         .select-container-dropdown-option {
             padding: 10% 13%;
         }
