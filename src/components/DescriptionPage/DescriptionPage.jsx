@@ -188,7 +188,7 @@ class DescriptionPage extends Component {
                   this.setState({removedStyles: !this.state.removedStyles})
                 } else {
                   // if all the attributes of a single product are not selected
-                  alert('Please, select all attributes')
+                  alert('Please select all attributes of a product')
                 }
               }}
             >

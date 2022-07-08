@@ -5,6 +5,11 @@ import { withRouter } from 'react-router-dom';
 import CartPageItem from './components/CartPageItem';
 
 class CartPage extends Component {
+  redirectToCheckout = () => {
+    this.props.history.push({
+      pathname: `/ministore/checkout`
+    });
+  }
   render() {
     const currentCurrency = this.props.currency;
     let totalAmount = 0;
@@ -50,7 +55,7 @@ class CartPage extends Component {
           </div>
           <div className='cart-container-button'>
             {this.props.cart.items.length === 0 ? null : (
-              <button className='order-button' onClick={() => this.redirectToCart()}>ORDER</button>
+              <button className='order-button' onClick={() => this.redirectToCheckout()}>ORDER</button>
             )}
           </div>
         </div>

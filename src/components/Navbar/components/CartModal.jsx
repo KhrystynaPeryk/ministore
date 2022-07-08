@@ -21,6 +21,12 @@ class CartModal extends Component {
     });
   }
 
+  redirectToCheckout = () => {
+    this.props.history.push({
+      pathname: `/ministore/checkout`
+    });
+  }
+
   render() {
     const currentCurrency = this.props.currency;
     let totalAmount = 0;
@@ -63,7 +69,7 @@ class CartModal extends Component {
           </div>
           <div className='modal-container-buttons'>
             <button className='button-bag' onClick={() => this.redirectToCart()}>VIEW BAG</button>
-            <button className='button-checkout'>CHECKOUT</button>
+            <button className={this.props.cart.items.length === 0 ? 'button-checkout disabled' : 'button-checkout'} disabled={this.props.cart.items.length === 0} onClick={() => this.redirectToCheckout()}>CHECKOUT</button>
           </div>
         </div>
       </div>
