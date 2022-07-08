@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Route, Switch, Redirect } from 'react-router-dom';
-import './App.scss';
 
 import Navbar from './components/Navbar/Navbar';
 import CategoryPage from './components/CategoryPage/CategoryPage';

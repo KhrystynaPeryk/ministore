@@ -210,7 +210,6 @@ const mapStateToProps = (state) => ({
   cartModal: state.cartModal
 });
 
-// const mapDispatchToProps = (dispatch) => ({ storeItemInCart: (item) => dispatch(addItemAttributes(item)) });
 const mapDispatchToProps = (dispatch) => {
   return {
     ...bindActionCreators({addAttributes, incrementCartCount, incrementProductQty}, dispatch)

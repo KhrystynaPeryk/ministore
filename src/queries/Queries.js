@@ -1,17 +1,3 @@
-// export const LOAD_ITEMS = gql`
-//     query {
-//         categories{products{
-//             name}
-//         }
-// }`;
-
-// query {
-//   product(id: "jacket-canada-goosee") {
-//     id
-// 		name
-//   }
-// }
-
 export const GET_CATEGORIES = {
     query: `
         query {
@@ -90,33 +76,3 @@ export function getProduct(productId) {
         variables : { productId }
     }
 }
-
-// export function getProducts(category) {
-//     return {
-//         query: `
-//             query getProducts($category : String!) {
-//                 category(input: { title: $category }) {
-//                     products {
-//                         name
-//                         id
-//                         inStock
-//                         description
-//                         gallery
-//                         brand
-//                         attributes {
-//                             name
-//                             type
-//                             items {
-//                             displayValue
-//                             value
-//                             }
-//                         }
-
-//                     }
-//                 }
-//             }
-//         `,
-//         variables : { category }
-//     }
-// }
-

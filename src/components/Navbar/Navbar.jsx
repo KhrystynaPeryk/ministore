@@ -91,10 +91,8 @@ const mapStateToProps = (state) => ({
   cart: state.cart,
   counter: state.counter,
   cartModal: state.cartModal
-  // hasErrored: state.productsHasErrored
 });
 
-// const mapDispatchToProps = (dispatch) => ({ fetchData: (category) => dispatch(itemsFetchData(category)) });
 const mapDispatchToProps = (dispatch) => {
     return {
     ...bindActionCreators({itemsFetchData, openMinicart, closeMinicart}, dispatch)
