@@ -23,7 +23,7 @@ class CategoryPage extends Component {
     return (
       <div className={this.props.cartModal ? 'category-page-container dim-layer' : 'category-page-container'}>
         <div className='category-container'>
-          <h2>Category: {this.props.category.toUpperCase()}</h2>
+          <h2>{this.props.category.toUpperCase()}</h2>
           <div className='category-container-cards'>
             {this.props.products.products.map((product) => {
               const priceItem = product.prices.filter(price => {
@@ -55,7 +55,7 @@ class CategoryPage extends Component {
 
 const mapStateToProps = (state) => ({
   products: state.products.products,
-  category: state.products.category,
+  category: state.category.category,
   currency: state.currency,
   cartModal: state.cartModal
 });

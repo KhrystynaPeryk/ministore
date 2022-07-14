@@ -1,6 +1,5 @@
-import { FETCH_PRODUCTS_ALL,
-        FETCH_PRODUCTS_CLOTHES,
-        FETCH_PRODUCTS_TECH,
+import { 
+        FETCH_PRODUCTS,
         FETCH_CURRENCY,
         ADD_PRODUCT_TO_CART,
         INCREMENT_CART_COUNT,
@@ -9,32 +8,33 @@ import { FETCH_PRODUCTS_ALL,
         DECREMENT_PRODUCT_QTY,
         REMOVE_PRODUCT_FROM_CART,
         OPEN_MINICART,
-        CLOSE_MINICART
+        CLOSE_MINICART,
+        CHANGE_CATEGORY
 } from "../actions/types";
 import { isEqualArraysOfObjs } from "../../helpers/isEqualArrayOfObjs";
 
 export function fetchProducts(state = {
   products: [],
-  category: '',
   }, action) {
     switch (action.type) {
-      case FETCH_PRODUCTS_ALL:
+        case FETCH_PRODUCTS:
+          return {
+            ...state,
+            products: action.payload,
+          }
+        default:
+          return state;
+    }
+}
+
+export function changeCategory(state = {
+  category: 'all',
+  }, action) {
+    switch (action.type) {
+      case CHANGE_CATEGORY:
         return {
           ...state,
-          products: action.payload,
-          category: 'all',
-        }
-      case FETCH_PRODUCTS_TECH:
-        return {
-          ...state,
-          products: action.payload,
-          category: 'tech'
-        }
-      case FETCH_PRODUCTS_CLOTHES:
-        return {
-          ...state,
-          products: action.payload,
-          category: 'clothes'
+          category: action.payload
         }
         default:
           return state;

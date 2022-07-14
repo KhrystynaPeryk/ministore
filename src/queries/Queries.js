@@ -34,7 +34,7 @@ export function getProducts(category) {
                             currency {
                                 symbol
                             }
-                        amount
+                            amount
                         }
                     }
                 }

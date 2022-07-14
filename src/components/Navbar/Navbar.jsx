@@ -8,7 +8,7 @@ import { fetchParams } from '../../helpers/fetchParams';
 import Select from './components/Select';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { itemsFetchData, openMinicart, closeMinicart } from '../../redux/actions/actions';
+import { itemsFetchData, openMinicart, closeMinicart, fetchCategory } from '../../redux/actions/actions';
 import CartModal from './components/CartModal';
 
 class Navbar extends Component {
@@ -18,7 +18,6 @@ class Navbar extends Component {
       categories: [],
       currencies: [],
       activeCategory: 0,
-      isCartModalShown: true
     }
   }
   componentDidMount() {
@@ -49,16 +48,22 @@ class Navbar extends Component {
           <ul>
             {this.state.categories.map((category, index) => {
               return (
-                <li 
+                <Link 
+                  to='/ministore' 
                   key={index} 
-                  className={index === this.state.activeCategory ? 'clicked-category' : ''}
-                  onClick={() => {
-                    this.setState({activeCategory: index})
-                    return this.props.itemsFetchData(category.name)
-                  }}
+                  style={{textDecoration : 'inherit', color: 'inherit'}}
                 >
-                  {category.name.toUpperCase()}
-                </li>
+                  <li
+                    className={index === this.state.activeCategory ? 'clicked-category' : ''}
+                    onClick={() => {
+                      this.setState({activeCategory: index})
+                      this.props.fetchCategory(category.name)
+                      return this.props.itemsFetchData(category.name)
+                    }}
+                  >
+                    {category.name.toUpperCase()}
+                  </li>
+                </Link>
               )
             })}
           </ul>
@@ -87,7 +92,7 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => ({
   products: state.products.products,
-  category: state.products.category,
+  category: state.category.category,
   cart: state.cart,
   counter: state.counter,
   cartModal: state.cartModal
@@ -95,7 +100,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-    ...bindActionCreators({itemsFetchData, openMinicart, closeMinicart}, dispatch)
+    ...bindActionCreators({itemsFetchData, openMinicart, closeMinicart, fetchCategory}, dispatch)
   }
 }
 

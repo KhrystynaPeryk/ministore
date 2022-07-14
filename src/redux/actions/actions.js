@@ -1,6 +1,5 @@
-import { FETCH_PRODUCTS_ALL,
-        FETCH_PRODUCTS_CLOTHES,
-        FETCH_PRODUCTS_TECH,
+import { 
+        FETCH_PRODUCTS,
         FETCH_CURRENCY,
         ADD_PRODUCT_TO_CART,
         INCREMENT_CART_COUNT,
@@ -9,29 +8,16 @@ import { FETCH_PRODUCTS_ALL,
         DECREMENT_PRODUCT_QTY,
         REMOVE_PRODUCT_FROM_CART,
         OPEN_MINICART,
-        CLOSE_MINICART
+        CLOSE_MINICART,
+        CHANGE_CATEGORY
 } from "./types";
 
 import { fetchParams } from "../../helpers/fetchParams";
 import { getProducts } from "../../queries/Queries";
 
-export const fetchAllProducts = products => {
+export const fetchProducts = products => {
     return {
-        type: FETCH_PRODUCTS_ALL,
-        payload: {products},
-    }
-}
-
-export const fetchTechProducts = products => {
-    return {
-        type: FETCH_PRODUCTS_TECH,
-        payload: {products},
-    }
-}
-
-export const fetchClothesProducts = products => {
-    return {
-        type: FETCH_PRODUCTS_CLOTHES,
+        type: FETCH_PRODUCTS,
         payload: {products},
     }
 }
@@ -39,7 +25,14 @@ export const fetchClothesProducts = products => {
 export const fetchCurrency = currency => {
     return {
         type: FETCH_CURRENCY,
-        payload: currency,
+        payload: currency
+    }
+}
+
+export const fetchCategory = category => {
+    return {
+        type: CHANGE_CATEGORY,
+        payload: category
     }
 }
 
@@ -100,13 +93,7 @@ export function itemsFetchData(category) {
         fetch('http://localhost:4000/', fetchParams(getProducts(category)))
         .then((response) => response.json())
         .then((productList) => {
-            if (category === "all") {
-               return dispatch(fetchAllProducts(productList.data.category.products)) 
-            } else if (category === "tech") {
-                return dispatch(fetchTechProducts(productList.data.category.products)) 
-            } else if (category === "clothes") {
-                return dispatch(fetchClothesProducts(productList.data.category.products)) 
-            }
+            return dispatch(fetchProducts(productList.data.category.products))
         })
     };
 }
@@ -118,3 +105,4 @@ export function fetchCurrentCurrency(currFromDropdown) {
         }
     }
 }
+
