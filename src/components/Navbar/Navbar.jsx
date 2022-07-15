@@ -19,6 +19,7 @@ class Navbar extends Component {
       currencies: [],
       activeCategory: 0,
     }
+    this.modalBox = React.createRef();
   }
   componentDidMount() {
     fetch('http://localhost:4000', fetchParams(GET_CATEGORIES))
@@ -32,6 +33,8 @@ class Navbar extends Component {
     .then(currencyList => {
       this.setState({ currencies: currencyList.data.currencies });
     });
+
+    document.addEventListener('mousedown', this.handleOutsideClickModal);
   }
 
   handleMiniCartModal = () => {
@@ -39,6 +42,14 @@ class Navbar extends Component {
       return this.props.closeMinicart()
     }
     return this.props.openMinicart()
+  }
+
+  handleOutsideClickModal = (event) => {
+    if (this.modalBox && !this.modalBox?.current?.contains(event.target)) {
+      this.props.closeMinicart()
+    } else {
+      this.props.openMinicart()
+    }
   }
 
   render() {
@@ -84,7 +95,11 @@ class Navbar extends Component {
             </div>
           </div>
         </div>
-        {this.props.cartModal ? <CartModal /> : null}
+        {this.props.cartModal ? (
+          <div ref={this.modalBox}>
+            <CartModal />
+          </div>
+        ) : null}
       </nav>
     )
   }
