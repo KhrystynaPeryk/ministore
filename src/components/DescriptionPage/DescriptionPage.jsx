@@ -8,6 +8,7 @@ import { incrementCartCount, addAttributes, incrementProductQty } from '../../re
 import { bindActionCreators } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
 import { isEqualArraysOfObjs } from '../../helpers/isEqualArrayOfObjs';
+import DOMPurify from 'dompurify';
 
 class DescriptionPage extends Component {
     constructor() {
@@ -43,7 +44,14 @@ class DescriptionPage extends Component {
   }
 
   createMarkup() {
-    return {__html: this.state.description};
+    return {__html: DOMPurify.sanitize(this.state.description)};
+  }
+
+  changingOpacityForOutOfStock = () => {
+    if (!this.state.inStock && !this.props.cartModal) {
+      return {'opacity': '0.5'}
+    } 
+    return null
   }
 
   render() {
@@ -72,7 +80,10 @@ class DescriptionPage extends Component {
                 )
               })}
             </div>
-            <div className='main-photo-container'>
+            <div 
+              className={this.state.inStock ? 'main-photo-container' : 'main-photo-container disabledCardDesc'}
+              style={this.changingOpacityForOutOfStock()}
+            >
               <img className={this.props.cartModal ? 'main-photo-photo dim-layer-image' : 'main-photo-photo'} src={this.state.mainPhoto} alt={this.state.name}></img>
             </div>
           </div>
