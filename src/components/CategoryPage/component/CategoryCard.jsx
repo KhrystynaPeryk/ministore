@@ -74,16 +74,26 @@ class CategoryCard extends Component {
   }
 
   render() {
+    const {
+      id,
+      inStock,
+      cartModal,
+      image,
+      name,
+      brand,
+      currencySymbol,
+      price
+    } = this.props
     return (
         <div 
-          className={this.props.inStock ? 'card-container' : 'card-container disabledCard'}
+          className={inStock ? 'card-container' : 'card-container disabledCard'}
           style={this.changingOpacityForOutOfStock()}
           onMouseEnter={() => this.setState({emptyCartShown: true})}
           onMouseLeave={() => this.setState({emptyCartShown: false})}
-          onClick={() => this.handleClick({ id: this.props.id })}
+          onClick={() => this.handleClick({ id })}
         >
           {
-            this.state.emptyCartShown && this.props.inStock && (
+            this.state.emptyCartShown && inStock && (
               <div className='card-container-emptyCart' onClick={(e) => {
                 e.stopPropagation()
                 this.handleAddToCart()
@@ -95,11 +105,11 @@ class CategoryCard extends Component {
             )
           }
           <div>
-            <img className={this.props.cartModal ? 'card-container-image dim-layer-image' : 'card-container-image'} src={this.props.image} alt={this.props.name} />
+            <img className={cartModal ? 'card-container-image dim-layer-image' : 'card-container-image'} src={image} alt={name} />
           </div>
           <div className='card-container-info'>
-            <p className='card-container-name'>{this.props.brand} {this.props.name}</p>
-            <p className='card-container-price'>{this.props.currencySymbol} {this.props.price}</p>
+            <p className='card-container-name'>{brand} {name}</p>
+            <p className='card-container-price'>{currencySymbol} {price}</p>
           </div>
         </div> 
     )

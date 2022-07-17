@@ -55,7 +55,23 @@ class DescriptionPage extends Component {
   }
 
   render() {
-    const currentCurrency = this.props.currency;
+    const {
+      currency,
+      cartModal,
+      cart
+    } = this.props
+    const {
+      allAttributesSelected,
+      gallery,
+      name,
+      inStock,
+      brand,
+      attributes,
+      mainPhoto,
+      removedStyles,
+      prices,
+      id
+    } = this.state
     // creating an object to be able to update the same key-attributes with different values
     const obj = {};
     // creating a function that updates the above object if a user changes the selected attributes
@@ -63,17 +79,17 @@ class DescriptionPage extends Component {
       obj[key] = value;
     };
     return (
-      <div className={this.props.cartModal ? 'product-container-page dim-layer' : 'product-container-page'}>
-        {this.state.allAttributesSelected && 'added to cart'}
+      <div className={cartModal ? 'product-container-page dim-layer' : 'product-container-page'}>
+        {allAttributesSelected && 'added to cart'}
         <div className='product-container'>
           <div className='product-container-photos'>
             <div className='all-photos'>
-              {this.state.gallery.map((photo, index) => {
+              {gallery.map((photo, index) => {
                 return (
                   <div key={index} className='all-photos-container'>
                     <img 
-                      className={this.props.cartModal ? 'all-photos-photo dim-layer-image' : 'all-photos-photo'}
-                      src={photo} alt={this.state.name + index}
+                      className={cartModal ? 'all-photos-photo dim-layer-image' : 'all-photos-photo'}
+                      src={photo} alt={name + index}
                       onClick={() => this.setState({mainPhoto: photo})}>
                     </img>
                   </div>
@@ -81,26 +97,26 @@ class DescriptionPage extends Component {
               })}
             </div>
             <div 
-              className={this.state.inStock ? 'main-photo-container' : 'main-photo-container disabledCardDesc'}
+              className={inStock ? 'main-photo-container' : 'main-photo-container disabledCardDesc'}
               style={this.changingOpacityForOutOfStock()}
             >
-              <img className={this.props.cartModal ? 'main-photo-photo dim-layer-image' : 'main-photo-photo'} src={this.state.mainPhoto} alt={this.state.name}></img>
+              <img className={cartModal ? 'main-photo-photo dim-layer-image' : 'main-photo-photo'} src={mainPhoto} alt={name}></img>
             </div>
           </div>
           <div className='product-container-info'>
             <div className='product-container-info-wrap'>
-            <h2 className='product-container-info-brand'>{this.state.brand}</h2>
-            <h2 className='product-container-info-name'>{this.state.name}</h2>
-            {this.state.attributes.length === 0 ? null : (
+            <h2 className='product-container-info-brand'>{brand}</h2>
+            <h2 className='product-container-info-name'>{name}</h2>
+            {attributes.length === 0 ? null : (
               <div className='attributes'>
-                {this.state.attributes.map((attribute, index) => {
+                {attributes.map((attribute, index) => {
                     return (
                         <div key={index} className='attributes-container'>
                             <div className='attributes-container-name'>{attribute.name.toUpperCase()}:</div>
                             <div className='square-item-container'>
                                 {attribute.items.map((item, index1) => {
                                     return (
-                                        <div key={index1} className={this.state.removedStyles ? null : 'square-item'}
+                                        <div key={index1} className={removedStyles ? null : 'square-item'}
                                             style={item.value[0] === '#' ? 
                                                 {
                                                     backgroundColor: `${item.value}`,
@@ -149,43 +165,43 @@ class DescriptionPage extends Component {
             <div>
               <div className='product-container-info-price'>PRICE:</div>
               <div>
-                {this.state.prices.map((price, index) => {
-                  if (price.currency.symbol === currentCurrency.currency) {
+                {prices.map((price, index) => {
+                  if (price.currency.symbol === currency) {
                     return (
-                      <div className='product-container-info-amount' key={index}>{currentCurrency.currency}{price.amount}</div>
+                      <div className='product-container-info-amount' key={index}>{currency}{price.amount}</div>
                     )
                   }
                   return null;
                 })}
               </div>
             </div>
-            <button className={this.state.inStock ? 'product-container-info-button' : 'product-container-info-button disabled'}
-              disabled={!this.state.inStock}
+            <button className={inStock ? 'product-container-info-button' : 'product-container-info-button disabled'}
+              disabled={!inStock}
               onClick={() => {
                 // creating an array from the object of user's selected attributes
                 const ArrayFromObj = Object.entries(obj).map(([key, value]) => ({ [key]: value }));
                 //checking if all attributes are selected for a single product
-                if (this.state.attributes.length === ArrayFromObj.length) {
+                if (attributes.length === ArrayFromObj.length) {
                   const newItemToCart = {
-                    id: this.state.id,
+                    id,
                     cartId: uuidv4(),
-                    name: this.state.name,
-                    brand: this.state.brand,
-                    allAttributes: this.state.attributes,
+                    name,
+                    brand,
+                    allAttributes: attributes,
                     selectedAttributes: ArrayFromObj,
                     qty: 1,
-                    gallery: this.state.gallery,
-                    prices: this.state.prices
+                    gallery,
+                    prices
                   }
                   // checking if the state cart  is empty
-                  if (this.props.cart.items.length === 0) {
+                  if (cart.items.length === 0) {
                     this.props.addAttributes(newItemToCart)
                     this.props.incrementCartCount()
                   } else {
                     // checking if the state cart is not empty
-                    let isPresentInCart = this.props.cart.items.some((item) => {
+                    let isPresentInCart = cart.items.some((item) => {
                       // checking if there is an item with the same id and the same array of user's selected attributes
-                      return item.itemToCart.id === this.state.id && isEqualArraysOfObjs(item.itemToCart.selectedAttributes, ArrayFromObj)
+                      return item.itemToCart.id === id && isEqualArraysOfObjs(item.itemToCart.selectedAttributes, ArrayFromObj)
                     })
                     if (isPresentInCart) {
                       this.props.incrementCartCount()
@@ -196,14 +212,14 @@ class DescriptionPage extends Component {
                     }
                   }
                   // removing 'selected item
-                  this.setState({removedStyles: !this.state.removedStyles})
+                  this.setState({removedStyles: !removedStyles})
                 } else {
                   // if all the attributes of a single product are not selected
                   alert('Please select all attributes of a product')
                 }
               }}
             >
-              {this.state.inStock ? 'ADD TO CART' : 'OUT OF STOCK'}
+              {inStock ? 'ADD TO CART' : 'OUT OF STOCK'}
             </button>
             <div className='product-container-info-description' dangerouslySetInnerHTML={this.createMarkup()}></div>
             </div>
@@ -215,7 +231,7 @@ class DescriptionPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currency: state.currency,
+  currency: state.currency.currency,
   cart: state.cart,
   counter: state.counter,
   cartModal: state.cartModal

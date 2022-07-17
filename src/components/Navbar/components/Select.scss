@@ -1,6 +1,7 @@
 .select-container {
     position: relative;
     transform: translate(-65%, -0%);
+    font-size: large;
     div {
         .select-container-arrow {
             display: inline-block;
@@ -28,4 +29,8 @@
             background-color: #EEEEEE;
         }
     }
+}
+
+.select-container:hover {
+    cursor: pointer;
 }

@@ -53,6 +53,11 @@ class Navbar extends Component {
   }
 
   render() {
+    const {
+      cart,
+      counter,
+      cartModal
+    } = this.props
     return (
       <nav className='navbar'>
         <div className='navbar-container'>
@@ -87,15 +92,15 @@ class Navbar extends Component {
             <Select />
             <div className='navbar-container-cart' onClick={() => this.handleMiniCartModal()}>
               <Cart />
-              {this.props.cart.items.length === 0 ? null : (
+              {cart.items.length === 0 ? null : (
                 <div className='navbar-container-counter'>
-                  <div className='counter'> {this.props.counter} </div>
+                  <div className='counter'> {counter} </div>
                 </div>
               )}
             </div>
           </div>
         </div>
-        {this.props.cartModal ? (
+        {cartModal ? (
           <div ref={this.modalBox}>
             <CartModal />
           </div>

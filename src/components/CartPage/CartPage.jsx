@@ -11,19 +11,24 @@ class CartPage extends Component {
     });
   }
   render() {
-    const currentCurrency = this.props.currency;
+    const {
+      cartModal,
+      currency,
+      cart,
+      counter
+    } = this.props
     let totalAmount = 0;
     return (
-      <div className={this.props.cartModal ? 'cart-container dim-layer' : 'cart-container'}>
+      <div className={cartModal ? 'cart-container dim-layer' : 'cart-container'}>
         <div className='cart-container-cart'>
           <h2 className='cart-container-title'>CART</h2>
-          {this.props.cart.items.length === 0 ? (
+          {cart.items.length === 0 ? (
             <h2>Your bag is empty...</h2>
           ) : (
             <div className='cart-container-items'>
-              {this.props.cart.items.map((item, index5) => {
+              {cart.items.map((item, index5) => {
                 const priceItem = item.itemToCart.prices.filter(price => {
-                  return price.currency.symbol === currentCurrency.currency
+                  return price.currency.symbol === currency
                 })
                 const price = priceItem[0].amount
                 return <CartPageItem 
@@ -42,19 +47,19 @@ class CartPage extends Component {
             </div>
           )}
           <div className='cart-summary-container'>
-            {this.props.cart.items.forEach((item) => {
+            {cart.items.forEach((item) => {
               const priceItem = item.itemToCart.prices.filter(price => {
-                return price.currency.symbol === currentCurrency.currency
+                return price.currency.symbol === currency
               })
               const price = priceItem[0].amount;
               totalAmount = totalAmount + price * item.itemToCart.qty;
             })}
-            <div>Tax 21%: <span>{currentCurrency.currency}{(totalAmount * 21 / 100).toFixed(2)}</span></div>
-            <div>Quantity: <span>{this.props.counter}</span></div>
-            <div>Total: <span>{currentCurrency.currency}{totalAmount.toFixed(2)}</span></div>
+            <div>Tax 21%: <span>{currency}{(totalAmount * 21 / 100).toFixed(2)}</span></div>
+            <div>Quantity: <span>{counter}</span></div>
+            <div>Total: <span>{currency}{totalAmount.toFixed(2)}</span></div>
           </div>
           <div className='cart-container-button'>
-            {this.props.cart.items.length === 0 ? null : (
+            {cart.items.length === 0 ? null : (
               <button className='order-button' onClick={() => this.redirectToCheckout()}>ORDER</button>
             )}
           </div>
@@ -65,7 +70,7 @@ class CartPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currency: state.currency,
+  currency: state.currency.currency,
   cart: state.cart,
   counter: state.counter,
   cartModal: state.cartModal

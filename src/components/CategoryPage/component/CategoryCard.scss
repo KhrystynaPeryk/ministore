@@ -1,8 +1,9 @@
 .card-container {
-    height: 280px;
-    width: 250px;
+    height: 380px;
+    width: 340px;
     position: relative;
     cursor: pointer;
+    padding-bottom: 5%;
     .card-container-emptyCart {
         background-color: #5ECE7B;
         position: absolute;
@@ -19,7 +20,7 @@
     }
     .card-container-image {
         position: relative;
-        height: 200px;
+        height: 300px;
         width: 90%;
         margin: 5%;
         max-width: 100%;
@@ -29,11 +30,11 @@
         margin-left: 5%;
         .card-container-name {
             margin: 0px;
-            font-size: small;
+            font-size: large;
         }
         .card-container-price {
             margin: 0px;
-            font-size: small;
+            font-size: large;
         }
     }
 }
@@ -54,7 +55,7 @@
 .disabledCard::after {
     content: 'OUT OF STOCK';
     color: black;
-    font-size: small;
+    font-size: large;
     position: absolute;
     top: 40%;
     right: 50%;

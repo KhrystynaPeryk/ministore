@@ -60,17 +60,28 @@ class CartPageItem extends Component {
 
     render() {
         let selectedAttributeValue;
+        const  {
+            brand,
+            name,
+            currency,
+            price,
+            allAttributes,
+            selectedAttributes,
+            qty,
+            cartModal,
+            photos
+        } = this.props
         return (
                 <div className='cart-item-container'>
                     <div className='cart-item-info'>
-                        <div className='cart-item-info-brand'>{this.props.brand}</div>
-                        <div className='cart-item-info-name'>{this.props.name}</div>
-                        <div className='cart-item-info-price' >{this.props.currency.currency} {this.props.price}</div>
-                        {this.props.allAttributes.length === 0 ? null : (
-                        this.props.allAttributes.map((attribute, index4) => {
+                        <div className='cart-item-info-brand'>{brand}</div>
+                        <div className='cart-item-info-name'>{name}</div>
+                        <div className='cart-item-info-price' >{currency} {price}</div>
+                        {allAttributes.length === 0 ? null : (
+                        allAttributes.map((attribute, index4) => {
                             return (
                                 <div key={index4} className='cart-attributes-container'>
-                                    {this.props.selectedAttributes.forEach((selectedAttribute) => {
+                                    {selectedAttributes.forEach((selectedAttribute) => {
                                         let selectedAttributeName = Object.keys(selectedAttribute)[0]
                                         if (selectedAttributeName === attribute.name) {
                                             selectedAttributeValue = Object.values(selectedAttribute)[0]
@@ -131,10 +142,10 @@ class CartPageItem extends Component {
                 <div className='cart-item-photo'>
                     <div className='cart-item-controls'>
                         <div className='cart-item-controls-square' onClick={() => this.handlePlus()}>+</div>
-                        <div>{this.props.qty}</div>
+                        <div>{qty}</div>
                         <div className='cart-item-controls-square' onClick={() => this.handleMinus()}>-</div>
                     </div>
-                    <img className={this.props.cartModal ? 'cart-photo dim-layer-image' : 'cart-photo'} alt={this.props.name} src={this.props.photos[this.state.currentPhotoIndex]}></img>
+                    <img className={cartModal ? 'cart-photo dim-layer-image' : 'cart-photo'} alt={name} src={photos[this.state.currentPhotoIndex]}></img>
                     {this.state.lengthOfPhotos === 1 ? null : (
                         <div className='cart-item-photo-arrows'>
                             <div className='cart-item-photo-arrows-square' onClick={() => this.changeToPreviousPhoto()}>&#60;</div>
@@ -148,7 +159,7 @@ class CartPageItem extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currency: state.currency,
+  currency: state.currency.currency,
   cart: state.cart,
   counter: state.counter,
   cartModal: state.cartModal

@@ -32,17 +32,27 @@ class CartModalItem extends Component {
 
   render() {
     let selectedAttributeValue;
+    const {
+      price,
+      name,
+      brand,
+      currency,
+      allAttributes,
+      selectedAttributes,
+      photo,
+      qty
+    } = this.props
     return (
         <div className='modal-item-container'>
           <div className='modal-item-info'>
-            <div className='modal-item-info-brand'>{this.props.brand}</div>
-            <div className='modal-item-info-name'>{this.props.name}</div>
-            <div className='modal-item-info-price' >{this.props.currency.currency} {this.props.price}</div>
-            {this.props.allAttributes.length === 0 ? null : (
-              this.props.allAttributes.map((attribute, index4) => {
+            <div className='modal-item-info-brand'>{brand}</div>
+            <div className='modal-item-info-name'>{name}</div>
+            <div className='modal-item-info-price' >{currency} {price}</div>
+            {allAttributes.length === 0 ? null : (
+              allAttributes.map((attribute, index4) => {
                 return (
                   <div key={index4} className='attributes-container'>
-                    {this.props.selectedAttributes.forEach((selectedAttribute) => {
+                    {selectedAttributes.forEach((selectedAttribute) => {
                       let selectedAttributeName = Object.keys(selectedAttribute)[0]
                       if (selectedAttributeName === attribute.name) {
                         selectedAttributeValue = Object.values(selectedAttribute)[0]
@@ -103,10 +113,10 @@ class CartModalItem extends Component {
           <div className='modal-item-photo'>
             <div className='modal-item-controls'>
               <div className='modal-item-controls-square' onClick={() => this.handlePlus()}>+</div>
-              <div>{this.props.qty}</div>
+              <div>{qty}</div>
               <div className='modal-item-controls-square' onClick={() => this.handleMinus()}>-</div>
             </div>
-            <img className='photo' alt={this.props.name} src={this.props.photo}></img>
+            <img className='photo' alt={name} src={photo}></img>
           </div>
         </div>
     )
@@ -114,7 +124,7 @@ class CartModalItem extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currency: state.currency,
+  currency: state.currency.currency,
   cart: state.cart,
   counter: state.counter
 });

@@ -28,18 +28,22 @@ class CartModal extends Component {
   }
 
   render() {
-    const currentCurrency = this.props.currency;
+    const {
+      currency,
+      counter,
+      cart
+    } = this.props
     let totalAmount = 0;
     return (
       <div className='modal-container'>
         <div className='modal-container-modal'>
           <p>
-            <b>My Bag</b>, {this.props.counter} items
+            <b>My Bag</b>, {counter} items
           </p>
           <div className='modal-container-items'>
-            {this.props.cart.items.map((item, index5) => {
+            {cart.items.map((item, index5) => {
               const priceItem = item.itemToCart.prices.filter(price => {
-                return price.currency.symbol === currentCurrency.currency
+                return price.currency.symbol === currency
               })
               const price = priceItem[0].amount
               return <CartModalItem 
@@ -58,18 +62,24 @@ class CartModal extends Component {
           </div>
           <div className='total-container'>
             <div>Total</div>
-            {this.props.cart.items.forEach((item) => {
+            {cart.items.forEach((item) => {
               const priceItem = item.itemToCart.prices.filter(price => {
-                return price.currency.symbol === currentCurrency.currency
+                return price.currency.symbol === currency
               })
               const price = priceItem[0].amount;
               totalAmount = totalAmount + price * item.itemToCart.qty;
             })}
-            <div>{currentCurrency.currency}{totalAmount.toFixed(2)}</div>
+            <div>{currency}{totalAmount.toFixed(2)}</div>
           </div>
           <div className='modal-container-buttons'>
             <button className='button-bag' onClick={() => this.redirectToCart()}>VIEW BAG</button>
-            <button className={this.props.cart.items.length === 0 ? 'button-checkout disabled' : 'button-checkout'} disabled={this.props.cart.items.length === 0} onClick={() => this.redirectToCheckout()}>CHECKOUT</button>
+            <button 
+              className={cart.items.length === 0 ? 'button-checkout disabled' : 'button-checkout'}
+              disabled={cart.items.length === 0} 
+              onClick={() => this.redirectToCheckout()}
+            >
+              CHECKOUT
+            </button>
           </div>
         </div>
       </div>
@@ -78,7 +88,7 @@ class CartModal extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currency: state.currency,
+  currency: state.currency.currency,
   cart: state.cart,
   counter: state.counter,
 });

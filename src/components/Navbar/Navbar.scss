@@ -15,7 +15,7 @@
             margin: 0px;
             li {
                 padding: 16px 16px;
-                font-size: small;
+                font-size: large;
                 cursor: pointer;
             }
         }
@@ -57,4 +57,8 @@
 .clicked-category {
     color: #5ECE7B;
     border-bottom: 2px solid #5ECE7B;
+}
+
+.navbar-container-cart:hover {
+    cursor: pointer;
 }
