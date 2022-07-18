@@ -4,11 +4,12 @@
     right: 6%;
     top: 100%;
     font-size: x-small;
-    width: 230px;
+    width: 350px;
     z-index: -2;
     padding: 0 1%;
     max-height: 50vh;
     overflow-y: auto;
+    font-size: medium;
     .modal-container-modal {
         .modal-container-buttons {
             display: flex;
@@ -16,7 +17,7 @@
             button {
                 border: none;
                 font-family: inherit;
-                font-size: x-small;
+                font-size: small;
                 margin-bottom: 3%;
                 padding: 3% 9%;
                 cursor: pointer;

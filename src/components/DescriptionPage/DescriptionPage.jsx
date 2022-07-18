@@ -120,16 +120,16 @@ class DescriptionPage extends Component {
                                             style={item.value[0] === '#' ? 
                                                 {
                                                     backgroundColor: `${item.value}`,
-                                                    padding: '3%',
+                                                    padding: '14px',
                                                     border: '1px solid black',
                                                     marginRight: '1.5%',
-                                                    fontSize: 'small',
+                                                    fontSize: 'medium',
                                                 } 
                                                 : {
                                                     border: '1px solid black',
                                                     marginRight: '1.5%',
-                                                    padding: '1.5% 3%',
-                                                    fontSize: 'small',
+                                                    padding: '4px 8px',
+                                                    fontSize: 'medium',
                                                 } }
                                             onClick={(e) => {
                                               // a logic below is to check sibling DOM elements of products attributes' values and to change the styles accordingly

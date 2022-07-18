@@ -104,8 +104,9 @@ class CartPageItem extends Component {
                                                             } : {
                                                                 border: '1px solid black',
                                                                 marginRight: '6%',
-                                                                padding: '2.5% 5%',
+                                                                padding: '4px 8px',
                                                                 color: 'white',
+                                                                fontSize: 'medium',
                                                                 backgroundColor: 'black'
                                                             }
                                                         }
@@ -126,6 +127,7 @@ class CartPageItem extends Component {
                                                         border: '1px solid black',
                                                         marginRight: '6%',
                                                         padding: '2.5% 5%',
+                                                        fontSize: 'medium',
                                                         }
                                                     }
                                                 >

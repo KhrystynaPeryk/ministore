@@ -13,7 +13,7 @@
         .attributes-container {
             margin-bottom: 5%;
             .attributes-container-name {
-                font-size: x-small;
+                font-size: medium;
                 margin-bottom: 5%;
             }
             .square-item-container {
@@ -29,10 +29,10 @@
         margin-right: 3%;
         .modal-item-controls-square {
             border: 1px solid black;
-            width: 10px;
-            height: 10px;
+            width: 15px;
+            height: 15px;
             text-align: center;
-            line-height: 10px;
+            line-height: 15px;
         }
         .modal-item-controls-square:hover {
             cursor: pointer;

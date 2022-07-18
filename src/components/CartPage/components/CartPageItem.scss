@@ -7,15 +7,20 @@
         .cart-item-info-brand {
             padding: 8px 0;
             font-weight: 700;
+            font-size: x-large;
+        }
+        .cart-item-info-name {
+            font-size: x-large;
         }
         .cart-item-info-price {
             font-weight: 600;
             padding: 8px 0;
+            font-size: x-large;
         }
         .cart-attributes-container {
             margin-bottom: 5%;
             .cart-attributes-container-name {
-                font-size: x-small;
+                font-size: 300;
                 margin-bottom: 5%;
                 font-weight: bold;
             }

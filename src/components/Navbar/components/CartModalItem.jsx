@@ -68,7 +68,7 @@ class CartModalItem extends Component {
                               style={item.value[0] === '#' ?
                                 {
                                   backgroundColor: `${item.value}`,
-                                  padding: '8%',
+                                  padding: '10px',
                                   border: '1px solid black',
                                   marginRight: '6%',
                                   boxShadow: '0px 0px 0px 2px #5ECE7B inset'
@@ -90,7 +90,7 @@ class CartModalItem extends Component {
                             style={item.value[0] === '#' ?
                               {
                                 backgroundColor: `${item.value}`,
-                                padding: '8%',
+                                padding: '10px',
                                 border: '1px solid black',
                                 marginRight: '6%',
                               } : {
